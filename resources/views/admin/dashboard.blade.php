@@ -8,7 +8,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
@@ -30,7 +30,7 @@
                                     <i class="bi bi-building-lock"></i>
                                 </div>
                                 <div class="ps-3">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -46,9 +46,9 @@
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-card-checklist"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                    
+                                </div>
+                                <div class="ps-3">
+
                                 </div>
                             </div>
                         </div>
@@ -63,9 +63,9 @@
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-people"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                   
+                                </div>
+                                <div class="ps-3">
+
                                 </div>
                             </div>
                         </div>
@@ -73,9 +73,9 @@
                 </div><!-- End Customers Card -->
 
             </div>
-        <!-- </div>End Left side columns -->
-        {{-- </div> --}}
+            <!-- </div>End Left side columns -->
+            {{--
+        </div> --}}
     </section>
 </main><!-- End #main -->
 @endsection
-
