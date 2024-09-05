@@ -163,6 +163,8 @@
 
 		$(document).on("click", ".delete-btn", function () {
 			var id = $(this).data('id');
+
+			// Cek apakah ID adalah 1, karena tidak boleh dihapus
 			if (id == 1) {
 				iziToast.info({
 					title: 'Info',
@@ -172,31 +174,44 @@
 				return;
 			}
 
-			if (confirm('Are you sure you want to delete this user?')) {
-				$.ajax({
-					type: 'DELETE',
-					url: "{{ route('admin.users.destroy') }}",
-					data: { id: id, _token: '{{ csrf_token() }}' },
-					success: function(response) {
-						$('#userID').DataTable().ajax.reload();
-						iziToast.success({
-							title: 'Success',
-							message: response.success,
-							position: 'topRight'
-						});
-					},
-					error: function(xhr) {
-						console.log(xhr.responseText);
-						var response = JSON.parse(xhr.responseText);
-						iziToast.error({
-							title: 'Error',
-							message: response.error || 'An unexpected error occurred.',
-							position: 'topRight'
-						});
-					}
-				});
-			}
+			// Gunakan SweetAlert2 untuk konfirmasi
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					// Jika dikonfirmasi, jalankan AJAX request untuk delete
+					$.ajax({
+						type: 'DELETE',
+						url: "{{ route('admin.users.destroy') }}",
+						data: { id: id, _token: '{{ csrf_token() }}' },
+						success: function(response) {
+							$('#userID').DataTable().ajax.reload(); // Reload DataTable
+
+							Swal.fire(
+								'Deleted!',
+								'User has been deleted.',
+								'success'
+							);
+						},
+						error: function(xhr) {
+							var response = JSON.parse(xhr.responseText);
+							Swal.fire(
+								'Error!',
+								response.error || 'An unexpected error occurred.',
+								'error'
+							);
+						}
+					});
+				}
+			});
 		});
+
 
 
 	});

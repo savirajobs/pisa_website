@@ -45,11 +45,17 @@
 @push('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="{{ asset('asset/css/iziToast.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.13.2/sweetalert2.min.css"
+	integrity="sha512-WxRv0maH8aN6vNOcgNFlimjOhKp+CUqqNougXbz0E+D24gP5i+7W/gcc5tenxVmr28rH85XHF5eXehpV2TQhRg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
 
 @push('js')
 <script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.min.js"></script>
 <script src="{{ asset('asset/js/iziToast.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.13.2/sweetalert2.min.js"
+	integrity="sha512-IrKvpZPCfiNhluFq0+cT7qLFt2qHImPSyjJ841Hlg5Be38kpvn8CckiQSUzP67RFpqumZluboTerUqhmCCV24g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @include('admin.users.script')
 @endpush

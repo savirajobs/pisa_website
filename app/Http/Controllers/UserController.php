@@ -81,9 +81,8 @@ class UserController extends Controller
 		]);
 	}
 
-	public function update(Request $request)
+	function update(Request $request)
 	{
-		// Validasi input
 		$validator = Validator::make($request->all(), [
 			'id'        => 'required|integer|exists:users,id',
 			'name'      => 'required|string|max:255',
@@ -99,7 +98,6 @@ class UserController extends Controller
 			'min'       => ':attribute harus memiliki minimal :min karakter.',
 		]);
 
-		// Jika validasi gagal, kirimkan respon JSON dengan error
 		if ($validator->fails()) {
 			return response()->json([
 				'status' => 'error',
@@ -108,29 +106,23 @@ class UserController extends Controller
 		}
 
 		try {
-			// Temukan pengguna berdasarkan ID yang diterima dari request AJAX
 			$user = User::findOrFail($request->id);
 
-			// Update data pengguna
 			$user->name  = $request->name;
 			$user->email = $request->email;
 			$user->role  = $request->role;
 
-			// Update password hanya jika disediakan
 			if ($request->filled('password')) {
 				$user->password = bcrypt($request->password);
 			}
 
-			// Simpan perubahan
 			$user->save();
 
-			// Respon sukses
 			return response()->json([
 				'status' => 'success',
 				'message' => 'User updated successfully'
 			]);
 		} catch (\Exception $e) {
-			// Jika ada error, kirimkan respon JSON dengan pesan error
 			return response()->json([
 				'status' => 'error',
 				'message' => 'An error occurred while updating user'
@@ -141,18 +133,27 @@ class UserController extends Controller
 
 	function destroy(Request $request)
 	{
-		$id = $request->id;
+		try {
+			// Temukan user berdasarkan ID, atau kembalikan error jika tidak ditemukan
+			$user = User::findOrFail($request->id);
 
-		$data = User::find($id);
-		if ($data) {
-			try {
-				$data->delete();
-				return response()->json(['success' => 'User has been deleted successfully.']);
-			} catch (\Exception $e) {
-				return response()->json(['error' => 'Failed to delete user. Please try again later.'], 500);
-			}
+			// Hapus user
+			$user->delete();
+
+			// Jika berhasil dihapus, kembalikan respon sukses
+			return response()->json([
+				'success' => 'User has been deleted successfully.'
+			]);
+		} catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+			// Jika user tidak ditemukan, tangani error ini
+			return response()->json([
+				'error' => 'User not found.'
+			], 404);
+		} catch (\Exception $e) {
+			// Jika terjadi error lain, tangani di sini
+			return response()->json([
+				'error' => 'Failed to delete user. Please try again later.'
+			], 500);
 		}
-
-		return response()->json(['error' => 'User not found.'], 404);
 	}
 }
