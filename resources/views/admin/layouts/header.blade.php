@@ -3,8 +3,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-            <img src="{{ asset('asset/img/logo.png') }}" alt="">
-            <span class="d-none d-lg-block">{{ config('app.name', 'Laravel') }}</span>
+            <img src="{{ asset('asset/img/logo.png') }}" alt="{{ config('app.name') }}">
+            <span class="d-none d-lg-block" style="font-size: 13px;">{{ config('app.name', 'Laravel') }}</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -32,8 +32,7 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                             <i class="bi bi-box-arrow-right"></i>
                             {{ __('Logout') }}
