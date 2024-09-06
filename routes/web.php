@@ -1,27 +1,33 @@
 <?php
 
+use App\Http\Controllers\FrontController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('auth.login');
-});
+use App\Http\Controllers\UserController;
 
 Auth::routes();
 
+Route::get('register', function () {
+	return redirect()->route('login');
+});
+
+Route::name('frontend.')->group(function () {
+	Route::get('/', [FrontController::class, 'index'])->name('index');
+});
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
+	//dashboard
+	Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+
+	//master user
+	Route::prefix('users')->name('users.')->group(function () {
+		Route::post('apis', [UserController::class, 'apis'])->name('apis');
+		Route::get('edit', [UserController::class, 'edit'])->name('edit');
+		Route::post('update', [UserController::class, 'update'])->name('update');
+		Route::delete('destroy', [UserController::class, 'destroy'])->name('destroy');
+	});
+	Route::resource('users', UserController::class)->only('index', 'store');
 });
