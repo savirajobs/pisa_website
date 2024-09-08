@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contenttype', function (Blueprint $table) {
-            $table->increments('type_id');
+        Schema::create('contenttypes', function (Blueprint $table) {
+            $table->string('type_id');
             $table->string('type_desc');
             $table->timestamps();
         });
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contenttype');
+        Schema::dropIfExists('contenttypes');
     }
 };
