@@ -12,6 +12,21 @@
 		</li>
 
 		@if (Auth::user()->role == 'super-admin')
+		<li class="nav-heading">Content Management</li>
+		<li class="nav-item">
+			<a class="nav-link {{ (request()->is('admin/post*')) ? '' : 'collapsed'}}"
+				href="{{ route('admin.post.index') }}">
+				<i class="bi bi-building-fill"></i>
+				<span>Post</span>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link {{ (request()->is('admin/user*')) ? '' : 'collapsed' }}"
+				href="{{ route('admin.users.index') }}">
+				<i class="bi bi-card-image"></i>
+				<span>Media</span>
+			</a>
+		</li>
 		<li class="nav-heading">Master User</li>
 		<li class="nav-item">
 			<a class="nav-link {{ (request()->is('admin/user*')) ? '' : 'collapsed' }}"

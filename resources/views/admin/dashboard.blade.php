@@ -24,7 +24,7 @@
                 <div class="col-xxl-4 col-md-6">
                     <div class="card info-card sales-card">
                         <div class="card-body">
-                            <h5 class="card-title">Jumlah Akun OPD</h5>
+                            <h5 class="card-title">Jumlah Pengunjung</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-building-lock"></i>
@@ -42,7 +42,7 @@
                 <div class="col-xxl-4 col-md-6">
                     <div class="card info-card revenue-card">
                         <div class="card-body">
-                            <h5 class="card-title">Julmah Kegiatan</h5>
+                            <h5 class="card-title">Julmah Post</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-card-checklist"></i>
@@ -59,7 +59,7 @@
                 <div class="col-xxl-4 col-xl-12">
                     <div class="card info-card customers-card">
                         <div class="card-body">
-                            <h5 class="card-title">Jumlah Peserta</h5>
+                            <h5 class="card-title">Total Pengaduan Masuk</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-people"></i>

@@ -15,13 +15,13 @@ return new class extends Migration
             $table->string('content_id')->primary();
             $table->string('content_title');
             $table->text('content_desc')->nullable();
-            $table->foreignId('content_type')->references('type_id')->on('contenttype');
+            $table->integer('content_type');
             $table->enum('is_publish', ['0', '1'])->default(1); // 0 = not published, 1 = published
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category_id');
             $table->datetime('published_at')->default(now());
             $table->datetime('upcoming_date')->nullable();
-            $table->foreignId('created_by')->nullable()->references('id')->on('users');
-            $table->foreignId('updated_by')->nullable()->references('id')->on('users');
+            $table->foreignId('created_by');
+            $table->foreignId('updated_by');
             $table->timestamps();
         });
     }
