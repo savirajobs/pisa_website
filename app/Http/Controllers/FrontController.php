@@ -10,4 +10,9 @@ class FrontController extends Controller
     {
         return view('front.index');
     }
+
+    function profile()
+    {
+        return view('front.profile');
+    }
 }

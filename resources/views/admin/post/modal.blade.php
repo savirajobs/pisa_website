@@ -14,19 +14,19 @@
                     <div class="mb-3">
                         <label for="content_type" class="form-label">Content Type</label>
                         <select class="form-select" id="content_type" name="content_type" required>
-                            <option value="">Select Content Type</option>
-                            <option value="super-admin">Law</option>
-                            <option value="admin">Facility</option>
-                            <option value="admin">News</option>
-                            <option value="admin">Activity</option>
+                            <option value="" selected>Select Content Type</option>
+                            @foreach ($contenttypes as $content_type)
+                                <option  value="{{$content_type->type_id}}">{{$content_type->type_desc}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="content_type" class="form-label">Content Category</label>
                         <select class="form-select" id="content_type" name="content_type" required>
-                            <option value="">Select Content Category</option>
-                            <option value="super-admin">Content</option>
-                            <option value="admin">News</option>
+                            <option value="" selected>Select Content Category</option>
+                            @foreach ($categories as $category)
+                                <option  value="{{$category->category_id}}">{{$category->category_name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">

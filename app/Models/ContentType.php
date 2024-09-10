@@ -9,6 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ContentType extends Model
 {
     use HasFactory;
+    protected $table = 'contenttypes';
+    protected $fillable = [
+        'type_id',
+        'type_desc',
+        'created_at',
+        'updated_at',
+    ];
+    protected $primaryKey = 'type_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public function contents(): HasMany
     {

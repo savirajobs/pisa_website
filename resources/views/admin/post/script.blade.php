@@ -5,18 +5,56 @@
 		}
 	});
 	$(document).ready(function() {
-		var table = $('#userID').DataTable({
+		var table = $('#posted').DataTable({
 			processing: true,
 			serverSide: true,
 			ajax: {
-				url: "{{ route('admin.users.apis') }}",
-				method: "POST"
+				url: "{{ route('admin.post.apis') }}",
+				method: "GET"
 			},
 			columns: [
-				{ data: 'name' },
-				{ data: 'email' },
-				{ data: 'role' },
-				{ data: 'updated_at' },
+				
+				{ data: 'content_title' },
+				{ data: 'is_publish' },
+				{ data: 'published_at' },
+				{ data: 'upcoming_date' },
+				{ data: 'created_by' },
+				{ data: 'action', orderable: false, searchable: false }
+			]
+		});
+
+		var table = $('#post_draft').DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: {
+				url: "{{ route('admin.post.post_draft') }}",
+				method: "GET"
+			},
+			columns: [
+				
+				{ data: 'content_title' },
+				{ data: 'is_publish' },
+				{ data: 'published_at' },
+				{ data: 'upcoming_date' },
+				{ data: 'created_by' },
+				{ data: 'action', orderable: false, searchable: false }
+			]
+		});
+
+		var table = $('#post_all').DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: {
+				url: "{{ route('admin.post.post_all') }}",
+				method: "GET"
+			},
+			columns: [
+				
+				{ data: 'content_title' },
+				{ data: 'is_publish' },
+				{ data: 'published_at' },
+				{ data: 'upcoming_date' },
+				{ data: 'created_by' },
 				{ data: 'action', orderable: false, searchable: false }
 			]
 		});
@@ -32,7 +70,7 @@
 		$('#addUserForm').on('submit', function(e) {
 			e.preventDefault();
 			$.ajax({
-				url: "{{ route('admin.users.store') }}",
+				url: "{{ route('admin.post.store') }}",
 				type: 'POST',
 				data: $(this).serialize(),
 				success: function(response) {
@@ -84,7 +122,7 @@
 			console.log('user id:', userId);
 
 			$.ajax({
-				url: "{{ route('admin.users.edit') }}",
+				url: "{{ route('admin.post.edit') }}",
 				type: 'GET',
 				data: { id: userId },
 				success: function(response) {
@@ -112,7 +150,7 @@
 			e.preventDefault();
 
 			$.ajax({
-				url: "{{ route('admin.users.update') }}",
+				url: "{{ route('admin.post.update') }}",
 				type: 'POST',
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
@@ -188,7 +226,7 @@
 					// Jika dikonfirmasi, jalankan AJAX request untuk delete
 					$.ajax({
 						type: 'DELETE',
-						url: "{{ route('admin.users.destroy') }}",
+						url: "{{ route('admin.post.destroy') }}",
 						data: { id: id, _token: '{{ csrf_token() }}' },
 						success: function(response) {
 							$('#userID').DataTable().ajax.reload(); // Reload DataTable

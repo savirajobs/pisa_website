@@ -15,6 +15,7 @@ Route::get('register', function () {
 
 Route::name('frontend.')->group(function () {
 	Route::get('/', [FrontController::class, 'index'])->name('index');
+	Route::get('/profile', [FrontController::class, 'profile'])->name('profile');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -25,10 +26,12 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
 
 	//ContentController
 	Route::prefix('post')->name('post.')->group(function () {
-		Route::post('apis', [ContentController::class, 'apis'])->name('apis');
-		// Route::get('edit', [ContentController::class, 'edit'])->name('edit');
-		// Route::post('update', [ContentController::class, 'update'])->name('update');
-		// Route::delete('destroy', [ContentController::class, 'destroy'])->name('destroy');
+		Route::get('apis', [ContentController::class, 'apis'])->name('apis');
+		Route::get('post_draft', [ContentController::class, 'post_draft'])->name('post_draft');
+		Route::get('post_all', [ContentController::class, 'post_all'])->name('post_all');
+		Route::get('edit', [ContentController::class, 'edit'])->name('edit');
+		Route::post('update', [ContentController::class, 'update'])->name('update');
+		Route::delete('destroy', [ContentController::class, 'destroy'])->name('destroy');
 	});
 	Route::resource('post', ContentController::class)->only('index', 'store');
 

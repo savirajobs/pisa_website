@@ -11,6 +11,19 @@ class Content extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'content_id',
+        'content_title',
+        'content_desc',
+        'content_type',
+        'is_publish',
+        'category_id',
+        'published_at',
+        'upcoming_date',
+        'created_by',
+        'updated_by',
+    ];
+
     public function content_types(): BelongsTo
     {
         return $this->belongsTo(ContentType::class);

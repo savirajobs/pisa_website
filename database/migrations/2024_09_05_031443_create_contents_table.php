@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->string('content_id')->primary();
             $table->string('content_title');
+            $table->string('slug');
             $table->text('content_desc')->nullable();
-            $table->integer('content_type');
-            $table->enum('is_publish', ['0', '1'])->default(1); // 0 = not published, 1 = published
-            $table->foreignId('category_id');
-            $table->datetime('published_at')->default(now());
+            $table->string('content_type');
+            $table->integer('is_publish'); // 0 = not published, 1 = published
+            $table->integer('category_id');
+            $table->datetime('published_at');
             $table->datetime('upcoming_date')->nullable();
-            $table->foreignId('created_by');
-            $table->foreignId('updated_by');
+            $table->foreignId('created_by')->nullable()->references('id')->on('users');
+            $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->timestamps();
         });
     }

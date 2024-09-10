@@ -37,10 +37,11 @@
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-posted" role="tabpanel" aria-labelledby="pills-posted-tab" tabindex="0">
-							<table id="userID" class="table table-striped" style="width:100%">
+							<table id="posted" class="table table-striped" style="width:100%">
 								<thead>
 									<tr>
-										<th>Content Tittle</th>
+										<th>Content Title</th>
+										<th>Publish</th>
 										<th>Published at</th>
 										<th>Upcoming Date</th>
 										<th>Created By</th>
@@ -49,8 +50,34 @@
 								</thead>
 							</table>
 						</div>
-						<div class="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab" tabindex="0">Draft</div>
-						<div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">All</div>
+						<div class="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab" tabindex="0">
+							<table id="post_draft" class="table table-striped" style="width:100%">
+								<thead>
+									<tr>
+										<th>Content Title</th>
+										<th>Publish</th>
+										<th>Published at</th>
+										<th>Upcoming Date</th>
+										<th>Created By</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+						<div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">
+						<table id="post_all" class="table table-striped" style="width:100%">
+								<thead>
+									<tr>
+										<th>Content Title</th>
+										<th>Publish</th>
+										<th>Published at</th>
+										<th>Upcoming Date</th>
+										<th>Created By</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -101,5 +128,5 @@
     ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
   });
 </script>
-@include('admin.users.script')
+@include('admin.post.script')
 @endpush
