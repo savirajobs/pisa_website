@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ContentType extends Model
+class PostType extends Model
 {
     use HasFactory;
-    protected $table = 'contenttypes';
+  
+    protected $table = 'post_types';
     protected $fillable = [
         'type_id',
         'type_desc',
@@ -20,8 +21,8 @@ class ContentType extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function contents(): HasMany
+    public function posttype(): HasMany
     {
-        return $this->hasMany(Content::class);
+        return $this->hasMany(Post::class);
     }
 }

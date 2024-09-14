@@ -9,10 +9,10 @@
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-7 col-md-12">
-                <h1 class="mb-3 text-primary">We Care Your Baby</h1>
-                <h1 class="mb-5 display-1 text-white">The Best Play Area For Your Kids</h1>
-                <a href="" class="btn btn-primary px-4 py-3 px-md-5  me-4 btn-border-radius">Get Started</a>
-                <a href="" class="btn btn-primary px-4 py-3 px-md-5 btn-border-radius">Learn More</a>
+                <h1 class="mb-3 text-primary">PISA</h1>
+                <h1 class="mb-5 display-1 text-white">Pusat Informasi Sahabat Anak</h1>
+                {{-- <a href="" class="btn btn-primary px-4 py-3 px-md-5  me-4 btn-border-radius">Get Started</a> --}}
+                {{-- <a href="" class="btn btn-primary px-4 py-3 px-md-5 btn-border-radius">Learn More</a> --}}
             </div>
         </div>
     </div>
@@ -37,23 +37,20 @@
             <div class="col-lg-7 wow fadeIn" data-wow-delay="0.3s">
                 <h4
                     class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                    About Us</h4>
-                <h1 class="text-dark mb-4 display-5">We Learn Smart Way To Build Bright Futute For Your Children</h1>
-                <p class="text-dark mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. the
-                    printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                    since the 1500s, when an unknown printer Lorem Ipsum has been the industry's standard dummy text
-                    ever since the 1500s.
+                    Tentang PISA</h4>
+                <h1 class="text-dark mb-4 display-5">Pusat Informasi Layak Anak Terintegrasi</h1>
+                <p class="text-dark mb-4">Pusat Informasi Sahabat Anak (PISA) adalah pusat informasi dengan fokus pada penyediaan informasi terintegrasi yang dibutuhkan oleh anak, dengan pendekatan pelayanan yang ramah anak, yang dapat menjalankan fungsinya baik secara langsung dalam sebuah ruangan/bangunan yang disediakan maupun secara daring (online).
                 </p>
                 <div class="row mb-4">
                     <div class="col-lg-6">
-                        <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Sport Activites</h6>
-                        <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Outdoor Games</h6>
-                        <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-secondary"></i>Nutritious Foods</h6>
+                        <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Perpustakaan</h6>
+                        <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Ruang Baca</h6>
+                        <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-secondary"></i>Ruang Kreatifitas</h6>
                     </div>
                     <div class="col-lg-6">
-                        <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Highly Secured</h6>
-                        <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Friendly Environment</h6>
-                        <h6><i class="fas fa-check-circle me-2 text-secondary"></i>Qualified Teacher</h6>
+                        <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Ruang Multimedia</h6>
+                        <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Permainan Edukasi</h6>
+                        <h6><i class="fas fa-check-circle me-2 text-secondary"></i>Permainan Tradisional</h6>
                     </div>
                 </div>
                 <a href="" class="btn btn-primary px-5 py-3 btn-border-radius">More Details</a>
@@ -81,104 +78,39 @@
 </div>
 <!-- About End -->
 
-
-<!-- Service Start -->
-<div class="container-fluid service py-5">
-    <div class="container py-5">
-        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
-            <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                What We Do</h4>
-            <h1 class="mb-5 display-3">Thanks To Get Started With Our School</h1>
-        </div>
-        <div class="row g-5">
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.1s">
-                <div class="text-center border-primary border bg-white service-item">
-                    <div class="service-content d-flex align-items-center justify-content-center p-4">
-                        <div class="service-content-inner">
-                            <div class="p-4"><i class="fas fa-gamepad fa-6x text-primary"></i></div>
-                            <a href="#" class="h4">Study & Game</a>
-                            <p class="my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, culpa qui
-                                officiis animi Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit.</p>
-                            <a href="#" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
-                                More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.3s">
-                <div class="text-center border-primary border bg-white service-item">
-                    <div class="service-content d-flex align-items-center justify-content-center p-4">
-                        <div class="service-content-inner">
-                            <div class="p-4"><i class="fas fa-sort-alpha-down fa-6x text-primary"></i></div>
-                            <a href="#" class="h4">A to Z Programs</a>
-                            <p class="my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, culpa qui
-                                officiis animi Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit.</p>
-                            <a href="#" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
-                                More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.5s">
-                <div class="text-center border-primary border bg-white service-item">
-                    <div class="service-content d-flex align-items-center justify-content-center p-4">
-                        <div class="service-content-inner">
-                            <div class="p-4"><i class="fas fa-users fa-6x text-primary"></i></div>
-                            <a href="#" class="h4">Expert Teacher</a>
-                            <p class="my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, culpa qui
-                                officiis animi Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit.</p>
-                            <a href="#" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
-                                More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeIn" data-wow-delay="0.7s">
-                <div class="text-center border-primary border bg-white service-item">
-                    <div class="service-content d-flex align-items-center justify-content-center p-4">
-                        <div class="service-content-inner">
-                            <div class="p-4"><i class="fas fa-user-nurse fa-6x text-primary"></i></div>
-                            <a href="#" class="h4">Mental Health</a>
-                            <p class="my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, culpa qui
-                                officiis animi Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit.</p>
-                            <a href="#" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
-                                More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Service End -->
-
-
 <!-- Programs Start -->
 <div class="container-fluid program  py-5">
-    <div class="container py-5">
-        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
+    <div class="container py-5">    
+        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;" >
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                Our Programs</h4>
+                Program Anak</h4>
             <h1 class="mb-5 display-3">We Offer An Exclusive Program For Kids</h1>
         </div>
         <div class="row g-5 justify-content-center">
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s">
+            @foreach($latest_programs as $post)
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s" >
+                {{-- @foreach($latest_programs as $post) --}}
                 <div class="program-item rounded">
                     <div class="program-img position-relative">
                         <div class="overflow-hidden img-border-radius">
-                            <img src="{{ asset('asset/img/program-1.jpg') }}" class="img-fluid w-100" alt="Image">
-                        </div>
-                        <div class="px-4 py-2 bg-primary text-white program-rate">$60.99</div>
+                        {{-- @if ($post->image_name && Storage::exists('public/images/posts/' . $post->image_name))
+                            <img src="{{ Storage::url('images/posts/' . $post->image_name) }}" 
+                            class="img-fluid w-100" alt="Image">
+                            <p> {{ Storage::url('images/posts/' . $post->image_name) }}</p>
+                        @else
+                            <img src="{{ asset('storage/images/no-image.png') }}" 
+                            class="img-fluid w-100" alt="Image">
+                        @endif --}}
+                        <img src="{{ asset('/asset/img/' . $post->image_name) }}" class="img-fluid w-100" alt="Image" style= "height: 300px;">
+                        </div>                        
+                        <div class="px-4 py-2 bg-primary text-white program-rate">Gratis</div>
                     </div>
                     <div class="program-text bg-white px-4 pb-3">
-                        <div class="program-text-inner">
-                            <a href="#" class="h4">English For Today</a>
-                            <p class="mt-3 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed
-                                purus consectetur,</p>
+                        <div class="program-text-inner" style= "height: 100px;">
+                            <a href="#" class="h4">
+                            {{ $post->post_title }} </a>
+                            <p class="mt-3 mb-0">
+                            {{ $post->post_desc }}</p>
                         </div>
                     </div>
                     <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3">
@@ -186,8 +118,8 @@
                             class="img-fluid rounded-circle p-2 border border-primary bg-white" alt="Image"
                             style="width: 70px; height: 70px;">
                         <div class="ms-3">
-                            <h6 class="mb-0 text-primary">Mary Mordern</h6>
-                            <small>Arts Designer</small>
+                            <h6 class="mb-0 text-primary">{{ $post->user_name }}</h6>
+                            <small>Tim Penulis</small>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
@@ -196,75 +128,17 @@
                         <small class="text-white"><i class="fas fa-clock me-1"></i> 60 Hours</small>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.3s">
-                <div class="program-item rounded">
-                    <div class="program-img position-relative">
-                        <div class="overflow-hidden img-border-radius">
-                            <img src="{{ asset('asset/img/program-2.jpg') }}" class="img-fluid w-100" alt="Image">
-                        </div>
-                        <div class="px-4 py-2 bg-primary text-white program-rate">$60.99</div>
-                    </div>
-                    <div class="program-text bg-white px-4 pb-3">
-                        <div class="program-text-inner">
-                            <a href="#" class="h4">Graphics Arts</a>
-                            <p class="mt-3 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed
-                                purus consectetur,</p>
-                        </div>
-                    </div>
-                    <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3">
-                        <img src="{{ asset('asset/img/program-teacher.jpg') }}"
-                            class="img-fluid rounded-circle p-2 border border-primary bg-white" alt=""
-                            style="width: 70px; height: 70px;">
-                        <div class="ms-3">
-                            <h6 class="mb-0 text-primary">Mary Mordern</h6>
-                            <small>Arts Designer</small>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
-                        <small class="text-white"><i class="fas fa-wheelchair me-1"></i> 30 Sits</small>
-                        <small class="text-white"><i class="fas fa-book me-1"></i> 11 Lessons</small>
-                        <small class="text-white"><i class="fas fa-clock me-1"></i> 60 Hours</small>
-                    </div>
+                {{-- @endforeach --}}
                 </div>
+            @endforeach
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.5s">
-                <div class="program-item rounded">
-                    <div class="program-img position-relative">
-                        <div class="overflow-hidden img-border-radius">
-                            <img src="{{ asset('asset/img/program-3.jpg') }}" class="img-fluid w-100" alt="Image">
-                        </div>
-                        <div class="px-4 py-2 bg-primary text-white program-rate">$60.99</div>
-                    </div>
-                    <div class="program-text bg-white px-4 pb-3">
-                        <div class="program-text-inner">
-                            <a href="#" class="h4">General Science</a>
-                            <p class="mt-3 mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed
-                                purus consectetur,</p>
-                        </div>
-                    </div>
-                    <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3">
-                        <img src="{{ asset('asset/img/program-teacher.jpg') }}"
-                            class="img-fluid rounded-circle p-2 border border-primary bg-white" alt=""
-                            style="width: 70px; height: 70px;">
-                        <div class="ms-3">
-                            <h6 class="mb-0 text-primary">Mary Mordern</h6>
-                            <small>Arts Designer</small>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
-                        <small class="text-white"><i class="fas fa-wheelchair me-1"></i> 30 Sits</small>
-                        <small class="text-white"><i class="fas fa-book me-1"></i> 11 Lessons</small>
-                        <small class="text-white"><i class="fas fa-clock me-1"></i> 60 Hours</small>
-                    </div>
-                </div>
-            </div>
-            <div class="d-inline-block text-center wow fadeIn" data-wow-delay="0.1s">
+            <div class="text-center wow fadeIn" data-wow-delay="0.1s" style= "margin-top: 50px;";>
                 <a href="#" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Vew All Programs</a>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Program End -->
 
 
@@ -273,7 +147,7 @@
     <div class="container py-5">
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                Our Events</h4>
+                Kegiatan & Informasi</h4>
             <h1 class="mb-5 display-3">Our Upcoming Events</h1>
         </div>
         <div class="row g-5 justify-content-center">
@@ -366,7 +240,7 @@
     <div class="container py-5">
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                Latest News & Blog</h4>
+                Berita</h4>
             <h1 class="mb-5 display-3">Read Our Latest News & Blog</h1>
         </div>
         <div class="row g-5 justify-content-center">
@@ -483,7 +357,7 @@
     <div class="container py-5">
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                Our Team</h4>
+                Galeri Foto</h4>
             <h1 class="mb-5 display-3">Meet With Our Expert Teacher</h1>
         </div>
         <div class="row g-5 justify-content-center">
@@ -567,106 +441,4 @@
     </div>
 </div>
 <!-- Team End-->
-
-
-<!-- Testimonial Start -->
-<div class="container-fluid testimonial py-5">
-    <div class="container py-5">
-        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
-            <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                Our Testimonials</h4>
-            <h1 class="mb-5 display-3">Parents Say About Us</h1>
-        </div>
-        <div class="owl-carousel testimonial-carousel wow fadeIn" data-wow-delay="0.3s">
-            <div class="testimonial-item img-border-radius bg-light border border-primary p-4">
-                <div class="p-4 position-relative">
-                    <i class="fa fa-quote-right fa-2x text-primary position-absolute"
-                        style="top: 15px; right: 15px;"></i>
-                    <div class="d-flex align-items-center">
-                        <div class="border border-primary bg-white rounded-circle">
-                            <img src="{{ asset('asset/img/testimonial-2.jpg') }}" class="rounded-circle p-2"
-                                style="width: 80px; height: 80px; border-style: dotted; border-color: var(--bs-primary);"
-                                alt="">
-                        </div>
-                        <div class="ms-4">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-top border-primary mt-4 pt-3">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's
-                            standard dummy text ever since the 1500s,
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-item img-border-radius bg-light border border-primary p-4">
-                <div class="p-4 position-relative">
-                    <i class="fa fa-quote-right fa-2x text-primary position-absolute"
-                        style="top: 15px; right: 15px;"></i>
-                    <div class="d-flex align-items-center">
-                        <div class="border border-primary bg-white rounded-circle">
-                            <img src="{{ asset('asset/img/testimonial-2.jpg') }}" class="rounded-circle p-2"
-                                style="width: 80px; height: 80px; border-style: dotted; border-color: var(--bs-primary);"
-                                alt="">
-                        </div>
-                        <div class="ms-4">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-top border-primary mt-4 pt-3">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's
-                            standard dummy text ever since the 1500s,
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-item img-border-radius bg-light border border-primary p-4">
-                <div class="p-4 position-relative">
-                    <i class="fa fa-quote-right fa-2x text-primary position-absolute"
-                        style="top: 15px; right: 15px;"></i>
-                    <div class="d-flex align-items-center">
-                        <div class="border border-primary bg-white rounded-circle">
-                            <img src="{{ asset('asset/img/testimonial-2.jpg') }}" class="rounded-circle p-2"
-                                style="width: 80px; height: 80px; border-style: dotted; border-color: var(--bs-primary);"
-                                alt="">
-                        </div>
-                        <div class="ms-4">
-                            <h4 class="text-dark">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex pe-5">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-top border-primary mt-4 pt-3">
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's
-                            standard dummy text ever since the 1500s,
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Testimonial End -->
 @endsection

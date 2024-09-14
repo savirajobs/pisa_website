@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contents', function (Blueprint $table) {
-            $table->string('content_id')->primary();
-            $table->string('content_title');
-            $table->string('slug');
-            $table->text('content_desc')->nullable();
-            $table->string('content_type');
+        Schema::create('posts', function (Blueprint $table) {
+            $table->string('post_id')->primary();
+            $table->string('post_title');
+            $table->string('slug')->unique();
+            $table->text('post_desc')->nullable();
+            $table->string('post_type');
             $table->integer('is_publish'); // 0 = not published, 1 = published
             $table->integer('category_id');
             $table->datetime('published_at');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contents');
+        Schema::dropIfExists('posts');
     }
 };

@@ -17,6 +17,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
 
 	<link href="{{ asset('asset') }}/css/frontend.css" rel="stylesheet">
+	<link href="{{ asset('asset') }}/css/app.css" rel="stylesheet">
+	
 	@stack('styles')
 </head>
 

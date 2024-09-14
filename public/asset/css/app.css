@@ -1,0 +1,12 @@
+.card-container {
+    display: flex;
+    flex-wrap: nowrap; /* Menjaga elemen tetap dalam satu baris */
+    overflow-x: auto; /* Menambahkan scrollbar horizontal jika diperlukan */
+}
+.card-item {
+    flex: 0 0 auto; /* Elemen tidak akan menyusut atau membesar, tetap dalam ukuran asli */
+    width: 200px; /* Ukuran elemen */
+    margin: 10px; /* Jarak antar elemen */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}

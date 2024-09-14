@@ -1,7 +1,7 @@
 <script>
 	$.ajaxSetup({
 		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('post')
 		}
 	});
 	$(document).ready(function() {
@@ -14,7 +14,7 @@
 			},
 			columns: [
 				
-				{ data: 'content_title' },
+				{ data: 'post_title' },
 				{ data: 'is_publish' },
 				{ data: 'published_at' },
 				{ data: 'upcoming_date' },
@@ -32,7 +32,7 @@
 			},
 			columns: [
 				
-				{ data: 'content_title' },
+				{ data: 'post_title' },
 				{ data: 'is_publish' },
 				{ data: 'published_at' },
 				{ data: 'upcoming_date' },
@@ -50,7 +50,7 @@
 			},
 			columns: [
 				
-				{ data: 'content_title' },
+				{ data: 'post_title' },
 				{ data: 'is_publish' },
 				{ data: 'published_at' },
 				{ data: 'upcoming_date' },
@@ -67,21 +67,21 @@
 			console.log('Modal is being shown');
 		});
 
-		$('#addUserForm').on('submit', function(e) {
+		$('#addPostForm').on('submit', function(e) {
 			e.preventDefault();
 			$.ajax({
 				url: "{{ route('admin.post.store') }}",
 				type: 'POST',
 				data: $(this).serialize(),
 				success: function(response) {
-					$('#userID').DataTable().ajax.reload();
+					$('#post_id').DataTable().ajax.reload();
 					iziToast.success({
 						title: 'Success',
 						message: response.success,
 						position: 'topRight'
 					});
-					$('#addDataModal').modal('hide');
-					resetForm('#addDataModal');
+					$('#addDataPost').modal('hide');
+					resetForm('#addDataPost');
 				},
 				error: function(xhr) {
 					console.log(xhr.responseText);

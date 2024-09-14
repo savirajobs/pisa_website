@@ -19,15 +19,13 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
 		integrity="sha512-TyUaMbYrKFZfQfp+9nQGOEt+vGu4nKzLk0KaV3nFifL3K8n7lzb8DayTzLOK0pNyzxGJzGRSw78e8xqJhURJ3Q=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link href="{{ asset('asset/css/f/lightbox.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('asset/css/front/lightbox.min.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css"
 		integrity="sha512-GqP/pjlymwlPb6Vd7KmT5YbapvowpteRq9ffvufiXYZp0YpMTtR9tI6/v3U3hFi1N9MQmXum/yBfELxoY+S1Mw=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<link rel="stylesheet" href="{{ asset('asset/css/f/bootstrap.min.css') }}" />
-	<link href="{{ asset('asset/css/f/style.css') }}" rel="stylesheet">
-
-
+	<link rel="stylesheet" href="{{ asset('asset/css/front/bootstrap.min.css') }}" />
+	<link href="{{ asset('asset/css/front/style.css') }}" rel="stylesheet">
 
 </head>
 
@@ -53,16 +51,16 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"
 		integrity="sha512-72WD92hLs7T5FAXn3vkNZflWG6pglUDDpm87TeQmfSg8KnrymL2G30R7as4FmTwhgu9H7eSzDCX3mjitSecKnw=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="{{ asset('asset/js/f/wow.min.js') }}"></script>
-	<script src="{{ asset('asset/js/f/easing.min.js') }}"></script>
-	<script src="{{ asset('asset/js/f/waypoints.min.js') }}"></script>
+	<script src="{{ asset('asset/js/front/wow.min.js') }}"></script>
+	<script src="{{ asset('asset/js/front/easing.min.js') }}"></script>
+	<script src="{{ asset('asset/js/front/waypoints.min.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"
 		integrity="sha512-Ixzuzfxv1EqafeQlTCufWfaC6ful6WFqIz4G+dWvK0beHw0NVJwvCKSgafpy5gwNqKmgUfIBraVwkKI+Cz0SEQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js"
 		integrity="sha512-lo4YgiwkxsVIJ5mex2b+VHUKlInSK2pFtkGFRzHsAL64/ZO5vaiCPmdGP3qZq1h9MzZzghrpDP336ScWugUMTg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="{{ asset('asset/js/f/main.js') }}"></script>
+	<script src="{{ asset('asset/js/front/main.js') }}"></script>
 </body>
 
 </html>

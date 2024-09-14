@@ -1,14 +1,14 @@
-<div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s"
+<div class="container-fluid footer py-6 wow fadeIn" data-wow-delay="0.1s"
     style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, 1)), url({{ asset('asset/img/background.jpg') }});">
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="footer-item">
-                    <h2 class="fw-bold mb-3"><span class="text-primary mb-0">Baby</span><span
-                            class="text-secondary">Care</span></h2>
-                    <p class="mb-4">There cursus massa at urnaaculis estieSed aliquamellus vitae ultrs condmentum leo
-                        massamollis its estiegittis miristum.</p>
-                    <div class="border border-primary p-3 rounded bg-light">
+                    <h2 class="fw-bold mb-3"><span class="text-primary mb-0">PI</span><span
+                            class="text-secondary">SA</span></h2>
+                    <p class="mb-4">Pusat Informasi Sahabat Anak menyediakan informasi terintegrasi yang dibutuhkan oleh anak-anak dengan pendekatan pelayanan yang ramah anak akan meningkatkan
+kesempatan anak untuk menerima, mencari, dan memberikan lingkungan informasi yang sehat bagi anak</p>
+                    {{-- <div class="border border-primary p-3 rounded bg-light">
                         <h5 class="mb-3">Newsletter</h5>
                         <div class="position-relative mx-auto border border-primary rounded" style="max-width: 400px;">
                             <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text"
@@ -16,9 +16,10 @@
                             <button type="button"
                                 class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2 text-white">SignUp</button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
+            
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="footer-item">
                     <div class="d-flex flex-column p-4 ps-5 text-dark border border-primary"
@@ -37,16 +38,15 @@
                 <div class="footer-item">
                     <h4
                         class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                        LOCATION</h4>
+                        Sekretariat PISA</h4>
                     <div class="d-flex flex-column align-items-start">
-                        <a href="" class="text-body mb-4"><i class="fa fa-map-marker-alt text-primary me-2"></i> 104
-                            North tower New York, USA</a>
+                        <a href="" class="text-body mb-4"><i class="fa fa-map-marker-alt text-primary me-2"></i> Jalan Dr. Soetomo 50, Sananwetan, Kec. Sananwetan, Blitar 66137</a>
                         <a href="" class="text-start rounded-0 text-body mb-4"><i
-                                class="fa fa-phone-alt text-primary me-2"></i> (+012) 3456 7890 123</a>
+                                class="fa fa-phone-alt text-primary me-2"></i> (0342) 801080</a>
                         <a href="" class="text-start rounded-0 text-body mb-4"><i
-                                class="fas fa-envelope text-primary me-2"></i> exampleemail@gmail.com</a>
-                        <a href="" class="text-start rounded-0 text-body mb-4"><i
-                                class="fa fa-clock text-primary me-2"></i> 26/7 Hours Service</a>
+                                class="fas fa-envelope text-primary me-2"></i> dp3a-p2kb@blitarkota.go.id</a>
+                        {{-- <a href="" class="text-start rounded-0 text-body mb-4"><i
+                                class="fa fa-clock text-primary me-2"></i> 26/7 Hours Service</a> --}}
                         <div class="footer-icon d-flex">
                             <a class="btn btn-primary btn-sm-square me-3 rounded-circle text-white" href=""><i
                                     class="fab fa-facebook-f"></i></a>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
+            {{-- <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="footer-item">
                     <h4
                         class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

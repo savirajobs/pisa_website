@@ -1239,3 +1239,8 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.padded-text {
+  display: inline-block; /* Membolehkan padding diterapkan */
+  padding-top: 10px; /* Padding */
+}

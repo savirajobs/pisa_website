@@ -2,18 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\PostType;
+use App\Models\Tag;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\ContentType;
 
-class ContentTypeSeeder extends Seeder
+class PostTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $contenttypes = [
+        $post_types = [
 			[
                 'type_id' => 'CT',
 				'type_desc' => 'Content',
@@ -31,8 +32,8 @@ class ContentTypeSeeder extends Seeder
 				'type_desc' => 'Law/Legal',
         	],
 		];
-		foreach ($contenttypes as $data) {
-			ContentType::create($data);
+		foreach ($post_types as $data) {
+			PostType::create($data);
 		}
     }
 }

@@ -5,51 +5,52 @@
                 <h1 class="modal-title fs-5" id="addDataPostLabel">Add Post</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="addPostForm">
+            <form id="addPostForm" action="{{ route('admin.post.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf <!-- {{ csrf_field() }} -->
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Content Title</label>
-                        <input type="text" class="form-control" id="name" placeholder="Content Tittle" name="name" required>
+                        <label for="name" class="form-label">Post Title</label>
+                        <input type="text" class="form-control" id="post_title" placeholder="Post Title" name="post_title" required>
                     </div>
                     <div class="mb-3">
-                        <label for="content_type" class="form-label">Content Type</label>
-                        <select class="form-select" id="content_type" name="content_type" required>
-                            <option value="" selected>Select Content Type</option>
-                            @foreach ($contenttypes as $content_type)
-                                <option  value="{{$content_type->type_id}}">{{$content_type->type_desc}}</option>
+                        <label for="post_type" class="form-label">Post Type</label>
+                        <select class="form-select" id="post_type" name="post_type" required>
+                            <option value="" selected>Select Post Type</option>
+                            @foreach ($posttypes as $post_type)
+                                <option  value="{{$post_type->type_id}}">{{$post_type->type_desc}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="content_type" class="form-label">Content Category</label>
-                        <select class="form-select" id="content_type" name="content_type" required>
-                            <option value="" selected>Select Content Category</option>
+                        <label for="category_id" class="form-label">Post Category</label>
+                        <select class="form-select" id="category_id" name="category_id" required>
+                            <option value="" selected>Select Post Category</option>
                             @foreach ($categories as $category)
                                 <option  value="{{$category->category_id}}">{{$category->category_name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Content Description</label>
-                        <textarea class="form-control" id="editor" rows="3"></textarea>
+                        <label for="email" class="form-label">Post Description</label>
+                        <textarea class="form-control" id="editor" rows="3" name="post_desc"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Content Media</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <label for="email" class="form-label">Post Media</label>
+                        <input class="form-control" type="file" id="formFileMultiple" name="post_media" multiple>
                     </div>
                     <div class="mb-3">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Publish</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="is_publish" name="is_publish">
+                            <label class="form-check-label" for="is_publish">Publish</label>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Published On</label>
-                        <input type="date" class="form-control" id="date" required  name="date" >
+                        <label for="name" class="form-label">Published At</label>
+                        <input type="date" class="form-control" id="published_at"  name="published_at" >
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Upcomping Date</label>
-                        <input type="date" class="form-control" id="date" required  name="date" >
+                        <input type="date" class="form-control" id="upcoming_date"  name="upcoming_date" >
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -102,13 +102,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.13.2/sweetalert2.min.js"
 	integrity="sha512-IrKvpZPCfiNhluFq0+cT7qLFt2qHImPSyjJ841Hlg5Be38kpvn8CckiQSUzP67RFpqumZluboTerUqhmCCV24g=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.tiny.cloud/1/0153yiw15e288ww6llt72zwet66nk5rvcjw7k6wfzm8jfvee/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> 
-<script>
+{{-- <script src="https://cdn.tiny.cloud/1/0153yiw15e288ww6llt72zwet66nk5rvcjw7k6wfzm8jfvee/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>  --}}
+{{-- <script>
 	tinymce.init({
 	selector: 'textarea#editor',
 	});
-</script>
-<script>
+</script> --}}
+{{-- <script>
   tinymce.init({
     selector: 'textarea',
     plugins: [
@@ -127,6 +127,6 @@
     ],
     ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
   });
-</script>
+</script> --}}
 @include('admin.post.script')
 @endpush

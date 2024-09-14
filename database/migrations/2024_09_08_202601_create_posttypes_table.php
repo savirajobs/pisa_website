@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contenttypes', function (Blueprint $table) {
+        Schema::create('post_types', function (Blueprint $table) {
             $table->string('type_id');
             $table->string('type_desc');
             $table->timestamps();
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contenttypes');
+        Schema::dropIfExists('post_types');
     }
 };
