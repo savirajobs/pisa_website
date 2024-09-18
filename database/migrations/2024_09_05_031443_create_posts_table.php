@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('post_desc')->nullable();
             $table->string('post_type');
             $table->integer('is_publish'); // 0 = not published, 1 = published
-            $table->integer('category_id');
-            $table->datetime('published_at');
+            $table->integer('category_id')->nullable();
+            $table->datetime('published_at')->nullable();
             $table->datetime('upcoming_date')->nullable();
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->foreignId('updated_by')->nullable()->references('id')->on('users');

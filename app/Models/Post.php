@@ -29,71 +29,128 @@ class Post extends Model
         'updated_by',
     ];
 
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'post_id', 'post_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(Category::class, 'category_id','category_id');
+    }
+
     public function getProgramAnak()
     {
-        return self::where('is_publish', 1)
-                ->where('post_type', 'CP') // program anak
-                ->orderby('post_id', 'desc')
-                ->limit(3)
-                ->get();
+        $subquery = DB::table('media')
+        ->select('post_id', DB::raw('MIN(file_name) as file_name'))
+        ->groupBy('post_id');
+
+        return self::select(
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.published_at',
+            'posts.category_id',
+            'posts.upcoming_date',
+            'posts.created_by',
+            'posts.created_at',
+            // 'media.file_name as image_name',
+            'top_media.file_name as image_name',
+            'users.name as user_name',
+            DB::raw('LEFT(posts.post_desc, 100) as short_desc')            
+        )
+        // ->leftjoin('media','posts.post_id', '=', 'media.post_id')
+        ->join('users','posts.created_by','=','users.id')
+        ->leftJoinSub($subquery, 'top_media', function ($join) {
+                $join->on('posts.post_id', '=', 'top_media.post_id');
+            })
+        ->where('posts.is_publish', 1)
+        ->where('posts.post_type', 'CP') // program anak
+        ->orderBy('posts.created_at', 'desc')
+        // ->limit(3)
+        ->get();
     }
     
     public function getLatestNews()
     {
-        return self::where('is_publish', 1)
-                ->where('category_id', 1) //news
-                ->orderby('post_id', 'desc')
-                ->limit(3)
-                ->get();
+        $subquery = DB::table('media')
+            ->select('post_id', DB::raw('MIN(file_name) as file_name'))
+            ->groupBy('post_id');
+
+        return self::select(
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.published_at',
+            'posts.category_id',
+            'posts.upcoming_date',
+            'posts.created_by',
+            'posts.created_at',
+            'categories.category_name as category_name',
+            'top_media.file_name as image_name',
+            'users.name as user_name',
+            DB::raw('LEFT(posts.post_desc, 100) as short_desc')            
+        )
+        ->join('users','posts.created_by','=','users.id')
+        ->join('categories','posts.category_id','=','categories.category_id')
+        ->leftJoinSub($subquery, 'top_media', function ($join) {
+                $join->on('posts.post_id', '=', 'top_media.post_id');
+            })
+        ->where('posts.is_publish', 1)
+        ->where('posts.post_type', 'CT') // content
+        ->where('categories.category_name', 'News')
+        ->orderBy('posts.created_at', 'desc')
+        // ->limit(3)
+        ->get();
     }
 
     public function getLatestEvent()
     {
-        return self::where('is_publish', 1)
-                ->where('category_id', 2) //event
-                ->orderby('post_id', 'desc')
-                ->limit(3)
-                ->get();
-    }
+        $subquery = DB::table('media')
+        ->select('post_id', DB::raw('MIN(file_name) as file_name'))
+        ->groupBy('post_id');
 
-    public static function getPostList()
-    {
+        $incl_categories = ['Event', 'Information'];
 
-        // $subquery = DB::table('media')
-        // ->select('post_id', 'file_name')
-        // ->orderBy('file_name', 'desc')
-        // ->groupBy('post_id') // Grup berdasarkan post_id
-        // ->first(); /// Top 1 per group
-
-        return self::with(['category', 'media'])
-            ->select(
-                'posts.post_id',
-                'posts.post_title',
-                'posts.slug',
-                'posts.post_desc',
-                'posts.is_publish',
-                'posts.category_id',
-                'posts.published_at',
-                'posts.category_id',
-                'posts.upcoming_date',
-                'posts.created_by',
-                'posts.created_at',
-                'categories.category_name as category_name',
-                'media.file_name as image_name',
-                // 'top_media.file_name as image_name',
-                'users.name as user_name'
-            )
-            ->join('categories', 'posts.category_id', '=', 'categories.category_id')
-            ->leftjoin('media','posts.post_id', '=', 'media.post_id')
-            ->join('users','posts.created_by','=','users.id')
-            // ->leftJoinSub($subquery, 'top_media', function ($join) {
-            //     $join->on('posts.post_id', '=', 'top_media.post_id');
-            // })
-            ->where('is_publish', 1)
-            ->where('post_type', 'CP') // program anak
-            ->orderBy('posts.created_at', 'desc')
-            ->limit(3)
-            ->get();
+        return self::select(
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.published_at',
+            'posts.category_id',
+            'posts.upcoming_date',
+            'posts.created_by',
+            'posts.created_at',
+            'categories.category_name as category_name',
+            'top_media.file_name as image_name',
+            'users.name as user_name',
+            DB::raw('LEFT(posts.post_desc, 100) as short_desc')            
+        )
+        ->join('users','posts.created_by','=','users.id')
+        ->join('categories','posts.category_id','=','categories.category_id')
+        ->leftJoinSub($subquery, 'top_media', function ($join) {
+                $join->on('posts.post_id', '=', 'top_media.post_id');
+            })
+        ->where('posts.is_publish', 1)
+        ->where('posts.post_type', 'CT') // content
+        ->wherein('categories.category_name', $incl_categories)
+        ->orderBy('posts.created_at', 'desc')
+        // ->limit(3)
+        ->get();
     }
 
     public function post_types()
@@ -101,19 +158,69 @@ class Post extends Model
         return $this->belongsTo(PostType::class);
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }
 
-    public function media()
+    public function getProgramList()
     {
-        return $this->hasMany(Media::class);
+        $subquery = DB::table('media')
+        ->select('post_id', DB::raw('MIN(file_name) as file_name'))
+        ->groupBy('post_id');
+
+        return self::select(
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.published_at',
+            'posts.category_id',
+            'posts.upcoming_date',
+            'posts.created_by',
+            'posts.created_at',
+            'top_media.file_name as image_name',
+            'users.name as user_name',
+            DB::raw('LEFT(posts.post_desc, 100) as short_desc')           
+        )
+        ->join('users','posts.created_by','=','users.id')
+        ->leftJoinSub($subquery, 'top_media', function ($join) {
+                $join->on('posts.post_id', '=', 'top_media.post_id');
+            })
+        ->where('posts.is_publish', 1)
+        ->where('posts.post_type', 'CP') // program anak
+        ->orderBy('posts.created_at', 'desc')
+        ->limit(5)
+        ->get();
+    }
+
+    public function showprogram()
+    {
+        return self::select(
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.published_at',
+            'posts.category_id',
+            'posts.upcoming_date',
+            'posts.created_by',
+            'posts.created_at',
+            'media.file_name as image_name',
+            'users.name as user_name',          
+        )
+        ->join('users','posts.created_by','=','users.id')
+        ->join('categories','posts.category_id','=','categories.category_id')
+        ->leftjoin('media','posts.post_id', '=', 'media.post_id')
+        ->where('posts.is_publish', 1)
+        ->where('posts.post_type', 'CP') // program anak
+        ->orderBy('posts.created_at', 'desc')
+        // ->limit(5)
+        ->get();
     }
 
     

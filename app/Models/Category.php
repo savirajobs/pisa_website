@@ -25,8 +25,8 @@ class Category extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function contents(): BelongsToMany
+    public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Content::class);
+        return $this->belongsToMany(Post::class, 'category_id','category_id');
     }
 }

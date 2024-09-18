@@ -15,8 +15,7 @@ class FrontController extends Controller
         $postModel = new Post();
                 
         // Memanggil metode getpost() dari model
-        // $latest_programs = $postModel->getProgramAnak();
-        $latest_programs = $postModel->getPostList();
+        $latest_programs = $postModel->getProgramAnak();
         $latest_news = $postModel->getLatestNews();
         $latest_events = $postModel->getLatestEvent();
 
@@ -26,7 +25,7 @@ class FrontController extends Controller
             'latest_programs'   => $latest_programs,
             'latest_news'       => $latest_news,
             'latest_events'     => $latest_events,
-            'categories'    => Category::all(),
+            'categories'        => Category::all(),
         ];
 
         // Menambahkan data untuk paginasi
