@@ -1,3 +1,4 @@
+<script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 <script>
 	$.ajaxSetup({
 		headers: {
@@ -74,7 +75,9 @@
 				type: 'POST',
 				data: $(this).serialize(),
 				success: function(response) {
-					$('#post_id').DataTable().ajax.reload();
+					$('#posted').DataTable().ajax.reload();
+					$('#post_draft').DataTable().ajax.reload();
+					$('#post_all').DataTable().ajax.reload();
 					iziToast.success({
 						title: 'Success',
 						message: response.success,
@@ -113,40 +116,50 @@
 			resetForm('#addDataModal');
 		});
 
-		var userId;
+		var post_id;
+		var toggle_publish;
 
 		// Menampilkan modal dan mengisi data
 		$(document).on('click', '.edit-btn', function() {
 			var button = $(this); // Tombol yang diklik
-			userId = button.data('id'); // Ambil ID dari data-id tombol
-			console.log('user id:', userId);
+			post_id = button.data('id'); // Ambil ID dari data-id tombol
+			console.log('post id:', post_id);
 
 			$.ajax({
 				url: "{{ route('admin.post.edit') }}",
 				type: 'GET',
-				data: { id: userId },
+				data: { post_id: post_id },
 				success: function(response) {
 					if (response.status === 'success') {
-						$('#editName').val(response.data.name);
-						$('#editEmail').val(response.data.email);
-						$('#editRole').val(response.data.role);
-						$('#editPassword').val(''); // Kosongkan input password
+						if (response.data.is_publish === 1){
+							toggle_publish = 'Checked';
+						}else{
+							toggle_publish = '';
+						}
+
+						$('#editpost_title').val(response.data.post_title);
+						$('#editpost_type').val(response.data.post_type);
+						$('#editcategory_id').val(response.data.category_id);
+						$('#editpost_desc').val(response.data.post_desc);
+						$('#editis_publish').val(toggle_publish);
+						$('#editpublished_at').val(moment(response.data.published_at).format("YYYY-MM-DD"));
+						$('#editupcoming_date').val(moment(response.data.upcoming_date).format("YYYY-MM-DD"));
 					}
 
-					$('#editDataModal').modal('show');
+					$('#editPostModal').modal('show');
 				},
 				error: function(xhr) {
 					console.log(xhr.responseText);
 					iziToast.error({
 						title: 'Error',
-						message: 'An error occurred while fetching user data.',
+						message: 'An error occurred while fetching post data.',
 						position: 'topRight'
 					});
 				}
 			});
 		});
 
-		$('#editUserForm').on('submit', function(e) {
+		$('#editPostForm').on('submit', function(e) {
 			e.preventDefault();
 
 			$.ajax({
@@ -154,24 +167,29 @@
 				type: 'POST',
 				data: {
 					_token: $('meta[name="csrf-token"]').attr('content'),
-					id: userId, // Kirim ID user dari variabel global
-					name: $('#editName').val(),
-					email: $('#editEmail').val(),
-					role: $('#editRole').val(),
-					password: $('#editPassword').val() // Password opsional
+					post_id: post_id, // Kirim ID user dari variabel global
+					post_title: $('#editpost_title').val(),
+					post_type: $('#editpost_type').val(),
+					category_id: $('#editcategory_id').val(),
+					post_desc: $('#editpost_desc').val(),
+					is_publish: $('#editis_publish').val(),
+					published_at: $('#editpublished_at').val(),
+					upcoming_date: $('#editupcoming_date').val(),
 				},
 				success: function(response) {
 					if (response.status === 'success') {
 						// Reload DataTable setelah sukses update
-						$('#userID').DataTable().ajax.reload();
+						$('#posted').DataTable().ajax.reload();
+						$('#post_draft').DataTable().ajax.reload();
+						$('#post_all').DataTable().ajax.reload();
 						
 						iziToast.success({
 							title: 'Success',
 							message: response.message,
 							position: 'topRight'
 						});
-						$('#editDataModal').modal('hide'); // Tutup modal
-						resetForm('#editDataModal'); // Reset form
+						$('#editPostModal').modal('hide'); // Tutup modal
+						resetForm('#editPostModal'); // Reset form
 					}
 				},
 				error: function(xhr) {
