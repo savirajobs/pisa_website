@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Front\ProgramController;
+use App\Http\Controllers\Front\PostController;
 
 use App\Http\Controllers\Admin\PostController as adminPostController;
 
@@ -17,8 +18,10 @@ Route::get('register', function () {
 
 Route::name('frontend.')->group(function () {
 	Route::get('/', [FrontController::class, 'index'])->name('index');
-	Route::get('/program', [ProgramController::class, 'programlist'])->name('index');
+	Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
+	Route::get('/program/{slug}', [ProgramController::class, 'show'])->name('program.show');
 	Route::get('/profile', [FrontController::class, 'profile'])->name('profile');
+	Route::get('/berita', [PostController::class, 'index'])->name('post.index');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

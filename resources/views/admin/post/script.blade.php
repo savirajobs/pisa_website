@@ -6,6 +6,15 @@
 		}
 	});
 	$(document).ready(function() {
+		$('#insert_content, #edit_content').summernote({
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline']],
+                ['para', ['ol', 'paragraph']]
+            ],
+        });
+
+
+
 		var table = $('#posted').DataTable({
 			processing: true,
 			serverSide: true,

@@ -77,9 +77,11 @@
     </div>
 </div>
 <!-- About End -->
-
+{{-- @php
+dd($latest_programs)
+@endphp --}}
 <!-- Programs Start -->
-<div class="container-fluid program  py-5">
+<div class="container-fluid program py-5">
     <div class="container py-5">    
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;" >
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
@@ -87,257 +89,169 @@
             <h1 class="mb-5 display-3">We Offer An Exclusive Program For Kids</h1>
         </div>
         <div class="row g-5 justify-content-center">
-            @foreach($latest_programs as $post)
+            @foreach($latest_programs as $program)
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s" >
                 {{-- @foreach($latest_programs as $post) --}}
                 <div class="program-item rounded">
                     <div class="program-img position-relative">
+                    <a href="{{ route('frontend.program.show', ['slug' => $program->slug]) }}">
                         <div class="overflow-hidden img-border-radius">
-                        {{-- @if ($post->image_name && Storage::exists('public/images/posts/' . $post->image_name))
-                            <img src="{{ Storage::url('images/posts/' . $post->image_name) }}" 
-                            class="img-fluid w-100" alt="Image">
-                            <p> {{ Storage::url('images/posts/' . $post->image_name) }}</p>
+                        @if(is_null($program->image_name))
+                            <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid w-100" alt="Image" style= "height: 300px;">
                         @else
-                            <img src="{{ asset('storage/images/no-image.png') }}" 
-                            class="img-fluid w-100" alt="Image">
-                        @endif --}}
-                        <img src="{{ asset('/asset/img/' . $post->image_name) }}" class="img-fluid w-100" alt="Image" style= "height: 300px;">
+                            <img src="{{ asset('/asset/img/' . $program->image_name) }}" class="img-fluid w-100" alt="Image" style= "height: 300px;">
+                        @endif
+                        {{-- <img src="{{ asset('/asset/img/' . $post->image_name) }}" class="img-fluid w-100" alt="Image" style= "height: 300px;"> --}}
                         </div>                        
                         <div class="px-4 py-2 bg-primary text-white program-rate">Gratis</div>
+                    </a>
                     </div>
                     <div class="program-text bg-white px-4 pb-3">
-                        <div class="program-text-inner" style= "height: 100px;">
-                            <a href="#" class="h4">
-                            {{ $post->post_title }} </a>
+                    <a href="{{ route('frontend.program.show', ['slug' => $program->slug]) }}">
+                        <div class="program-text-inner" style= "height: 150px;">
+                            <a href="{{ route('frontend.program.show', ['slug' => $program->slug]) }}" class="h4" style="text-align:center;">
+                            {{ $program->post_title }} </a>
                             <p class="mt-3 mb-0">
-                            {{ $post->post_desc }}</p>
+                            {{ $program->short_desc ."..."}}</p>
                         </div>
+                    </a>
                     </div>
-                    <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3">
+                    <div class="program-teacher d-flex align-items-center border-top border-primary bg-white px-4 py-3 rounded">
                         <img src="{{ asset('asset/img/program-teacher.jpg') }}"
                             class="img-fluid rounded-circle p-2 border border-primary bg-white" alt="Image"
                             style="width: 70px; height: 70px;">
                         <div class="ms-3">
-                            <h6 class="mb-0 text-primary">{{ $post->user_name }}</h6>
+                            <h6 class="mb-0 text-primary">{{ $program->user_name }}</h6>
                             <small>Tim Penulis</small>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
+                    {{-- <div class="d-flex justify-content-between px-4 py-2 bg-primary rounded-bottom">
                         <small class="text-white"><i class="fas fa-wheelchair me-1"></i> 30 Sits</small>
                         <small class="text-white"><i class="fas fa-book me-1"></i> 11 Lessons</small>
                         <small class="text-white"><i class="fas fa-clock me-1"></i> 60 Hours</small>
-                    </div>
+                    </div> --}}
                 </div>
                 {{-- @endforeach --}}
                 </div>
             @endforeach
             </div>
             <div class="text-center wow fadeIn" data-wow-delay="0.1s" style= "margin-top: 50px;";>
-                <a href="#" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Vew All Programs</a>
+                <a href="{{ route('frontend.program.index') }}" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Vew All Programs</a>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Program End -->
-
-
+{{-- @php
+dd($latest_events)
+@endphp --}}
 <!-- Events Start -->
 <div class="container-fluid events py-5 bg-light">
     <div class="container py-5">
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                Kegiatan & Informasi</h4>
-            <h1 class="mb-5 display-3">Our Upcoming Events</h1>
+                Informasi</h4>
+            <h1 class="mb-5 display-3">Our Events</h1>
         </div>
+        @foreach($latest_events as $event)
         <div class="row g-5 justify-content-center">
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s">
                 <div class="events-item bg-primary rounded">
                     <div class="events-inner position-relative">
                         <div class="events-img overflow-hidden rounded-circle position-relative">
-                            <img src="{{ asset('asset/img/event-1.jpg') }}" class="img-fluid w-100 rounded-circle"
-                                alt="Image">
+                            @if(is_null($event->image_name))
+                                <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid w-100 rounded-circle"
+                                alt="Image" style="height: 300px;">
+                            @else
+                                <img src="{{ asset('/asset/img/' . $event->image_name) }}" class="img-fluid w-100 rounded-circle"
+                                alt="Image" style="height: 300px;">
+                            @endif
+                            {{-- <img src="{{ asset('asset/img/event-1.jpg') }}" class="img-fluid w-100 rounded-circle"
+                                alt="Image"> --}}
                             <div class="event-overlay">
-                                <a href="{{ asset('asset/img/event-1.jpg') }}" data-lightbox="event-1"><i
+                            @if(is_null($event->image_name))
+                                <a href="{{ asset('/asset/img/no-image.jpg') }}" data-lightbox="event-1"><i
                                         class="fas fa-search-plus text-white fa-2x"></i></a>
+                            @else
+                                <a href="{{ asset('/asset/img/' . $event->image_name) }}" data-lightbox="event-1"><i
+                                        class="fas fa-search-plus text-white fa-2x"></i></a>
+                            @endif
+                                {{-- <a href="{{ asset('asset/img/event-1.jpg') }}" data-lightbox="event-1"><i
+                                        class="fas fa-search-plus text-white fa-2x"></i></a> --}}
                             </div>
                         </div>
-                        <div class="px-4 py-2 bg-secondary text-white text-center events-rate">29 Nov</div>
+                        <div class="px-4 py-2 bg-secondary text-white text-center events-rate">Informasi</div>
                         <div class="d-flex justify-content-between px-4 py-2 bg-secondary">
-                            <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i> 10:00am -
-                                12:00pm</small>
-                            <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i> New
-                                York</small>
+                            <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i>  {{ \Carbon\Carbon::parse($event->created_ate)->format('d M Y') }}</small>
+                            {{-- <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i> New
+                                York</small> --}}
                         </div>
                     </div>
                     <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom">
-                        <a href="#" class="h4">Music & drawing workshop</a>
-                        <p class="mb-0 mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus
-                            consectetur,</p>
+                        <a href="#" class="h4"> {{ $event->post_title }}</a>
+                        <p class="mb-0 mt-3"> {{ $event->short_desc }}</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.3s">
-                <div class="events-item bg-primary rounded">
-                    <div class="events-inner position-relative">
-                        <div class="events-img overflow-hidden rounded-circle position-relative">
-                            <img src="{{ asset('asset/img/event-2.jpg') }}" class="img-fluid w-100 rounded-circle"
-                                alt="Image">
-                            <div class="event-overlay">
-                                <a href="{{ asset('asset/img/event-3.jpg') }}" data-lightbox="event-1"><i
-                                        class="fas fa-search-plus text-white fa-2x"></i></a>
-                            </div>
-                        </div>
-                        <div class="px-4 py-2 bg-secondary text-white text-center events-rate">29 Nov</div>
-                        <div class="d-flex justify-content-between px-4 py-2 bg-secondary">
-                            <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i> 10:00am -
-                                12:00pm</small>
-                            <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i> New
-                                York</small>
-                        </div>
-                    </div>
-                    <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom">
-                        <a href="#" class="h4">Why need study</a>
-                        <p class="mb-0 mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus
-                            consectetur,</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.5s">
-                <div class="events-item bg-primary rounded">
-                    <div class="events-inner position-relative">
-                        <div class="events-img overflow-hidden rounded-circle position-relative">
-                            <img src="{{ asset('asset/img/event-3.jpg') }}" class="img-fluid w-100 rounded-circle"
-                                alt="Image">
-                            <div class="event-overlay">
-                                <a href="{{ asset('asset/img/event-3.jpg') }}" data-lightbox="event-1"><i
-                                        class="fas fa-search-plus text-white fa-2x"></i></a>
-                            </div>
-                        </div>
-                        <div class="px-4 py-2 bg-secondary text-white text-center events-rate">29 Nov</div>
-                        <div class="d-flex justify-content-between px-4 py-2 bg-secondary">
-                            <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i> 10:00am -
-                                12:00pm</small>
-                            <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i> New
-                                York</small>
-                        </div>
-                    </div>
-                    <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom">
-                        <a href="#" class="h4">Child health consciousness</a>
-                        <p class="mb-0 mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed purus
-                            consectetur,</p>
-                    </div>
-                </div>
-            </div>
+            </div>        
         </div>
+        @endforeach
+    </div>
+    <div class="text-center wow fadeIn" data-wow-delay="0.1s" style= "margin-top: 25px;";>
+        <a href="#" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Vew All Events</a>
     </div>
 </div>
 <!-- Events End-->
-
-
+{{-- @php
+dd($latest_news)
+@endphp --}}
 <!-- Blog Start-->
 <div class="container-fluid blog py-5">
     <div class="container py-5">
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                 Berita</h4>
-            <h1 class="mb-5 display-3">Read Our Latest News & Blog</h1>
+            <h1 class="mb-5 display-3">Latest News & Blog</h1>
         </div>
+        @foreach($latest_news as $news)
         <div class="row g-5 justify-content-center">
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.1s">
                 <div class="blog-item rounded-bottom">
                     <div class="blog-img overflow-hidden position-relative img-border-radius">
-                        <img src="{{ asset('asset/img/blog-1.jpg') }}" class="img-fluid w-100" alt="Image">
+                    @if(is_null($news->image_name))
+                        <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid w-100" alt="Image" style="height: 300px;">
+                    @else
+                        <img src="{{ asset('/asset/img/' . $news->image_name) }}" class="img-fluid w-100" alt="Image" style="height: 300px;">
+                    @endif
+                        {{-- <img src="{{ asset('asset/img/blog-1.jpg') }}" class="img-fluid w-100" alt="Image"> --}}
                     </div>
                     <div
                         class="d-flex justify-content-between px-4 py-3 bg-light border-bottom border-primary blog-date-comments">
-                        <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i> 29 Nov 2023</small>
-                        <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small>
+                        <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i> {{ \Carbon\Carbon::parse($news->created_ate)->format('d M Y') }}</small>
+                        {{-- <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small> --}}
                     </div>
                     <div class="blog-content d-flex align-items-center px-4 py-3 bg-light">
                         <div class="overflow-hidden rounded-circle rounded-top border border-primary">
+                        {{-- @if(is_null($event->image_name))
+                            <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid rounded-circle p-2 rounded-top" alt="Image"
+                                style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
+                        @else
+                            <img src="{{ asset('/asset/img/' . $event->image_name) }}" class="img-fluid rounded-circle p-2 rounded-top" alt="Image"
+                                style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
+                        @endif --}}
                             <img src="{{ asset('asset/img/program-teacher.jpg') }}"
                                 class="img-fluid rounded-circle p-2 rounded-top" alt="Image"
                                 style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
                         </div>
                         <div class="ms-3">
-                            <h6 class="text-primary">Mary Mordern</h6>
-                            <p class="text-muted">Baby Care</p>
+                            <h6 class="text-primary">{{ $news->user_name }}</h6>
+                            <p class="text-muted">Tim Penulis</p>
                         </div>
                     </div>
                     <div class="px-4 pb-4 bg-light rounded-bottom">
                         <div class="blog-text-inner">
-                            <a href="#" class="h4">How to pay attention to your child?</a>
-                            <p class="mt-3 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed
-                                purus</p>
-                        </div>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">View
-                                Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.3s">
-                <div class="blog-item rounded-bottom">
-                    <div class="blog-img overflow-hidden position-relative img-border-radius">
-                        <img src="{{ asset('asset/img/blog-2.jpg') }}" class="img-fluid w-100" alt="Image">
-                    </div>
-                    <div
-                        class="d-flex justify-content-between px-4 py-3 bg-light border-bottom border-primary blog-date-comments">
-                        <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i> 29 Nov 2023</small>
-                        <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small>
-                    </div>
-                    <div class="blog-content d-flex align-items-center px-4 py-3 bg-light">
-                        <div class="overflow-hidden rounded-circle rounded-top border border-primary">
-                            <img src="{{ asset('asset/img/program-teacher.jpg') }}"
-                                class="img-fluid rounded-circle p-2 rounded-top" alt=""
-                                style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="text-primary">Mary Mordern</h6>
-                            <p class="text-muted">Baby Care</p>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 bg-light rounded-bottom">
-                        <div class="blog-text-inner">
-                            <a href="#" class="h4">Play outdoor sports with your child</a>
-                            <p class="mt-3 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed
-                                purus</p>
-                        </div>
-                        <div class="text-center">
-                            <a href="#" class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">View
-                                Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn" data-wow-delay="0.5s">
-                <div class="blog-item rounded-bottom">
-                    <div class="blog-img overflow-hidden position-relative img-border-radius">
-                        <img src="{{ asset('asset/img/blog-3.jpg') }}" class="img-fluid w-100" alt="Image">
-                    </div>
-                    <div
-                        class="d-flex justify-content-between px-4 py-3 bg-light border-bottom border-primary blog-date-comments">
-                        <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i> 29 Nov 2023</small>
-                        <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small>
-                    </div>
-                    <div class="blog-content d-flex align-items-center px-4 py-3 bg-light">
-                        <div class="overflow-hidden rounded-circle rounded-top border border-primary">
-                            <img src="{{ asset('asset/img/program-teacher.jpg') }}"
-                                class="img-fluid rounded-circle p-2 rounded-top" alt=""
-                                style="width: 70px; height: 70px; border-style: dotted; border-color: var(--bs-primary) !important;">
-                        </div>
-                        <div class="ms-3">
-                            <h6 class="text-primary">Mary Mordern</h6>
-                            <p class="text-muted">Baby Care</p>
-                        </div>
-                    </div>
-                    <div class="px-4 pb-4 bg-light rounded-bottom">
-                        <div class="blog-text-inner">
-                            <a href="#" class="h4">How to make time for your kids?</a>
-                            <p class="mt-3 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed
-                                purus</p>
+                            <a href="#" class="h4">{{ $news->post_title }}</a>
+                            <p class="mt-3 mb-4">{{ $news->short_desc }}</p>
                         </div>
                         <div class="text-center">
                             <a href="#" class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">View
@@ -347,6 +261,7 @@
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
 <!-- Blog End-->
@@ -358,7 +273,7 @@
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
             <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                 Galeri Foto</h4>
-            <h1 class="mb-5 display-3">Meet With Our Expert Teacher</h1>
+            <h1 class="mb-5 display-3">Dokumentasi Kegiatan</h1>
         </div>
         <div class="row g-5 justify-content-center">
             <div class="col-md-6 col-lg-4 col-xl-3 wow fadeIn" data-wow-delay="0.1s">

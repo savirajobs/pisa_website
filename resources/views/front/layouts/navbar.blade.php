@@ -20,6 +20,9 @@
         </div>
     </div>
     <div class="container px-0">
+        {{-- <a href="index.html" class="navbar-brand">
+            <img src="{{ asset('asset/img/pisa-logo.png') }}" style="width: 100%px; height: 100%; text-align=center;">
+        </a> --}}
         <nav class="navbar navbar-light navbar-expand-xl py-3">
             <a href="index.html" class="navbar-brand">
                 <img src="{{ asset('asset/img/pisa-logo.png') }}" style="width: 190px; height: 150px;">

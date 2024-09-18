@@ -61,6 +61,10 @@
 		integrity="sha512-lo4YgiwkxsVIJ5mex2b+VHUKlInSK2pFtkGFRzHsAL64/ZO5vaiCPmdGP3qZq1h9MzZzghrpDP336ScWugUMTg=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="{{ asset('asset/js/front/main.js') }}"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	
 </body>
 
 </html>
