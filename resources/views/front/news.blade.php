@@ -11,7 +11,6 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="#">Beranda</a></li>
-                    {{-- <li class="breadcrumb-item"><a href="#">Event</a></li> --}}
                     <li class="breadcrumb-item text-white" aria-current="page">Berita & Informasi</li>
                 </ol>
             </nav>
@@ -25,57 +24,47 @@
 
     <!-- Display Berita -->
     <div class="container-fluid blog py-5">
-        <div class="container py-5">
+        <div class="col-xl-7 container py-5" >
             {{-- <div class="container"> --}}
-            <div class="col-9">
-                <div class="text-center border-primary border bg-white">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <div class="col-4">
-                            <img src="{{ asset('asset/img/blog-1.jpg') }}" class="img-fluid w-100" style="margin-top=15px; margin-bottom=15px;" alt="Image">
-                        </div>
-                        <div class="col-7">
-                            <div class="service-content-inner">
-                                <a href="#" class="h4">Study & Game</a>
-                                <p class="my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, culpa
-                                    qui
-                                    officiis animi Lorem ipsum dolor sit amet,
-                                    consectetur adipisicing elit.</p>
-                                <a href="#" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
-                                    More</a>
+            @forelse ($latest_news as $news)
+                <div class="col-xl-12">
+                    <div class="text-center bg-light">
+                        <div class="d-flex align-items-stretch justify-content-center"
+                            style="margin-top: 5%; margin-bottom: 5%;">
+                            <div class="col-4 d-flex align-items-center">
+                                @if (is_null($news->image_name))
+                                    <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid w-100" alt="Image"
+                                        style= "height: 300px;">
+                                @else
+                                    <img src="{{ asset('/images/' . $news->image_name) }}" class="img-fluid w-100"
+                                        style="height: 300px;" alt="Image">
+                                @endif
+                            </div>
+                            <div class="col-8 d-flex flex-column justify-content-center">
+                                <div class="service-content-inner" style="padding-left: 20px; padding-right: 20px;">
+                                    <a href="{{ route('frontend.news.show', ['slug' => $news->slug]) }}">
+                                        <h4>{{ $news->post_title }}</h4>
+                                    </a>
+                                    <a href ="{{ route('frontend.news.show', ['slug' => $news->slug]) }}">
+                                        <p class="my-3">{!! $news->short_desc . '...' !!}</p>
+                                    </a>
+                                    <a href="{{ route('frontend.news.show', ['slug' => $news->slug]) }}"
+                                        class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read
+                                        More</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {{-- 
-            <div class="text-center border-primary border bg-white">
-                <div class="d-flex align-items-center justify-content-center">
-                    <div class="service-content-inner"> --}}
-                {{-- <div class="p-4"><i class="fas fa-gamepad fa-6x text-primary"></i></div> --}}
-                {{-- <a href="#" class="h4">Study & Game</a>
-                        <p class="my-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, culpa qui
-                            officiis animi Lorem ipsum dolor sit amet,
-                            consectetur adipisicing elit.</p>
-                        <a href="#" class="btn btn-primary text-white px-4 py-2 my-2 btn-border-radius">Read More</a>
-                    </div>
-                </div>
-            </div>
-            </div> --}}
-                {{-- <div class="col-9">
-                <h2>Judul</h2>
-            </div>
-            <div class="col-4">
-                <img src="{{ asset('asset/img/blog-1.jpg') }}" class="img-fluid w-100" alt="Image">
-            </div>
-            <div class="col-6">industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-                an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not
-                only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </div> --}}
+            @empty
+                <span style="text-align:center;">No Items Found</span>
+            @endforelse
+            <!-- Pagination links -->
+            <div class="pagination justify-content-end">
+                {{ $latest_news->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
-    <!-- Berita End -->
+
 
 @endsection

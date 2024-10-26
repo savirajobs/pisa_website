@@ -34,25 +34,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="index.html" class="nav-item nav-link active">Beranda</a>
+                    <a href="{{ route('frontend.index') }}" class="nav-item nav-link active">Home</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profil</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="blog.html" class="dropdown-item">Sekretariat</a>
+                            <a href="{{ route('frontend.profile') }}" class="dropdown-item">Sekretariat</a>
                             <a href="testimonial.html" class="dropdown-item">Dasar Hukum</a>
                         </div>
                     </div>
-                    <a href="about.html" class="nav-item nav-link">Berita</a>
-                    <a href="about.html" class="nav-item nav-link">Program Anak</a>
-                    <a href="program.html" class="nav-item nav-link">Fasilitas</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Galeri</a>
+                    <a href="{{ route('frontend.news.index') }}" class="nav-item nav-link">Berita</a>
+                    <a href="{{ route('frontend.program.index') }}" class="nav-item nav-link">Program Anak</a>
+                    <a href="{{ route('frontend.facility.index') }}" class="nav-item nav-link">Fasilitas</a>
+                    <a href="{{ route('frontend.images.index') }}" class="nav-item nav-link">Galeri</a>
+                    {{-- <div class="nav-item dropdown">
+                        <a href="{{ route('frontend.images.index') }}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Galeri</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="blog.html" class="dropdown-item">Galeri Foto</a>
-                            <a href="team.html" class="dropdown-item">Galeri Video</a>
+                            <a href="{{ route('frontend.images.index') }}" class="dropdown-item">Images Gallery</a>
+                            <a href="#" class="dropdown-item">Video Gallery</a>
                         </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Konsultasi & Pengaduan</a>
+                    </div> --}}
+                    <a href="#" class="nav-item nav-link">Konsultasi & Pengaduan</a>
                 </div>
                 <div class="d-flex me-4">
                     <div id="phone-tada" class="d-flex align-items-center justify-content-center">

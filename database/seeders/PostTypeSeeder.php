@@ -16,20 +16,28 @@ class PostTypeSeeder extends Seeder
     {
         $post_types = [
 			[
-                'type_id' => 'CT',
-				'type_desc' => 'Content',
+                'type_id' => 'NW',
+				'type_desc' => 'News',
+        	],
+			[
+                'type_id' => 'IF',
+				'type_desc' => 'Information',
         	],
 			[
 				'type_id' => 'CP',
-				'type_desc' => 'ChildProgram',
+				'type_desc' => 'Child Program',
         	],
-            [
+			[
 				'type_id' => 'FC',
 				'type_desc' => 'Facility',
         	],
             [
 				'type_id' => 'LW',
 				'type_desc' => 'Law/Legal',
+        	],
+			[
+				'type_id' => 'MD',
+				'type_desc' => 'Gallery',
         	],
 		];
 		foreach ($post_types as $data) {

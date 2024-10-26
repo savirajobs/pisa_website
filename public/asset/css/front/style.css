@@ -591,10 +591,10 @@ h6,
 
 .team .team-item .team-icon {
     position: absolute;
-    bottom: 120px;
+    bottom: 120px; 
     left: 50%;
     transform: translateX(-50%);
-}
+ }
 
 .team .team-item .team-icon a.share-link {
     opacity: 0;

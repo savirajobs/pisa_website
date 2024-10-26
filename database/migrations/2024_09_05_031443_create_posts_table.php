@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('post_type');
             $table->integer('is_publish'); // 0 = not published, 1 = published
             $table->integer('category_id')->nullable();
-            $table->datetime('published_at')->nullable();
-            $table->datetime('upcoming_date')->nullable();
+            $table->datetime('event_at')->nullable();
+            $table->string('notes')->nullable();
+            //$table->datetime('upcoming_date')->nullable();
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->timestamps();
