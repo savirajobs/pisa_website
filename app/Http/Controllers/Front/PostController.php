@@ -51,7 +51,7 @@ class PostController extends Controller
         //get all news & information
         $incl_type = ['NW', 'IF'];
 
-        $data = Post::with('media','users')
+        $data = Post::with('media', 'users')
             ->where('slug', $slug)
             ->where('is_publish', 1)
             ->wherein('post_type', $incl_type)
@@ -59,7 +59,7 @@ class PostController extends Controller
 
         $filenames = $data->media->pluck('file_name')->toArray();
         $user = $data->users->name;
-    
+
         //get related posts
         $subquery = DB::table('media')
             ->select('post_id', DB::raw('MIN(file_name) as file_name'))
@@ -89,7 +89,7 @@ class PostController extends Controller
             ->limit(4)
             ->get();
 
-        return view('front.news-detail', ['news' => $data, 'filenames' => $filenames, 'relatednews' => $relatednews, 'user'=>$user]);
+        return view('front.news-detail', ['news' => $data, 'filenames' => $filenames, 'relatednews' => $relatednews, 'user' => $user]);
     }
 
     public function index_facility()
@@ -147,17 +147,43 @@ class PostController extends Controller
             'posts.post_id',
             'posts.slug',
             'posts.post_title',
+            'posts.post_desc',
+            'posts.category_id',
+            'posts.notes',
             'users.name',
             'posts.is_publish',
             'posts.created_at',
-            'posts.created_by'
+            'posts.created_by',
+            'media.file_name'
         ])
             ->join('users', 'posts.created_by', '=', 'users.id')
             ->leftjoin('media', 'posts.post_id', '=', 'media.post_id')
             ->where('posts.is_publish', 1)
+            // ->where('posts.category_id','=',99)
             ->where('posts.post_type', '=', 'PROFILE')
-            ->get();
+            ->first();
 
-        return view('front.profile', compact('profile'));
+        $secretary = Post::select([
+            'posts.post_id',
+            'posts.slug',
+            'posts.post_title',
+            'posts.post_desc',
+            'posts.category_id',
+            'posts.notes',
+            'users.name',
+            'posts.is_publish',
+            'posts.created_at',
+            'posts.created_by',
+            'media.file_name'
+        ])
+            ->join('users', 'posts.created_by', '=', 'users.id')
+            ->leftjoin('media', 'posts.post_id', '=', 'media.post_id')
+            ->where('posts.is_publish', 1)
+            // ->where('posts.category_id','=',99)
+            ->where('posts.post_type', '=', 'SECRETARY')
+            ->first();
+
+
+        return view('front.profile', ['profile' => $profile, 'secretary' => $secretary]);
     }
 }

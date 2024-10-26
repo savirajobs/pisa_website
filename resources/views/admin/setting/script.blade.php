@@ -128,6 +128,7 @@
                         $('#post_id').val(response.data.post_id);
                         $('#editPostTitle').val(response.data.post_title);
                         $('#editpost_desc').summernote('code', response.data.post_desc);
+                        $('#editembedvideo').val(response.data.notes); 
 
                         $.ajax({
                             url: "{{ route('admin.setting.media') }}",

@@ -42,7 +42,7 @@
             display: flex;
             align-items: center;
             background-color: #ADD8E6;
-            height: 30px;
+            height: 50px;
             /* Sesuaikan tinggi sesuai kebutuhan */
         }
 
@@ -52,6 +52,7 @@
             background-color: lightpink;
             /* Agar span memenuhi lebar */
             height: 100%;
+            height: 50px;
             /* Agar span memenuhi tinggi */
             display: flex;
             align-items: center;
@@ -75,12 +76,13 @@
                         Informasi
                     @endif
                 </h4>
-                <h1 class="mb-5 display-4">{{ $news->post_title }}</h1>
+                <h1 class="mb-5 display-6">{{ $news->post_title }}</h1>
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="program-img position-relative">
-                    <p style="text-align:center;">by {{ $user }} - {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('l, d F Y') }}</p>
-                    
+                    <p style="text-align:center;">by {{ $user }} -
+                        {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('l, d F Y') }}</p>
+
                     <div id="carouselExample" class="carousel slide">
                         <div class="carousel-inner">
                             @foreach ($filenames as $index => $filename)
@@ -106,6 +108,24 @@
                     <p style="text-align: justify; font-size: 110%;">
                         {!! $news->post_desc !!}
                     </p>
+                    <div class="top-link d-flex gap-3 pe-2" style="justify-content: center; align-items: center;">                        
+                        <!-- Share to Facebook -->
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                            class="btn btn-secondary btn-sm-square rounded-circle"><i
+                                class="fab fa-facebook-f text-white fa-lg"></i></a>
+                        <!-- Share to Twitter -->
+                        <a href="https://twitter.com/intent/tweet?text={{ urlencode($news->post_title) }}&url={{ urlencode(request()->fullUrl()) }}"
+                            class="btn btn-secondary btn-sm-square rounded-circle"><i
+                                class="fab fa-twitter text-white fa-lg"></i></a>
+                        <!-- Share to Whatsapp -->
+                        <a href="https://wa.me/?text={{ urlencode($news->post_title . ' ' . request()->fullUrl()) }}"
+                            class ="btn btn-secondary btn-sm-square rounded-circle"><i
+                                class="fab fa-whatsapp text-white fa-lg"></i></a>
+                        <!-- Share to LinkedIn -->
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->fullUrl()) }}"
+                            class="btn btn-secondary btn-sm-square rounded-circle me-0"><i
+                                class="fab fa-linkedin-in text-white fa-lg"></i></a>
+                    </div>
                 </div>
                 <div class="container-full justify related-news-label">
                     <h5><span>Berita Lainnya:</span></h5>
@@ -115,16 +135,21 @@
                         @forelse ($relatednews as $relatednews)
                             <div class="col-xl-3 col-md-4 col-sm-6">
                                 <div class="card" style="width: 18rem;">
-                                    @if (is_null($relatednews->image_name))
-                                        <img class="card-img-top" src="{{ asset('/asset/img/no-image.jpg') }}"
-                                            style="height:215px;">
-                                    @else
-                                        <img class="card-img-top" src="{{ asset('/images/' . $relatednews->image_name) }}"
-                                            style="height:215px;">
-                                    @endif
+                                    <a href="{{ route('frontend.news.show', ['slug' => $relatednews->slug]) }}">
+                                        @if (is_null($relatednews->image_name))
+                                            <img class="card-img-top" src="{{ asset('/asset/img/no-image.jpg') }}"
+                                                style="height:215px;">
+                                        @else
+                                            <img class="card-img-top"
+                                                src="{{ asset('/images/' . $relatednews->image_name) }}"
+                                                style="height:215px;">
+                                        @endif
+                                    </a>
                                     {{-- <img class="card-img-top" src="..." alt="Card image cap"> --}}
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ $relatednews->post_title }}</h5>
+                                        <a href="{{ route('frontend.news.show', ['slug' => $relatednews->slug]) }}">
+                                            <h5 class="card-title">{{ $relatednews->post_title }}</h5>
+                                        </a>
                                         <p class="card-text"><small class="text-muted">
                                                 {{-- {{ dd($relatednews) }} --}}
                                                 {{ \Carbon\Carbon::parse($relatednews->created_at)->translatedFormat('d F Y') }}

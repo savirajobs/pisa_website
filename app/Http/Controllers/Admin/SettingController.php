@@ -105,9 +105,11 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request->embed_video);
+
         $validator = Validator::make($request->all(), [
-            'post_desc' => 'required',
-            'images.*'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'post_desc' => 'required'
+            //'images.*'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ], [
             'required' => ':attribute wajib diisi.',
             'string'   => ':attribute harus berupa teks.',
@@ -161,6 +163,7 @@ class SettingController extends Controller
                 ->update([
                     'post_desc'     => $request->post_desc,
                     'updated_by'    => Auth::user()->id,
+                    'notes'         => $request->embed_video,
                     'updated_at'    => $date
                 ]);
 
@@ -171,7 +174,8 @@ class SettingController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'An error occurred while updating Post'
+                'message' => 'An error occurred while updating Post',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

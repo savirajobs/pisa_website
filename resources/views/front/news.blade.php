@@ -23,9 +23,11 @@
     <!-- Kegiatan & Informasi End -->
 
     <!-- Display Berita -->
-    <div class="container-fluid blog py-5">
+    <div class=" row container-fluid blog py-5">
         <div class="col-xl-7 container py-5" >
             {{-- <div class="container"> --}}
+            <h5>Berita terbaru</h5>
+            <hr style="border: 2px solid #d63384; width: 100%; margin: 20px auto;"> 
             @forelse ($latest_news as $news)
                 <div class="col-xl-12">
                     <div class="text-center bg-light">

@@ -18,52 +18,73 @@
         </div>
     </div>
     <!-- Page Header End -->
+{{-- 
+    @php
+        dd($profile);
+    @endphp --}}
 
     <!-- About Start -->
     <div class="container-fluid py-5 about bg-light">
         <div class="container py-5">
             <div class="row g-5 align-items-center">
-                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="video border"
-                        style="background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url({{ asset('asset/img/about.jpg') }});">
-                        <button type="button" class="btn btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
+                @if (is_null($profile->notes))
+                    <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s" style="height:375px;">
+                        @if (is_null($profile->file_name))
+                            <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid w-100" alt="Image"
+                                style= "height: 100%;">
+                        @else
+                            <img src="{{ asset('/images/' . $profile->file_name) }}" class="img-fluid w-100" alt="Image"
+                                style="height: 100%; ">
+                        @endif
                     </div>
-                </div>
-                @forelse ($profile as $post)
-                    <div class="col-lg-7 wow fadeIn" data-wow-delay="0.3s">
-                        <h4
-                            class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                            Tentang PISA</h4>
-                        <h1 class="text-dark mb-4 display-5">{{ $post->post_title }}</h1>
-                        <p class="text-dark mb-4">{!! $post->post_desc !!}
-                        </p>
-                        <div class="row mb-4">
-                            <div class="col-lg-6">
-                                <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Sport Activites</h6>
-                                <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Outdoor Games</h6>
-                                <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-secondary"></i>Nutritious Foods
-                                </h6>
-                            </div>
-                            <div class="col-lg-6">
-                                <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Highly Secured</h6>
-                                <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Friendly Environment
-                                </h6>
-                                <h6><i class="fas fa-check-circle me-2 text-secondary"></i>Qualified Teacher</h6>
-                            </div>
+                @else
+                    <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                        {{-- <div class="video border"
+                            style="background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url({{ asset('asset/img/about.jpg') }});">
+                            <button type="button" class="btn btn-play" data-bs-toggle="modal"
+                                data-src="https://www.youtube.com/watch?v=Olm4j04rMMI" data-bs-target="#videoModal">
+                                <span></span>
+                            </button>
+                        </div> --}}
+                        <iframe width="100%" height="375"
+                            src="https://www.youtube.com/embed/Olm4j04rMMI?si=lHzUo-COgP6C93O4?autoplay=1&mute=1">
+                        </iframe>
+                    </div>
+                @endif
+
+                {{-- @php
+                    dd($profile);
+                @endphp --}}
+
+
+                <div class="col-lg-7 wow fadeIn" data-wow-delay="0.3s">
+                    <h4
+                        class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
+                        Tentang PISA</h4>
+                    <h1 class="text-dark mb-4 display-5">{{ $profile->post_title }}</h1>
+                    <p class="text-dark mb-4">{!! $profile->post_desc !!}
+                    </p>
+                    <div class="row mb-4">
+                        <div class="col-lg-6">
+                            <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Sport Activites</h6>
+                            <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Outdoor Games</h6>
+                            <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-secondary"></i>Nutritious Foods
+                            </h6>
                         </div>
-                        {{-- <a href="" class="btn btn-primary px-5 py-3 btn-border-radius">More Details</a> --}}
+                        <div class="col-lg-6">
+                            <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Highly Secured</h6>
+                            <h6 class="mb-3"><i class="fas fa-check-circle me-2 text-primary"></i>Friendly Environment
+                            </h6>
+                            <h6><i class="fas fa-check-circle me-2 text-secondary"></i>Qualified Teacher</h6>
+                        </div>
                     </div>
-                @empty
-                    <span style="text-align:center;">No Items Found</span>
-                @endforelse
+                    {{-- <a href="" class="btn btn-primary px-5 py-3 btn-border-radius">More Details</a> --}}
+                </div>
             </div>
         </div>
     </div>
     <!-- Modal Video -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content rounded-0">
                 <div class="modal-header">
@@ -79,18 +100,27 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- About End -->
 
+    {{-- @php
+dd($secretary)
+@endphp --}}
+
     <!-- Sekretariat -->
-    <div class="container-fluid program  py-5">
+    <div class="container-fluid program py-5">
         <div class="container py-5">
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
-                <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                    Sekretariat</h4>
-                <h1 class="mb-5 display-3">$team->post_title</h1>
+                {{-- <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
+                    {{ $secretary->post_title }}</h4> --}}
+                <h1 class="text-dark mb-4 display-5"> {{ $secretary->post_title }}</h1>
             </div>
             <div class="row g-5 justify-content-center">
+                @if ($secretary)
+                    <p>{!! $secretary->post_desc !!}</p>
+                @else
+                    <p>Deskripsi tidak tersedia.</p>
+                @endif
             </div>
         </div>
     </div>

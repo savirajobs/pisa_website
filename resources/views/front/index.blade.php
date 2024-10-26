@@ -164,7 +164,7 @@ dd($latest_programs)
                     @endforeach
                 @else
                     <!-- Kode jika $items kosong -->
-                    <span style="text-align:center;">Postingan tidak ditemukan</span>
+                    <span style="text-align:center;">Program tidak ditemukan</span>
                 @endif
             </div>
             <div class="text-center wow fadeIn" data-wow-delay="0.1s" style= "margin-top: 50px;";>
@@ -245,7 +245,7 @@ dd($latest_events)
                     @endforeach
                 @else
                     <!-- Kode jika $items kosong -->
-                    <span style="text-align:center;">Postingan tidak ditemukan</span>
+                    <span style="text-align:center;">Informasi tidak ditemukan</span>
                 @endif
             </div>
         </div>
@@ -301,7 +301,7 @@ dd($latest_news)
                     @endforeach
                 @else
                     <!-- Kode jika $items kosong -->
-                    <span style="text-align:center;">Postingan tidak ditemukan</span>
+                    <span style="text-align:center;">Berita tidak ditemukan</span>
                 @endif
             </div>
         </div>
@@ -351,7 +351,7 @@ dd($img_gallery)
                     @endforeach
                 @else
                     <!-- Kode jika $items kosong -->
-                    <span style="text-align:center;">Postingan tidak ditemukan</span>
+                    <span style="text-align:center;">Galeri tidak ditemukan</span>
                 @endif
             </div>
         </div>

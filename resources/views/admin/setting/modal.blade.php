@@ -22,7 +22,7 @@
                     <div class="mb-3">
                         <!-- PENGULANGAN GAMBAR UNTUK MENAMPILKAN GAMBAR DARI TABEL PHOTOS ADA DI SINI -->
                         <div class="form-group">
-                            <label for="images" class="form-label">Image Saved</label>
+                            <label for="images" class="form-label">Media Tersimpan</label>
                             <div class="overflow-auto">
                                 <div id="image-list" class="row d-flex flex-nowrap">
                                     <!-- Photos will be dynamically added here -->
@@ -31,10 +31,15 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="uploadImage" class="form-label">Change Image</label>
+                        <label for="uploadImage" class="form-label">Ubah Media</label>
                         <input type="file" name="images[]" class="form-control" id="uploadImage">
                         <div id="imagePreview" class="row mt-3"></div>
-                    </div>                    
+                    </div>
+                    <div class="mb-3">
+                        <label for="embed_video" class="form-label">Embedded Video</label>
+                        <input type="text" class="form-control" id="editembedvideo" name="embed_video"
+                            placeholder="-- tambahkan embedded video --">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
