@@ -19,26 +19,48 @@ class MediaController extends Controller
 
     function apis(Request $request)
     {
-        $posts = Post::select([
-            'posts.post_id',
-            'posts.post_title',
-            'posts.slug',
-            'posts.post_desc',
-            'posts.post_type',
-            'posts.created_at',
-            'posts.created_by',
-            'users.name',
-            DB::raw("CASE WHEN posts.is_publish = 1 THEN 'Ya' ELSE 'Tidak' END as is_publish"),
-            DB::raw('MIN(media.media_id) as media_id')
-        ])
-            ->join('users', 'posts.created_by', '=', 'users.id')
-            ->join('media', 'posts.post_id', '=', 'media.post_id')
-            // ->where(DB::raw('posts.post_type'), '=', DB::raw("'MD'"))
-            ->where('posts.post_type', '=', 'MD')
-            ->WHERE('posts.category_id', '=', 6)
-            ->groupBy('posts.post_id', 'posts.post_title', 'posts.slug', 'posts.post_desc', 'posts.post_type', 'posts.created_at', 'posts.created_by', 'users.name', 'posts.is_publish')
-            ->orderBy('posts.created_at', 'desc')
-            ->get();
+        if (Auth::user()->role == 'super-admin') {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.post_title',
+                'posts.slug',
+                'posts.post_desc',
+                'posts.post_type',
+                'posts.created_at',
+                'posts.created_by',
+                'users.name',
+                DB::raw("CASE WHEN posts.is_publish = 1 THEN 'Ya' ELSE 'Tidak' END as is_publish"),
+                DB::raw('MIN(media.media_id) as media_id')
+            ])
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->leftjoin('media', 'posts.post_id', '=', 'media.post_id')
+                ->where('posts.post_type', '=', 'MD')
+                ->WHERE('posts.category_id', '=', 1)
+                ->groupBy('posts.post_id', 'posts.post_title', 'posts.slug', 'posts.post_desc', 'posts.post_type', 'posts.created_at', 'posts.created_by', 'users.name', 'posts.is_publish')
+                ->orderBy('posts.created_at', 'desc')
+                ->get();
+        } else {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.post_title',
+                'posts.slug',
+                'posts.post_desc',
+                'posts.post_type',
+                'posts.created_at',
+                'posts.created_by',
+                'users.name',
+                DB::raw("CASE WHEN posts.is_publish = 1 THEN 'Ya' ELSE 'Tidak' END as is_publish"),
+                DB::raw('MIN(media.media_id) as media_id')
+            ])
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->leftjoin('media', 'posts.post_id', '=', 'media.post_id')
+                ->where('posts.post_type', '=', 'MD')
+                ->WHERE('posts.category_id', '=', 1)
+                ->groupBy('posts.post_id', 'posts.post_title', 'posts.slug', 'posts.post_desc', 'posts.post_type', 'posts.created_at', 'posts.created_by', 'users.name', 'posts.is_publish')
+                ->orderBy('posts.created_at', 'desc')
+                ->where('posts.created_by', '=', Auth::user()->id)
+                ->get();
+        }
 
         // $sqlQuery = $posts->toSql();
         // dd($sqlQuery);
@@ -53,8 +75,7 @@ class MediaController extends Controller
                         </a>
                         <a data-id="' . $posts['post_id'] . '" href="#" class="btn btn-danger btn-sm btn-delete" title="Hapus">
                         <i class="bi bi-trash3"></i>
-                        </a> 
-';
+                        </a>';
                 return $btn;
             })
             ->editColumn(
@@ -68,28 +89,44 @@ class MediaController extends Controller
             ->make(true);
     }
 
-    function getVideo(Request $request)
+    function videos(Request $request)
     {
-        $videos = Post::select([
-            'posts.post_id',
-            'posts.post_title',
-            'posts.slug',
-            'posts.post_desc',
-            'posts.post_type',
-            'posts.created_at',
-            'posts.created_by',
-            'users.name',
-            DB::raw("CASE WHEN posts.is_publish = 1 THEN 'Ya' ELSE 'Tidak' END as is_publish"),
-            DB::raw('MIN(media.media_id) as media_id')
-        ])
-            ->join('users', 'posts.created_by', '=', 'users.id')
-            ->join('media', 'posts.post_id', '=', 'media.post_id')
-            // ->where(DB::raw('posts.post_type'), '=', DB::raw("'MD'"))
-            ->where('posts.post_type', '=', 'MD')
-            ->where('posts.category_id', '=', 7)
-            ->groupBy('posts.post_id', 'posts.post_title', 'posts.slug', 'posts.post_desc', 'posts.post_type', 'posts.created_at', 'posts.created_by', 'users.name', 'posts.is_publish')
-            ->orderBy('posts.created_at', 'desc')
-            ->get();
+        if (Auth::user()->role == 'super-admin') {
+            $videos = Post::select([
+                'posts.post_id',
+                'posts.post_title',
+                'posts.slug',
+                'posts.post_desc',
+                'posts.post_type',
+                'posts.created_at',
+                'posts.created_by',
+                'users.name',
+                DB::raw("CASE WHEN posts.is_publish = 1 THEN 'Ya' ELSE 'Tidak' END as is_publish")
+            ])
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('posts.post_type', '=', 'MD')
+                ->where('posts.category_id', '=', 2)
+                ->orderBy('posts.created_at', 'desc')
+                ->get();
+        } else {
+            $videos = Post::select([
+                'posts.post_id',
+                'posts.post_title',
+                'posts.slug',
+                'posts.post_desc',
+                'posts.post_type',
+                'posts.created_at',
+                'posts.created_by',
+                'users.name',
+                DB::raw("CASE WHEN posts.is_publish = 1 THEN 'Ya' ELSE 'Tidak' END as is_publish")
+            ])
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('posts.post_type', '=', 'MD')
+                ->where('posts.category_id', '=', 2)
+                ->orderBy('posts.created_at', 'desc')
+                ->where('posts.created_by', '=', Auth::user()->id)
+                ->get();
+        }
 
         // $sqlQuery = $posts->toSql();
         // dd($sqlQuery);
@@ -99,13 +136,12 @@ class MediaController extends Controller
                 $btn = '';
 
                 $btn .= '
-                        <a data-id="' . $videos['post_id'] . '" href="#" class="btn btn-warning btn-sm btn-editVideo" title="Edit">
+                        <a data-id="' . $videos['post_id'] . '" href="#" class="btn btn-warning btn-sm btn-video-edit" title="Edit">
                         <i class="bi bi-pencil-square"></i>
                         </a>
                         <a data-id="' . $videos['post_id'] . '" href="#" class="btn btn-danger btn-sm btn-delete" title="Hapus">
                         <i class="bi bi-trash3"></i>
-                        </a> 
-';
+                        </a>';
                 return $btn;
             })
             ->editColumn(
@@ -126,7 +162,7 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->category_id == 6){
+        if ($request->category_id == 1) {
             $validator = Validator::make($request->all(), [
                 'post_title'        => 'required|string|max:100',
                 'post_desc'         => 'nullable|string|max:100',
@@ -136,21 +172,18 @@ class MediaController extends Controller
                 'required' => ':attribute wajib diisi.',
                 'string'   => ':attribute harus berupa teks.',
                 'max'      => ':attribute tidak boleh lebih dari :max karakter.',
-                'email'    => 'Format :attribute tidak valid.',
                 'unique'   => ':attribute sudah terdaftar.',
                 'min'      => ':attribute harus memiliki minimal :min karakter.',
             ]);
-        }else{
+        } else {
             $validator = Validator::make($request->all(), [
                 'post_title'        => 'required|string|max:100',
                 'post_desc'         => 'nullable|string|max:100',
-                'videos.*'          => 'required|mimes:mp4,avi,mpeg4|max:20480',
                 'is_publish'        => 'required'
             ], [
                 'required' => ':attribute wajib diisi.',
                 'string'   => ':attribute harus berupa teks.',
                 'max'      => ':attribute tidak boleh lebih dari :max karakter.',
-                'email'    => 'Format :attribute tidak valid.',
                 'unique'   => ':attribute sudah terdaftar.',
                 'min'      => ':attribute harus memiliki minimal :min karakter.',
             ]);
@@ -194,22 +227,22 @@ class MediaController extends Controller
                 'current' => $number,
             ]);
 
-        // Simpan data post
-        $post = Post::create([
-            'post_id'       => $post_id,
-            'post_title'    => $request->post_title,
-            'slug'          => $slug,
-            //'slug'          => Str::of($request->post_title)->slug('-'),
-            'post_desc'     => $request->post_desc,
-            'post_type'     => $post_type,
-            'is_publish'    => $request->is_publish,
-            'category_id'   => $request->category_id,
-            'created_by'    => Auth::user()->id,
-            'created_at'    => now()
-        ]);
-
         // Simpan data foto / video
-        if ($request->category_id == 6){
+        if ($request->category_id == 1) {
+            // Simpan data post
+            $post = Post::create([
+                'post_id'       => $post_id,
+                'post_title'    => $request->post_title,
+                'slug'          => $slug,
+                //'slug'          => Str::of($request->post_title)->slug('-'),
+                'post_desc'     => $request->post_desc,
+                'post_type'     => $post_type,
+                'is_publish'    => $request->is_publish,
+                'category_id'   => $request->category_id,
+                'created_by'    => Auth::user()->id,
+                'created_at'    => now()
+            ]);
+
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $extension = $image->getClientOriginalExtension();
@@ -223,29 +256,23 @@ class MediaController extends Controller
                         'created_at'    => now()
                     ]);
                 }
-                // return redirect()->route('admin.gallery.index');
-                return response()->json(['success' => 'Media has been added successfully.']);
             }
-        }else{
-            if ($request->hasFile('videos')) {
-                foreach ($request->file('videos') as $video) {
-                    $extension = $video->getClientOriginalExtension();
-                    $name = date('dmY') . '_' . uniqid() . '-' . $post_id . '.' . $extension;
-                    $video->move(public_path('videos'), $name);
-
-                    Media::create([
-                        'post_id'       => $post_id,
-                        'file_name'     => $name,
-                        'created_by'    => Auth::user()->id,
-                        'created_at'    => now()
-                    ]);
-                }
-                // return redirect()->route('admin.gallery.index');
-                return response()->json(['success' => 'Media has been added successfully.']);
-            }
+        } else {
+            $post = Post::create([
+                'post_id'       => $post_id,
+                'post_title'    => $request->post_title,
+                'slug'          => $slug,
+                'notes'         => $request->notes,
+                'post_desc'     => $request->post_desc,
+                'post_type'     => $post_type,
+                'is_publish'    => $request->is_publish,
+                'category_id'   => $request->category_id,
+                'created_by'    => Auth::user()->id,
+                'created_at'    => now()
+            ]);
         }
-
-        return redirect()->back()->with('error', 'Failed to insert to the database');
+        return response()->json(['success' => 'Media has been added successfully.']);
+        //return redirect()->back()->with('error', 'Failed to insert to the database');
     }
 
     //Show the form for editing the specified resource. 
@@ -304,7 +331,7 @@ class MediaController extends Controller
             ]);
 
         $post_id = $request->post_id;
-        if ($request->category_id == 6){
+        if ($request->category_id == 1) {
             //add images
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
@@ -335,78 +362,41 @@ class MediaController extends Controller
                     }
                 }
             }
-        }else{
-            if ($request->hasFile('videos')) {
-                $deleteVideo = DB::table('media')->where('post_id', $post_id)->first();
-                if ($deleteVideo) {
-                    $filePath = public_path('videos/' . $deleteVideo->file_name);
-                    if (file_exists($filePath) && is_file($filePath)) {
-                        unlink($filePath);
-                    }
-                    $deleted = DB::table('media')->where('post_id', '=', $post_id)->delete();
-                }
-
-                foreach ($request->file('videos') as $video) {
-                    $extension = $video->getClientOriginalExtension();
-                    $name = date('dmY') . '_' . uniqid() . '-' . $post_id . '.' . $extension;
-                    $video->move(public_path('images'), $name);
-
-                    Media::create([
-                        'post_id'       => $post_id,
-                        'file_name'     => $name,
-                        'updated_by'    => Auth::user()->id,
-                        'created_at'    => now()
-                    ]);
-                }
-            }
+        } else {
+            Post::where('post_id', $post_id)
+                ->update([
+                    'notes'         => $request->notes,
+                    'updated_by'    => Auth::user()->id,
+                    'updated_at'    => now()
+                ]);
         }
         return response()->json(['success' => true, 'message' => 'Gallery updated successfully']);
     }
 
     function destroy(Request $request)
     {
-        try {
-            $post_id = $request->id;
+        // dd($request);
+        $post_id = $request->post_id;
+        $post = Post::find($post_id);
 
-            $getCategory = DB::table('posts')->select('category_id')->where('post_id', '=', $post_id)->first();
-            if($getCategory->category_id == 6){
-                $media = Media::where('post_id', $post_id)->get();
-
-                foreach ($media as $file_name) {
-                    $filePath = public_path('images') . '/' . $file_name->file_name;
-                    if (file_exists($filePath)) {
-                        unlink($filePath);
-                    }
-
-                    DB::table('media')->where('media_id', '=', $file_name->media_id)->delete();
-                }
-            }else{
-                $media = Media::where('post_id', $post_id)->get();
-
-                foreach ($media as $file_name) {
-                    $filePath = public_path('videos') . '/' . $file_name->file_name;
-                    if (file_exists($filePath)) {
-                        unlink($filePath);
-                    }
-
-                    DB::table('media')->where('media_id', '=', $file_name->media_id)->delete();
-                }
-            }
-
-            DB::table('posts')->where('post_id', '=', $post_id)->delete();
-
-            return response()->json(['message' => 'Gallery and associated images deleted successfully!'], 200);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            // Jika gallery tidak ditemukan, tangani error ini
-            return response()->json([
-                'error' => 'Gallery not found.'
-            ], 404);
-        } catch (\Exception $e) {
-            // Jika terjadi error lain, tangani di sini
-            return response()->json([
-                // 'error' => 'Failed to delete Post. Please try again later.'
-                'error' => $e
-            ], 500);
+        if (!$post) {
+            return response()->json(['message' => 'Galeri tidak ditemukan'], 404);
         }
+
+        if ($request->category_id == 1) {
+            $images = Media::where('post_id', $post->post_id)->get();
+
+            foreach ($images as $image) {
+                $imagePath = public_path('images') . '/' . $image->file_name;
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+                $images->delete();
+            }
+        }
+
+        $post->delete();
+
+        return response()->json(['message' => 'Gallery and associated images deleted successfully!'], 200);
     }
 }

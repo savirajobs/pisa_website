@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class FrontController extends Controller
 {
@@ -31,8 +34,71 @@ class FrontController extends Controller
             'categories'        => Category::all(),
         ];
 
+        // dd($data);
+
         // Menambahkan data untuk paginasi
-        $data['posts'] = Post::where('is_publish', 1)->latest()->paginate(6);
+        // $data['posts'] = Post::where('is_publish', 1)->latest()->paginate(4);
+
+        // Impementation for cookie
+        // Cek apakah cookie 'visitor_id' ada
+        // if (!request()->hasCookie('visitor_id')) {
+        //     // Jika tidak ada, buat ID pengunjung baru
+        //     $visitorId = Str::uuid()->toString();
+        //     $cookie = cookie('visitor_id', $visitorId, 10); // Cookie berlaku selama 10 menit
+
+        //     // Mencatat pengunjung
+        //     DB::table('visitor')->insert([
+        //         'date_visitor'  => now(),
+        //         'post_id'       => $visitorId,
+        //         'created_at'    => now()
+        //     ]);
+
+        //     // return (new Response(view('front.index', $data)))->withCookie($cookie);
+        //     return response(view('front.index', $data))->withCookie($cookie);
+        // }
+
+        $datetime = now();
+        $monthYear = $datetime->format("m-Y"); // Output: 10-2024
+        // dd($monthYear);
+
+        $sessionKey = 'visited_front' . $monthYear;
+
+        if (!session()->has($sessionKey)) {
+            // Cek apakah data Visitor bulan ini sudah ada
+            $visitordata = Visitor::firstOrCreate(
+                ['monthyear' => $monthYear],
+                ['visitor' => 0]
+            );
+
+            // Increment visitor dan set session
+            $visitordata->increment('visitor');
+            session()->put($sessionKey, true);
+        }
+
+        // if (Visitor::where('monthyear', $monthYear)->exists()) {
+        //     $visitordata = Visitor::where('monthyear', $monthYear)->first();
+
+        //     $sessionKey = 'visited_front' . $monthYear;
+        //     if (!session()->has($sessionKey)) {
+        //         $visitordata->increment('visitor');
+
+        //         session()->put($sessionKey, true);
+        //     }
+        // } else {
+        //     Visitor::create([
+        //         'monthyear' => $monthYear,
+        //         'visitor'   => 1
+        //     ]);
+
+        //     $visitordata = Visitor::where('monthyear', $monthYear)->first();
+
+        //     $sessionKey = 'visited_front' . $monthYear;
+        //     if (!session()->has($sessionKey)) {
+        //         $visitordata->increment('visitor');
+
+        //         session()->put($sessionKey, true);
+        //     }
+        // }
 
         // Mengirim data ke tampilan
         return view('front.index', $data);
@@ -166,16 +232,18 @@ class FrontController extends Controller
             'posts.slug',
             'posts.post_title',
             'posts.post_desc',
+            'posts.notes',
             'users.name',
             'posts.is_publish',
             'posts.created_at',
-            'posts.created_by'
+            'posts.created_by',
+            'media.file_name'
         ])
             ->join('users', 'posts.created_by', '=', 'users.id')
             ->leftjoin('media', 'posts.post_id', '=', 'media.post_id')
             ->where('posts.is_publish', 1)
             ->where('posts.post_type', '=', 'PROFILE')
-            ->get();
+            ->first();
 
         return $profile;
     }

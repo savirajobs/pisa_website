@@ -4,23 +4,33 @@
 
 @section('content')
     <!-- Hero Start -->
-    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="heroCarousel" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="2500">
+
+        <!-- Teks tetap floating di atas carousel -->
+
+        <div class="position-absolute top-50 translate-middle text-start"
+            style="z-index: 10; max-width: 100%; left: 30%; margin-left: 20px;">
+            <h1 class="mb-3 text-primary">Kota Blitar</h1>
+            <h1 class="mb-5 display-1 text-white">Pusat Informasi <br> Sahabat Anak</h1>
+        </div>
+
+
         <div class="carousel-inner">
-            @foreach ($header_img as $index => $headerimg)
-                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                    <div class="container-fluid py-5 hero-header wow fadeIn" data-wow-delay="0.1s"
-                        style="background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), url('{{ asset('images/' . $headerimg->file_name) }}');  background-repeat: no-repeat; background-position: center center; background-size: cover;"> 
-                        <div class="container py-5">
-                            <div class="row g-5">
-                                <div class="col-lg-7 col-md-12">
-                                    <h1 class="mb-3 text-primary">PISA</h1>
-                                    <h1 class="mb-5 display-1 text-white">Pusat Informasi Sahabat Anak</h1>
-                                </div>
-                            </div>
+            @if ($header_img->isNotEmpty())
+                @foreach ($header_img as $index => $headerimg)
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                        <div class="carousel-image"
+                            style="background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), url('{{ asset('images/' . $headerimg->file_name) }}'); background-repeat: no-repeat; background-position: center center; background-size: cover; height: 50vh;">
                         </div>
                     </div>
+                @endforeach
+            @else
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <div class="carousel-image"
+                        style="background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), url('{{ asset('/asset/img/no-image.jpg') }}'); background-repeat: no-repeat; background-position: center center; background-size: cover; height: 50vh;">
+                    </div>
                 </div>
-            @endforeach
+            @endif
         </div>
 
         <!-- Controls -->
@@ -35,9 +45,9 @@
     </div>
     <!-- Hero End -->
 
-{{-- 
+    {{--     
     @php
-        dd($header_img);
+        dd($profile);
     @endphp --}}
 
     <!-- About Start -->
@@ -45,27 +55,29 @@
         style="background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url({{ asset('asset/img/background.jpg') }});">
         <div class="container py-5">
             <div class="row g-5 align-items-center">
-                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="video border"
-                        style="background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url({{ asset('asset/img/about.jpg') }});">
-                        <button type="button" class="btn btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
+                @if (is_null($profile->notes))
+                    <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                        @if (is_null($profile->file_name))
+                            <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid w-100" alt="Image"
+                                style= "height: 100%;">
+                        @else
+                            <img src="{{ asset('/images/' . $profile->file_name) }}" class="img-fluid w-100" alt="Image"
+                                style="height: 100%; ">
+                        @endif
                     </div>
-                </div>
+                @else
+                    <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                        <iframe width="100%" height="400" src="{{ $profile->notes }}"allowfullscreen>
+                        </iframe>
+                    </div>
+                @endif
                 <div class="col-lg-7 wow fadeIn" data-wow-delay="0.3s">
                     <h4
                         class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                         Tentang PISA</h4>
-                    @forelse ($profile as $profile)
-                        <h1 class="text-dark mb-4 display-5">{{ $profile->post_title }}</h1>
-                        <p class="text-dark mb-4">{!! $profile->post_desc !!}
-                        </p>
-                    @empty
-                        <!-- Kode jika $items kosong -->
-                        <p>No items found.</p>
-                    @endforelse
+                    <h1 class="text-dark mb-4 display-5">{{ $profile->post_title }}</h1>
+                    <p class="text-dark mb-4">{!! $profile->post_desc !!}
+                    </p>
                     <div class="row mb-4">
                         <div class="col-lg-6">
                             <h6 class="mb-3"><i class="fas fa-check-circle me-2"></i>Perpustakaan</h6>
@@ -190,7 +202,7 @@ dd($latest_events)
 
             <div class="row g-5 justify-content-center">
                 @if ($latest_events->isNotEmpty())
-                    @forelse ($latest_events as $event)
+                    @foreach ($latest_events as $event)
                         <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn d-flex" data-wow-delay="0.1s">
                             <div class="events-item bg-primary rounded d-flex flex-column flex-fill">
                                 <div class="events-inner position-relative">
@@ -267,7 +279,7 @@ dd($latest_news)
             </div>
             <div class="row g-5 justify-content-center">
                 @if ($latest_news->isNotEmpty())
-                    @forelse ($latest_news as $news)
+                    @foreach ($latest_news as $news)
                         <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn d-flex" data-wow-delay="0.1s">
                             <div class="blog-item rounded-bottom d-flex flex-column flex-fill">
                                 <div class="blog-img overflow-hidden position-relative img-border-radius">
@@ -316,7 +328,7 @@ dd($img_gallery)
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                     Galeri Foto</h4>
-                <h1 class="mb-5 display-5">Dokumentasi Kegiatan</h1>
+                <h1 class="mb-5 display-3">Dokumentasi Kegiatan</h1>
             </div>
             <div class="row g-5 justify-content-center">
                 @if ($gallery_img->isNotEmpty())
@@ -332,7 +344,7 @@ dd($img_gallery)
                                         <img src="{{ asset('/images/' . $gallery->image_name) }}" class="img-fluid w-100"
                                             alt="Image" style="height:286px;">
                                     @endif
-                                    <div class="team-icon d-flex align-items-center justify-content-center">
+                                    {{-- <div class="team-icon d-flex align-items-center justify-content-center">
                                         <a class="share btn btn-primary btn-md-square text-white rounded-circle me-3"
                                             href=""><i class="fas fa-share-alt"></i></a>
                                         <a class="share-link btn btn-primary btn-md-square text-white rounded-circle me-3"
@@ -341,7 +353,7 @@ dd($img_gallery)
                                             href=""><i class="fab fa-twitter"></i></a>
                                         <a class="share-link btn btn-primary btn-md-square text-white rounded-circle"
                                             href=""><i class="fab fa-instagram"></i></a>
-                                    </div>
+                                    </div> --}}
                                     <div class="team-content text-center py-3  flex-grow-1">
                                         <h4 class="text-primary">{{ $gallery->post_title }}</h4>
                                     </div>

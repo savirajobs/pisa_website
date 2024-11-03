@@ -43,7 +43,7 @@ class PostController extends Controller
             ->orderBy('posts.created_at', 'desc')
             ->paginate(3);
 
-        return view('front.news', compact('latest_news'));
+        return view('front.news.news', compact('latest_news'));
     }
 
     public function show($slug)
@@ -89,7 +89,7 @@ class PostController extends Controller
             ->limit(4)
             ->get();
 
-        return view('front.news-detail', ['news' => $data, 'filenames' => $filenames, 'relatednews' => $relatednews, 'user' => $user]);
+        return view('front.news.news-detail', ['news' => $data, 'filenames' => $filenames, 'relatednews' => $relatednews, 'user' => $user]);
     }
 
     public function index_facility()
@@ -125,20 +125,21 @@ class PostController extends Controller
             ->get();
 
         // Mengirim data ke tampilan
-        return view('front.facility', compact('facilities'));
+        return view('front.facility.facility', compact('facilities'));
     }
 
     public function show_facility($slug)
     {
-        $data = Post::with('media')
+        $data = Post::with('media', 'users')
             ->where('slug', $slug)
             ->where('is_publish', 1)
             ->where('post_type', 'FC')
             ->first();
 
+        $user = $data->users->name;
         $filenames = $data->media->pluck('file_name')->toArray();
 
-        return view('front.facility-detail', ['facility' => $data, 'filenames' => $filenames]);
+        return view('front.facility.facility-detail', ['facility' => $data, 'filenames' => $filenames, 'user' => $user]);
     }
 
     public function profile()
@@ -184,6 +185,73 @@ class PostController extends Controller
             ->first();
 
 
-        return view('front.profile', ['profile' => $profile, 'secretary' => $secretary]);
+        return view('front.profile.profile', ['profile' => $profile, 'secretary' => $secretary]);
+    }
+
+    public function index_law()
+    {
+        $laws = Post::select([
+            'posts.post_id',
+            'posts.slug',
+            'posts.post_title',
+            'users.name',
+            'posts.is_publish',
+            'posts.event_at',
+            'posts.notes',
+            'posts.created_at',
+            'posts.created_by',
+            'media.file_name'
+        ])
+            ->join('users', 'posts.created_by', '=', 'users.id')
+            ->join('media', 'posts.post_id', '=', 'media.post_id')
+            ->where('posts.is_publish', 1)
+            ->where('posts.post_type', 'LW')
+            ->orderBy('posts.created_at', 'desc')
+            ->paginate(8);
+
+        return view('front.profile.law', compact('laws'));
+    }
+
+    public function show_law($slug)
+    {
+        $law = Post::select([
+            'posts.post_id',
+            'posts.slug',
+            'posts.post_title',
+            'users.name',
+            'posts.is_publish',
+            'posts.notes',
+            'posts.created_at',
+            'posts.created_by',
+            'media.file_name'
+        ])
+            ->join('users', 'posts.created_by', '=', 'users.id')
+            ->join('media', 'posts.post_id', '=', 'media.post_id')
+            ->where('posts.slug', $slug)
+            ->first();
+
+        $getposts = Post::select(['posts.post_id'])->where('slug', $slug)->first();
+
+        $relatedlaws =  Post::select([
+            'posts.post_id',
+            'posts.slug',
+            'posts.post_title',
+            'users.name',
+            'posts.is_publish',
+            'posts.notes',
+            'posts.created_at',
+            'posts.created_by',
+            'media.file_name'
+        ])
+            ->join('users', 'posts.created_by', '=', 'users.id')
+            ->join('media', 'posts.post_id', '=', 'media.post_id')
+            ->where('posts.is_publish', 1)
+            ->where('posts.post_type', 'LW')
+            ->where('posts.post_id', '<>', $getposts->post_id)
+            ->orderBy('posts.created_at', 'desc')
+            ->limit(4)
+            ->get();
+        
+        return view('front.profile.law-detail', ['law'=>$law, 'relatedlaw'=>$relatedlaws]);
     }
 }

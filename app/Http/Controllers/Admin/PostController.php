@@ -21,28 +21,48 @@ class PostController extends Controller
 {
     function apis(Request $request)
     {
-        // $posts = Post::select(['post_id', 'post_title', 'is_publish', 'published_at', 'upcoming_date', 'created_by'])
-        // ->where('is_publish', '=', '1')->orderBy('post_id', 'desc');
-
-        $posts = Post::select([
-            'posts.post_id',
-            'posts.slug',
-            'posts.post_title',
-            'post_types.type_desc',
-            'categories.category_name',
-            'users.name',
-            'posts.is_publish',
-            'posts.event_at',
-            'posts.notes',
-            'posts.created_at',
-            'posts.created_by'
-        ])
-            ->join('post_types', 'posts.post_type', '=', 'post_types.type_id')
-            ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
-            ->join('users', 'posts.created_by', '=', 'users.id')
-            ->where('is_publish', '=', '1')
-            ->where('post_types.type_id','<>','MD')
-            ->orderBy('post_id', 'desc');
+        if (Auth::user()->role == 'super-admin') {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.slug',
+                'posts.post_title',
+                'posttypes.type_desc',
+                'categories.category_name',
+                'users.name',
+                'posts.is_publish',
+                'posts.event_at',
+                'posts.notes',
+                'posts.created_at',
+                'posts.created_by'
+            ])
+                ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
+                ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('is_publish', '=', '1')
+                ->where('posttypes.type_id', '<>', 'MD')
+                ->orderBy('post_id', 'desc');
+        } else {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.slug',
+                'posts.post_title',
+                'posttypes.type_desc',
+                'categories.category_name',
+                'users.name',
+                'posts.is_publish',
+                'posts.event_at',
+                'posts.notes',
+                'posts.created_at',
+                'posts.created_by'
+            ])
+                ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
+                ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('is_publish', '=', '1')
+                ->where('posttypes.type_id', '<>', 'MD')
+                ->where('posts.created_by', '=', Auth::user()->id)
+                ->orderBy('post_id', 'desc');
+        }
 
         return DataTables::of($posts)
             ->addColumn('action', function ($row) {
@@ -85,25 +105,48 @@ class PostController extends Controller
 
     function post_draft(Request $request)
     {
-        $posts = Post::select([
-            'posts.post_id',
-            'posts.slug',
-            'posts.post_title',
-            'post_types.type_desc',
-            'categories.category_name',
-            'users.name',
-            'posts.is_publish',
-            'posts.event_at',
-            'posts.notes',
-            'posts.created_at',
-            'posts.created_by'
-        ])
-            ->join('post_types', 'posts.post_type', '=', 'post_types.type_id')
-            ->join('categories', 'posts.category_id', '=', 'categories.category_id')
-            ->join('users', 'posts.created_by', '=', 'users.id')
-            ->where('is_publish', '=', '0')
-            ->where('post_types.type_id','<>','MD')
-            ->orderBy('post_id', 'desc');
+        if (Auth::user()->role == 'super-admin') {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.slug',
+                'posts.post_title',
+                'posttypes.type_desc',
+                'categories.category_name',
+                'users.name',
+                'posts.is_publish',
+                'posts.event_at',
+                'posts.notes',
+                'posts.created_at',
+                'posts.created_by'
+            ])
+                ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
+                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('is_publish', '=', '0')
+                ->where('posttypes.type_id', '<>', 'MD')
+                ->orderBy('post_id', 'desc');
+        } else {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.slug',
+                'posts.post_title',
+                'posttypes.type_desc',
+                'categories.category_name',
+                'users.name',
+                'posts.is_publish',
+                'posts.event_at',
+                'posts.notes',
+                'posts.created_at',
+                'posts.created_by'
+            ])
+                ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
+                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('is_publish', '=', '0')
+                ->where('posttypes.type_id', '<>', 'MD')
+                ->where('posts.created_by', '=', Auth::user()->id)
+                ->orderBy('post_id', 'desc');
+        }
 
         return DataTables::of($posts)
             ->addColumn('action', function ($row) {
@@ -146,24 +189,46 @@ class PostController extends Controller
 
     function post_all(Request $request)
     {
-        $posts = Post::select([
-            'posts.post_id',
-            'posts.slug',
-            'posts.post_title',
-            'post_types.type_desc',
-            'categories.category_name',
-            'users.name',
-            'posts.is_publish',
-            'posts.event_at',
-            'posts.notes',
-            'posts.created_at',
-            'posts.created_by'
-        ])
-            ->join('post_types', 'posts.post_type', '=', 'post_types.type_id')
-            ->join('categories', 'posts.category_id', '=', 'categories.category_id')
-            ->join('users', 'posts.created_by', '=', 'users.id')
-            ->where('post_types.type_id','<>','MD')
-            ->orderBy('post_id', 'desc');
+        if (Auth::user()->role == 'super-admin') {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.slug',
+                'posts.post_title',
+                'posttypes.type_desc',
+                'categories.category_name',
+                'users.name',
+                'posts.is_publish',
+                'posts.event_at',
+                'posts.notes',
+                'posts.created_at',
+                'posts.created_by'
+            ])
+                ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
+                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('posttypes.type_id', '<>', 'MD')
+                ->orderBy('post_id', 'desc');
+        } else {
+            $posts = Post::select([
+                'posts.post_id',
+                'posts.slug',
+                'posts.post_title',
+                'posttypes.type_desc',
+                'categories.category_name',
+                'users.name',
+                'posts.is_publish',
+                'posts.event_at',
+                'posts.notes',
+                'posts.created_at',
+                'posts.created_by'
+            ])
+                ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
+                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->join('users', 'posts.created_by', '=', 'users.id')
+                ->where('posttypes.type_id', '<>', 'MD')
+                ->where('posts.created_by', '=', Auth::user()->id)
+                ->orderBy('post_id', 'desc');
+        }
 
         return DataTables::of($posts)
             ->addColumn('action', function ($row) {
@@ -209,9 +274,24 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posttypes = PostType::all();
-        $categories = Category::all();
-        return view('admin.post.index', ['page_title' => 'List post type', 'posttypes' => $posttypes, 'categories' => $categories]);
+        $posttypes = PostType::select([
+            'posttypes.type_id',
+            'posttypes.type_desc'
+        ])
+            ->where('posttypes.type_id', '<>', 'PROFILE')
+            ->orderBy('posttypes.type_id', 'desc')
+            ->get();
+
+        $categories = Category::select([
+            'categories.category_id',
+            'categories.category_name'
+        ])
+            ->whereNotIn('categories.category_name', ['Foto', 'Video'])
+            ->orderBy('categories.category_id', 'desc')
+            ->get();
+        // $categories = Category::all();
+
+        return view('admin.post.index', ['posttypes' => $posttypes, 'categories' => $categories]);
     }
 
     /**
@@ -280,7 +360,7 @@ class PostController extends Controller
                 'current' => $number,
             ]);
 
-        $date = Carbon::now();  
+        $date = Carbon::now();
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -412,7 +492,7 @@ class PostController extends Controller
                 DB::table('media')->insert([
                     'post_id' => $request->post_id,
                     'file_name' => $filename,
-                    'created_by' => 2
+                    'created_by' => Auth::user()->id
                 ]);
 
                 $photoFile->move(public_path('images'), $filename);

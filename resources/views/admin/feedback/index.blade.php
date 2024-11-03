@@ -1,15 +1,16 @@
 @extends('admin.layouts.app')
 
-@section('title','Content Management | Feedback')
+@section('title','Konsultasi & Pengaduan')
 
 @section('content')
 <main id="main" class="main">
 	<div class="pagetitle">
-		<h1>{{ __('Content Management | Feedback') }}</h1>
+		<h1>{{ __('Konsultasi & Pengaduan') }}</h1>
+		<h6 class="text-muted">Kelola semua konsultasi dan pengaduan yang masuk.</h6>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-				<li class="breadcrumb-item active">{{ __('Feedback') }}</li>
+				<li class="breadcrumb-item active">{{ __('Konsultasi & Pengaduan') }}</li>
 			</ol>
 		</nav>
 	</div>
@@ -22,10 +23,10 @@
 					</h5>
 					<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="pills-consultation-tab" data-bs-toggle="pill" data-bs-target="#pills-consultation" type="button" role="tab" aria-controls="pills-consultation" aria-selected="true">Consultation</button>
+						<button class="nav-link active" id="pills-consultation-tab" data-bs-toggle="pill" data-bs-target="#pills-consultation" type="button" role="tab" aria-controls="pills-consultation" aria-selected="true">Konsultasi</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="pills-complaint-tab" data-bs-toggle="pill" data-bs-target="#pills-complaint" type="button" role="tab" aria-controls="pills-complaint" aria-selected="false">Complaint</button>
+						<button class="nav-link" id="pills-complaint-tab" data-bs-toggle="pill" data-bs-target="#pills-complaint" type="button" role="tab" aria-controls="pills-complaint" aria-selected="false">Pengaduan</button>
 					</li>
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
@@ -33,11 +34,11 @@
 							<table id="consultation" class="table table-striped" style="width:100%">
 								<thead>
 									<tr>
-										<th>Title</th>
-										<th>Sender</th>
-										<th>Created At</th>
+										<th>Judul Pesan</th>
+										<th>Pengirim</th>
+										<th>Tanggal Pesan</th>
 										<th>Status</th>
-										<th>Action</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 							</table>
@@ -46,11 +47,11 @@
 							<table id="complaint" class="table table-striped" style="width:100%">
 								<thead>
 									<tr>
-										<th>Title</th>
-										<th>Sender</th>
-										<th>Created At</th>
+										<th>Judul Pesan</th>
+										<th>Pengirim</th>
+										<th>Tanggal Pesan</th>
 										<th>Status</th>
-										<th>Action</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 							</table>

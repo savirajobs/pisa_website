@@ -17,28 +17,35 @@
                 <a class="nav-link {{ request()->is('admin/post*') ? '' : 'collapsed' }}"
                     href="{{ route('admin.post.index') }}">
                     <i class="bi bi-building-fill"></i>
-                    <span>Post</span>
+                    <span>Pos</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
                     href="{{ route('admin.gallery.index') }}">
                     <i class="bi bi-card-image"></i>
-                    <span>Media</span>
+                    <span>Galeri</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
+                    href="{{ route('admin.law.index') }}">
+                    <i class="bi bi-journals"></i>
+                    <span>Dasar Hukum</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
                     href="{{ route('admin.feedback.index') }}">
-                    <i class="bi bi-card-image"></i>
-                    <span>Feedback</span>
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                    <span>Konsultasi & Pengaduan</span>
                 </a>
             </li>
             <li class="nav-heading">Master Management</li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
                     href="{{ route('admin.category.index') }}">
-                    <i class="bi bi-person"></i>
+                    <i class="bi bi-newspaper"></i>
                     <span>Master Category</span>
                 </a>
             </li>
@@ -54,6 +61,36 @@
                     href="{{ route('admin.setting.index') }}">
                     <i class="bi bi-gear"></i>
                     <span>Setting Page</span>
+                </a>
+            </li>
+        @else
+            <li class="nav-heading">Content Management</li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/post*') ? '' : 'collapsed' }}"
+                    href="{{ route('admin.post.index') }}">
+                    <i class="bi bi-building-fill"></i>
+                    <span>Pos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
+                    href="{{ route('admin.gallery.index') }}">
+                    <i class="bi bi-card-image"></i>
+                    <span>Galeri</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
+                    href="{{ route('admin.law.index') }}">
+                    <i class="bi bi-journals"></i>
+                    <span>Dasar Hukum</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
+                    href="{{ route('admin.feedback.index') }}">
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                    <span>Konsultasi & Pengaduan</span>
                 </a>
             </li>
         @endif

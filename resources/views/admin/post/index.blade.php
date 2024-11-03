@@ -1,15 +1,16 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Content Management | Post')
+@section('title', 'Pos')
 
 @section('content')
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>{{ __('Content Management | Post') }}</h1>
+            <h1>{{ __('Pos') }}</h1>
+            <h6 class="text-muted">Buat, edit, dan kelola pos Anda.</h6>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">{{ __('Post') }}</li>
+                    <li class="breadcrumb-item active">{{ __('Pos') }}</li>
                 </ol>
             </nav>
         </div>
@@ -20,25 +21,24 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <button class="btn btn-primary btn-sm add-btn" data-bs-toggle="modal"
-                                data-bs-target="#addDataPost"><i class="bi bi-envelope-plus"></i> Add
-                                Post</button>
+                                data-bs-target="#addDataPost"><i class="bi bi-pin-angle"></i> Buat Pos </button>
                         </h5>
 
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-posted-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-posted" type="button" role="tab"
-                                    aria-controls="pills-posted" aria-selected="true">Posted</button>
+                                    aria-controls="pills-posted" aria-selected="true">Diterbitkan</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-draft-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-draft" type="button" role="tab" aria-controls="pills-draft"
-                                    aria-selected="false">Draft</button>
+                                    aria-selected="false">Draf</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-all-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all"
-                                    aria-selected="false">All</button>
+                                    aria-selected="false">Semua</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
@@ -47,14 +47,14 @@
                                 <table id="posted" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Post Title</th>
+                                            <th>Judul Pos</th>
                                             <!--<th>Slug</th>-->
-                                            <th>Post Type</th>
-                                            <th>Category</th>
-                                            <th>Publish Status</th>
-                                            <th>Posting Date</th>
-                                            <th>Creator</th>
-                                            <th>Action</th>
+                                            <th>Tipe Pos</th>
+                                            <th>Kategori</th>
+                                            <th>Status Terbit</th>
+                                            <th>Tanggal Pos</th>
+                                            <th>Kreator</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -64,14 +64,14 @@
                                 <table id="post_draft" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Post Title</th>
+                                            <th>Judul Pos</th>
                                             <!--<th>Slug</th>-->
-                                            <th>Post Type</th>
-                                            <th>Category</th>
-                                            <th>Publish Status</th>
-                                            <th>Posting Date</th>
-                                            <th>Creator</th>
-                                            <th>Action</th>
+                                            <th>Tipe Pos</th>
+                                            <th>Kategori</th>
+                                            <th>Status Terbit</th>
+                                            <th>Tanggal Pos</th>
+                                            <th>Kreator</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -81,14 +81,14 @@
                                 <table id="post_all" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Post Title</th>
+                                            <th>Judul Pos</th>
                                             <!--<th>Slug</th>-->
-                                            <th>Post Type</th>
-                                            <th>Category</th>
-                                            <th>Publish Status</th>
-                                            <th>Posting Date</th>
-                                            <th>Creator</th>
-                                            <th>Action</th>
+                                            <th>Tipe Pos</th>
+                                            <th>Kategori</th>
+                                            <th>Status Terbit</th>
+                                            <th>Tanggal Pos</th>
+                                            <th>Kreator</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                 </table>

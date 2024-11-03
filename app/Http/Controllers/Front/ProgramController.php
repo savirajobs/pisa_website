@@ -41,19 +41,20 @@ class ProgramController extends Controller
             ->orderBy('posts.created_at', 'desc')
             ->get();
 
-        return view('front.program', compact('programs'));
+        return view('front.program.program', compact('programs'));
     }
 
     public function show($slug)
     {
-        $data = Post::with('media')
+        $data = Post::with('media', 'users')
             ->where('slug', $slug)
             ->where('is_publish', 1)
             ->where('post_type', 'CP')
             ->first();
 
+        $user = $data->users->name;
         $filenames = $data->media->pluck('file_name')->toArray();
 
-        return view('front.program-detail', ['program' => $data, 'filenames' => $filenames]);
+        return view('front.program.program-detail', ['program' => $data, 'filenames' => $filenames, 'user' => $user]);
     }
 }

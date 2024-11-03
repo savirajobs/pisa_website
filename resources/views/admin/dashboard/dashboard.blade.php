@@ -19,7 +19,7 @@
             <!-- Left side columns -->
             <!-- <div class="col-lg-8"> -->
             <div class="row">
-                @if (auth()->user()->role == 'super-admin')
+                {{-- @if (auth()->user()->role == 'super-admin') --}}
                     <!-- Sales Card -->
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card sales-card">
@@ -36,13 +36,13 @@
                             </div>
                         </div>
                     </div><!-- End Sales Card -->
-                @endif
+                {{-- @endif --}}
 
                 <!-- Revenue Card -->
                 <div class="col-xxl-4 col-md-6">
                     <div class="card info-card revenue-card">
                         <div class="card-body">
-                            <h5 class="card-title">Total Post</h5>
+                            <h5 class="card-title">Total Pos</h5>
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-card-checklist"></i>
@@ -274,7 +274,7 @@
             options: {
                 title: {
                     display: true,
-                    text: "Rasio Feedback"
+                    text: "Rasio Konsultasi & Pengaduan Masuk"
                 }
             }
         });
@@ -294,7 +294,7 @@
 
         const countConsultation = dataConsultation.map(item => item.jumlah);
         console.log(countConsultation);
-        const statusConsultation = dataConsultation.map(item => item.status);
+        const statusConsultation = dataConsultation.map(item => item.reply_status);
         console.log(statusConsultation);
 
 
@@ -310,7 +310,7 @@
             options: {
                 title: {
                     display: true,
-                    text: "Jumlah Konsultasi"
+                    text: "Total Konsultasi Dibalas"
                 }
             }
         });
@@ -331,7 +331,7 @@
 
         const countComplaint = dataComplaint.map(item => item.jumlah);
         console.log(countComplaint);
-        const statusComplaint = dataComplaint.map(item => item.status);
+        const statusComplaint = dataComplaint.map(item => item.reply_status);
         console.log(statusComplaint);
 
         new Chart("complaintPie", {
@@ -346,7 +346,7 @@
             options: {
                 title: {
                     display: true,
-                    text: "Jumlah Komplain"
+                    text: "Total Komplain Dibalas"
                 }
             }
         });

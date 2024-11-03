@@ -10,7 +10,7 @@ class PostType extends Model
 {
     use HasFactory;
   
-    protected $table = 'post_types';
+    protected $table = 'posttypes';
     protected $fillable = [
         'type_id',
         'type_desc',

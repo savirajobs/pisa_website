@@ -43,7 +43,7 @@
         });
 
         $('#table-video').DataTable({
-            ajax: "{{ route('admin.gallery.getVideo') }}",
+            ajax: "{{ route('admin.gallery.video') }}",
             processing: true,
             serverSide: true,
             columns: [{
@@ -133,26 +133,6 @@
         handleFileUpload(this, 'imagePreview');
     });
 
-    const videoInput = document.getElementById('uploadVideos');
-    const videoPreview = document.getElementById('videoPreview');
-    const videoSource = document.getElementById('videoSource');
-
-    videoInput.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const validTypes = ['video/mp4', 'video/webm', 'video/ogg'];
-            if (validTypes.includes(file.type)) {
-                const url = URL.createObjectURL(file);
-                videoSource.src = url;
-                videoPreview.style.display = 'block';
-                videoPreview.load();
-            } else {
-                alert('Silakan pilih file video dengan format yang valid (MP4, WebM, Ogg).');
-                videoInput.value = ''; // Clear the input
-            }
-        }
-    });
-
     document.getElementById('update-image').addEventListener('change', function() {
         handleFileUpload(this, 'imagePreviewOnEdit');
     });
@@ -161,10 +141,10 @@
         $(modalId).find('form')[0].reset();
     }
 
+    //Menambahkan Galeri Foto
     $('#upload-form').on('submit', function(e) {
-        
         e.preventDefault();
-        
+
         $.ajax({
             url: "{{ route('admin.gallery.store') }}",
             method: 'POST',
@@ -176,14 +156,14 @@
             success: function(response) {
                 // Reload the DataTable
                 $('#table-gallery').DataTable().ajax.reload();
-                
+
                 // Show success toast notification
                 iziToast.success({
                     title: 'Success',
                     message: response.success,
                     position: 'topRight'
                 });
-                
+
                 // Hide the modal and reset the form
                 $('#modal-add-gallery').modal('hide');
                 resetForm('#upload-form'); // Ensure this resets the correct form
@@ -197,7 +177,7 @@
                 // Check if it's a validation error (status code 422)
                 if (xhr.status === 422) {
                     var errors = response.errors;
-                    
+
                     // Display validation errors using iziToast
                     $.each(errors, function(field, messages) {
                         iziToast.error({
@@ -218,10 +198,10 @@
         });
     });
 
+    //Menambahkan Galeri Video
     $('#uploadVideo-form').on('submit', function(e) {
-        
         e.preventDefault();
-        
+
         $.ajax({
             url: "{{ route('admin.gallery.store') }}",
             method: 'POST',
@@ -233,19 +213,18 @@
             success: function(response) {
                 // Reload the DataTable
                 $('#table-video').DataTable().ajax.reload();
-                
+
                 // Show success toast notification
                 iziToast.success({
                     title: 'Success',
                     message: response.success,
                     position: 'topRight'
                 });
-                
+
                 // Hide the modal and reset the form
                 $('#modal-add-video').modal('hide');
-                resetForm('#uploadViddeo-form'); // Ensure this resets the correct form
+                resetForm('#uploadVideo-form'); // Ensure this resets the correct form
                 $('#uploadVideo-form')[0].reset();
-                $('#uploadVideo').val('');
             },
             error: function(xhr) {
                 console.log(xhr.responseText);
@@ -254,7 +233,7 @@
                 // Check if it's a validation error (status code 422)
                 if (xhr.status === 422) {
                     var errors = response.errors;
-                    
+
                     // Display validation errors using iziToast
                     $.each(errors, function(field, messages) {
                         iziToast.error({
@@ -295,7 +274,7 @@
                 $('.edit-desc').val(response.post_desc);
                 $('.edit-slug').val(response.slug);
                 $('#post_id').val(response.post_id);
-                $('#category_id').val(response.category_id);
+                $('#edit_category_id').val(response.category_id);
                 $('#old_slug').val(response.slug);
 
                 // Atur nilai radio button di modal sesuai dengan nilai dari response
@@ -346,7 +325,7 @@
         });
     });
 
-    $('body').on('click', '.btn-editVideo', function(e) {
+    $('body').on('click', '.btn-video-edit', function(e) {
         $('#uploadVideo-form-edit')[0].reset();
         $('#update-video').val('');
         //$('#imagePreviewOnEdit').attr('src', '').hide();
@@ -365,8 +344,9 @@
                 $('.video-desc').val(response.post_desc);
                 $('.video-slug').val(response.slug);
                 $('#video_post_id').val(response.post_id);
-                $('#video_category_id').val(response.category_id);
+                $('#edit_video_category_id').val(response.category_id);
                 $('#video_old_slug').val(response.slug);
+                $('#video-embedded').val(response.notes);
 
                 // Atur nilai radio button di modal sesuai dengan nilai dari response
                 if (response.is_publish !== undefined) {
@@ -383,36 +363,23 @@
                     $('#video_is_publish_no_edit').prop('checked', false);
                 }
 
-                $.ajax({
-                    url: "{{ route('admin.gallery.media') }}",
-                    method: 'GET',
-                    data: {
-                        id: id
-                    },
-                    success: function(videos) {
-                        console.log(videos);
-                        if (videos.length === 0) {
-                            $('#video-list').append(
-                                '<p class="text-muted text-center">Tidak ada Vddeo untuk ditampilkan.</p>'
-                            );
-                        } else {
-                            $('#video-list').html('');
-                            videos.forEach(videos => {
-                                $('#video-list').append(`
-                                <div class="image-item col-md-4 mb-3" data-image-id="${videos.media_id}">
+                //check kolom notes
+                if (response.notes === null) {
+                    $('#video-list').append(
+                        '<p class="text-muted text-center">Tidak ada Video untuk ditampilkan.</p>'
+                    );
+                } else {
+                    $('#video-list').html('');
+                    $('#video-list').append(`
+                                <div class="image-item col-md-4 mb-3" data-image-id="${response.post_id}">
                                     <div class="position-relative">
-                                        <video width="640" height="360" controls>
-                                            <source src="/videos/${videos.file_name}" type="video/mp4">
-                                            Your browser does not support the video tag.
-                                        </video>
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe class="embed-responsive-item" width="100%" height="300" src="${ response.notes }"></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             `);
-                            });
-                        }
-                    },
-                    dataType: 'json'
-                });
+                }
             },
             dataType: 'json'
         });
@@ -441,7 +408,6 @@
         });
 
         formData.append('deleted_images', deletedImages.join(','));
-        //console.log(formData);
 
         $.ajax({
             url: "{{ route('admin.gallery.update') }}",
@@ -466,7 +432,7 @@
                 $("#modal-edit-video").modal();
                 $('#image-list').html(null);
                 $('#imagePreviewOnEdit').html(null);
-
+                $('#video-list').html(null);
             },
             error: function(xhr) {
                 console.log(xhr.responseText);
@@ -488,6 +454,56 @@
                         position: 'topRight'
                     });
                 }
+            }
+        });
+    });
+
+    //Delete Galeri
+    $(document).on('click', '.btn-delete', function() {
+        var post_id = $(this).data('id');
+        //console.log(post_id);
+
+        // Gunakan SweetAlert2 untuk konfirmasi
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika dikonfirmasi, jalankan AJAX request untuk delete
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ route('admin.gallery.destroy') }}",
+                    data: {
+                        post_id: post_id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $('#table-gallery').DataTable().ajax
+                            .reload(); // Reload DataTable
+                        $('#table-video').DataTable().ajax
+                            .reload(); // Reload DataTable
+
+                        Swal.fire(
+                            'Deleted!',
+                            'Post has been deleted.',
+                            'success'
+                        );
+                    },
+                    error: function(xhr) {
+                        var response = JSON.parse(xhr.responseText);
+                        Swal.fire(
+                            'Error!',
+                            response.error ||
+                            'An unexpected error occurred.',
+                            'error'
+                        );
+                    }
+                });
             }
         });
     });

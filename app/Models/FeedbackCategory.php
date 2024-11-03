@@ -10,7 +10,9 @@ class FeedbackCategory extends Model
 {
     use HasFactory;
 
-    public function feedback(): BelongsTo
+    protected $table = 'feedbackcategories';
+
+    public function feedbacks(): BelongsTo
     {
         return $this->belongsTo(feedback::class);
     }

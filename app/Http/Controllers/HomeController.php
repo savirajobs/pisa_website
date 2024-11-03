@@ -25,8 +25,9 @@ class HomeController extends Controller
 	 */
 	public function index()
 	{
-		return redirect()->route('admin.dashboard.dashboard');
+		return redirect()->route('admin.dashboard');
 	}
+
 	public function dashboard()
 	{
 		$totalVisitor = DB::table('visitor')
@@ -104,6 +105,8 @@ class HomeController extends Controller
 				END
 			"))
 			->get();
+
+			// dd($getConsultation);
 		
 		// Get complaint data
 		$getComplaint = DB::table('feedbacks')

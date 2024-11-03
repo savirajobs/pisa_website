@@ -26,6 +26,7 @@
             $('#editor, #editpost_desc').summernote('reset');
             $('#imagePreview').html('');
             $('#image-list').html('');
+            $('.remove-photo').html(null);
         });
 
         $('#editPostModal').on('hidden.bs.modal', function() {
@@ -35,6 +36,7 @@
             $('.invalid-feedback').html(null);
             $('#imagePreview').html('');
             $('#image-list').html('');
+            $('.remove-photo').html(null);
         });
         // End of Summernote setting
 
@@ -187,7 +189,6 @@
             e.preventDefault();
             let formData = new FormData(this);
             let deletedPhotos = [];
-            console.log(formData);
 
              // Mengecek data yang memiliki .remove-photo lalu mengambil photo-id
             $('.remove-photo').each(function() {

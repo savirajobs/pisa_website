@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->increments('media_id');
+            $table->id('media_id');
             $table->string('post_id');
             $table->string('file_name');
             $table->foreignId('created_by')->nullable()->references('id')->on('users');

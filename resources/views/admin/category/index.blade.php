@@ -1,15 +1,16 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Master Category')
+@section('title', 'Master Kategori')
 
 @section('content')
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>{{ __('Master Category') }}</h1>
+            <h1>{{ __('Master Kategori') }}</h1>
+            <h6 class="text-muted">Buat, edit, dan kelola kategori.</h6>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">{{ __('Category') }}</li>
+                    <li class="breadcrumb-item active">{{ __('Kategori') }}</li>
                 </ol>
             </nav>
         </div>
@@ -20,19 +21,19 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <button class="btn btn-primary btn-sm add-btn" data-bs-toggle="modal"
-                                data-bs-target="#addDataCategory"><i class="bi bi-database-add"></i> Add
-                                Category</button>
+                                data-bs-target="#addDataCategory"><i class="bi bi-database-add"></i> Buat
+                                Kategori</button>
                         </h5>
 
                         <table id="category" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Category Name</th>
+                                    <th>Nama Kategori</th>
                                     <th>Slug</th>
-                                    <th>Created by</th>
-                                    <th>Created at</th>
-                                    <th>Updated at</th>
-                                    <th>Action</th>
+                                    <th>Kreator</th>
+                                    <th>Tanggal Buat</th>
+                                    <th>Tanggal Updated</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                         </table>

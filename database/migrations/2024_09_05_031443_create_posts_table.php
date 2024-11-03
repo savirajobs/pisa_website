@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('category_id')->nullable();
             $table->datetime('event_at')->nullable();
             $table->string('notes')->nullable();
-            //$table->datetime('upcoming_date')->nullable();
             $table->foreignId('created_by')->nullable()->references('id')->on('users');
             $table->foreignId('updated_by')->nullable()->references('id')->on('users');
             $table->timestamps();

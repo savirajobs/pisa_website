@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use Yajra\DataTables\DataTables;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use App\Models\Category;
+use Carbon\Carbon;
+
 
 class CategoryController extends Controller
 {
@@ -20,17 +22,24 @@ class CategoryController extends Controller
 
     function apis(Request $request)
     {
-        $category = Category::select(['categories.category_id', 'categories.category_name', 'categories.slug', 'users.name', 'categories.created_at', 'categories.updated_at'])
+        $category = Category::select([
+            'categories.category_id',
+            'categories.category_name',
+            'categories.slug',
+            'users.name',
+            'categories.created_at',
+            'categories.updated_at'
+        ])
             ->join('users', 'categories.created_by', '=', 'users.id');
 
         return DataTables::of($category)
             ->addColumn('action', function ($row) {
-                $deleteButton = $row->category_id == 1
+                $deleteButton = $row->category_id == 99
                     ? '<button class="btn btn-sm btn-danger" disabled><i class="bi bi-database-x"></i></button>'
-                    : '<button data-id="' . $row->category_id . '" class="btn btn-sm btn-danger delete-btn"><i class="bi bi-database-x"></i></button>';
+                    : '<button data-id="' . $row->category_id . '" class="btn btn-sm btn-danger delete-btn"><i class="bi bi-trash3"></i></button>';
 
                 return '
-                <button data-id="' . $row->category_id . '" class="btn btn-sm btn-warning edit-btn"><i class="bi bi-database-gear"></i></button>
+                <button data-id="' . $row->category_id . '" class="btn btn-sm btn-warning edit-btn"><i class="bi bi-pencil-square"></i></button>
                 ' . $deleteButton . '
             ';
             })
@@ -55,7 +64,13 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return view('admin.category.index');
+        if (Auth::user()->role == 'super-admin') {
+            return view('admin.category.index');
+        } else {
+
+            return redirect('admin.dashboard');
+        }
+        // return view('admin.category.index');
     }
 
     /**

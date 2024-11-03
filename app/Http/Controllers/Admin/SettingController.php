@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\View\View;
 use App\Models\Post;
 use App\Models\Media;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class SettingController extends Controller
 {
@@ -29,7 +29,7 @@ class SettingController extends Controller
             'users.name',
             'media.file_name'
         ])
-            ->join('users', 'posts.updated_by', '=', 'users.id')
+            ->join('users', 'posts.created_by', '=', 'users.id')
             ->leftjoin('media', 'posts.post_id', '=', 'media.post_id')
             ->where('category_id', '=', 99)
             ->orderBy('updated_at', 'desc');
@@ -53,7 +53,13 @@ class SettingController extends Controller
 
     public function index()
     {
-        return view('admin.setting.index');
+        if (Auth::user()->role == 'super-admin') {
+            return view('admin.setting.index');
+        } else {
+
+            return redirect('admin.dashboard');
+        }
+        // return view('admin.setting.index');
     }
 
     /**

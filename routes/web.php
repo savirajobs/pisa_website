@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Front\ProgramController;
+use App\Http\Controllers\Front\FeedbackController;
 use App\Http\Controllers\Front\MediaController;
 use App\Http\Controllers\Front\PostController;
 
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\MediaController as adminMediaController;
 use App\Http\Controllers\Admin\CategoryController as adminCategoryController;
 use App\Http\Controllers\Admin\FeedbackController as adminFeedbackController;
 use App\Http\Controllers\Admin\SettingController as adminSettingController;
+use App\Http\Controllers\Admin\LawController as adminLawController;
 
 Auth::routes();
 
@@ -24,15 +26,20 @@ Route::get('register', function () {
 
 Route::name('frontend.')->group(function () {
 	Route::get('/', [FrontController::class, 'index'])->name('index'); //homepage
-	Route::get('/profile', [PostController::class, 'profile'])->name('profile');
+	Route::get('/profile', [PostController::class, 'profile'])->name('profile');	
+	Route::get('/law', [PostController::class, 'index_law'])->name('law');
+	Route::get('/law/{slug}', [PostController::class, 'show_law'])->name('law.show');
 	Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
 	Route::get('/program/{slug}', [ProgramController::class, 'show'])->name('program.show');
 	Route::get('/news', [PostController::class, 'index'])->name('news.index');
 	Route::get('/news/{slug}', [PostController::class, 'show'])->name('news.show');
 	Route::get('/facility', [PostController::class, 'index_facility'])->name('facility.index');
 	Route::get('/facility/{slug}', [PostController::class, 'show_facility'])->name('facility.show');
-	Route::get('/images-gallery', [MediaController::class, 'index'])->name('images.index');
-	Route::get('/images-gallery/{slug}', [MediaController::class, 'show_gallery'])->name('images.show');
+	Route::get('/img-gallery', [MediaController::class, 'index'])->name('images.index');
+	Route::get('/img-gallery/{slug}', [MediaController::class, 'show_gallery'])->name('images.show');
+	Route::get('/vid-gallery', [MediaController::class, 'index_video'])->name('videos.index');
+	Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');	
+	Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home'); //login admin page
@@ -54,7 +61,7 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
 	});
 	Route::resource('post', adminPostController::class)->only('index', 'store');
 
-	//CategoryController
+	//Master Category
 	Route::prefix('category')->name('category.')->group(function () {
 		Route::get('apis', [adminCategoryController::class, 'apis'])->name('apis');
 		Route::get('edit', [adminCategoryController::class, 'edit'])->name('edit');
@@ -67,7 +74,7 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
 	//MediaController
 	Route::prefix('gallery')->name('gallery.')->group(function () {
 		Route::get('apis', [adminMediaController::class, 'apis'])->name('apis');
-		Route::get('getVideo', [adminMediaController::class, 'getVideo'])->name('getVideo');
+		Route::get('videos', [adminMediaController::class, 'videos'])->name('video');
 		Route::post('create', [adminMediaController::class, 'store'])->name('store');
 		Route::get('edit', [adminMediaController::class, 'edit'])->name('edit');
 		Route::get('media', [adminMediaController::class, 'media'])->name('media');
@@ -88,6 +95,17 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
 		Route::resource('feedback', adminFeedbackController::class);
 	});
 	Route::resource('feedback', adminFeedbackController::class)->only('index', 'store');
+
+	//Law Controller
+	Route::prefix('law')->name('law.')->group(function () {
+		Route::get('apis', [adminLawController::class, 'apis'])->name('apis');
+		Route::get('edit', [adminLawController::class, 'edit'])->name('edit');
+		Route::get('media', [adminLawController::class, 'media'])->name('media');
+		Route::post('update', [adminLawController::class, 'update'])->name('update');
+		Route::delete('destroy', [adminLawController::class, 'destroy'])->name('destroy');
+		Route::resource('law', adminLawController::class);
+	});
+	Route::resource('law', adminLawController::class)->only('index', 'store');
 
 	//Setting Page Controller
 	Route::prefix('setting')->name('setting.')->group(function () {
