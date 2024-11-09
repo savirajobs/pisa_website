@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use App\Models\NumberRange;
 use App\Models\Feedback;
 use App\Models\FeedbackCategory;
+use Mews\Captcha\Facades\Captcha;
+
 
 class FeedbackController extends Controller
 {
@@ -21,72 +23,65 @@ class FeedbackController extends Controller
 
     public function store(Request $request)
     {
+        session_start(); 
         // Validator
         $validator = Validator::make($request->all(), [
-            'fdb_name'     => 'required',
-            'fdb_email'    => 'required|email',
-            'fdb_phone'    => 'required|regex:/^[0-9]{10,15}$/',
-            'fdb_title'    => 'required',
-            'fdb_message'  => 'required',
+            'name'     => 'required',
+            'email'    => 'required|email',
+            'phone'    => 'required|regex:/^[0-9]{10,15}$/',
+            'title'    => 'required',
+            'message'  => 'required',
+            'captcha' => 'required|captcha'
         ], [
             'required' => ':attribute wajib diisi.',
-            'email'    => 'Format :attribute tidak valid.'
+            'email'    => 'Format :attribute tidak valid.',
+            'phone.regex' => 'Nomor Whatsapp harus terdiri dari 10 hingga 15 digit angka.',
+            'captcha'   => 'Captcha telah kedaluwarsa atau tidak sesuai, silahkan reload captcha.'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $post_type = 'FD';
-
         // To set slug with -
-        $slug = Str::slug($request->post_title);
+        $slug = Str::of($request->title)->slug('-');
         $originalSlug = $slug;
 
-        // Start of validator slug is already exist or not
-        if (Feedback::where('slug', $request->slug)->exists()) {
-            if (Feedback::where('phone', $request->fdb_phone)->exists()) {
+        // Validator slug is already exist or not
+        if (Feedback::where('slug', $slug)->exists()) {
+            if (Feedback::where('phone', $request->phone)->exists()) {
                 return response()->json(['error' => 'Konsultasi atau Pengaduan sudah terdaftar'], 500);
             } else {
-                $count = DB::table('posts')->where('slug', $slug)->count();
+                $count = DB::table('feedbacks')->where('slug', $slug)->count();
                 $counter = $count + 1;
                 $slug = $originalSlug . '-' . $counter;
             }
         } else {
-            $slug = Str::slug($request->post_title);
+            $slug = Str::of($request->title)->slug('-');
         }
-
-
-        // // Get last number range
-        // $id = NumberRange::select(['type', 'from', 'to', 'current'])
-        //     ->where('type', '=', $post_type)->first();
-
-        // if ($id->current == 0) {
-        //     $post_id = $post_type . $id->from;
-        //     $number = $id->from;
-        // } else {
-        //     $post_id = $post_type . $id->current + 1;
-        //     $number = $id->current + 1;
-        // }
-
-        // // To update number range
-        // NumberRange::where('type', $post_type)
-        //     ->update([
-        //         'current' => $number,
-        //     ]);
 
         try {
             DB::table('feedbacks')->insert([
-                'feedback_title' => $request->category_name,
+                'feedback_title' => $request->title,
                 'slug' => $slug,
-                'sender_name' => $request->fdb_name,
-                'email' => $request->fdb_email,
-                'phone' => $request->fdb_phone,
-                'feedback_category' => $request->fdb_category,
-                'feedback_desc' => $request->fdb_desc,
+                'sender_name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'feedback_category' => $request->category,
+                'feedback_desc' => $request->message,
+                'spam_status' => 0,
+                'duplication_status' => 0,
+                'created_at' => now()
             ]);
 
-            return response()->json(['success' => 'Feedback berhasil terkirim.']);
+            // $this->createAndStoreOTP($request->phone);
+            $webServiceController = new WebServiceController();
+            $webServiceController->createAndStoreOTP($request->phone);
+
+            return response()->json([
+                'otp_phone' => $request->phone
+            ]);
+            // return response()->json(['success' => 'Feedback berhasil terkirim.']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Terjadi kesalahan saat mengirim feedback.'], 500);
         }

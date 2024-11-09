@@ -7,11 +7,20 @@
             </div>
             <div class="modal-body d-flex align-items-center">
                 <div class="input-group w-75 mx-auto d-flex">
-                    <input type="search" class="form-control p-3" placeholder="keywords"
+
+                    <input type="search" id="search-input" class="form-control p-3" placeholder="keywords"
                         aria-describedby="search-icon-1">
-                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+
+                    <button type="button" class="input-group-text p-3" id="search-icon">
+                        <i class="fa fa-search"></i>
+                    </button>
+
+                    {{-- <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span> --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+@push('js')
+    @include('front.search.script')
+@endpush

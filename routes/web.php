@@ -10,6 +10,7 @@ use App\Http\Controllers\Front\ProgramController;
 use App\Http\Controllers\Front\FeedbackController;
 use App\Http\Controllers\Front\MediaController;
 use App\Http\Controllers\Front\PostController;
+use App\Http\Controllers\Front\WebServiceController;
 
 use App\Http\Controllers\Admin\PostController as adminPostController;
 use App\Http\Controllers\Admin\MediaController as adminMediaController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\Admin\CategoryController as adminCategoryController;
 use App\Http\Controllers\Admin\FeedbackController as adminFeedbackController;
 use App\Http\Controllers\Admin\SettingController as adminSettingController;
 use App\Http\Controllers\Admin\LawController as adminLawController;
+
+use Mews\Captcha\Facades\Captcha;
 
 Auth::routes();
 
@@ -26,7 +29,7 @@ Route::get('register', function () {
 
 Route::name('frontend.')->group(function () {
 	Route::get('/', [FrontController::class, 'index'])->name('index'); //homepage
-	Route::get('/profile', [PostController::class, 'profile'])->name('profile');	
+	Route::get('/profile', [PostController::class, 'profile'])->name('profile');
 	Route::get('/law', [PostController::class, 'index_law'])->name('law');
 	Route::get('/law/{slug}', [PostController::class, 'show_law'])->name('law.show');
 	Route::get('/program', [ProgramController::class, 'index'])->name('program.index');
@@ -38,8 +41,10 @@ Route::name('frontend.')->group(function () {
 	Route::get('/img-gallery', [MediaController::class, 'index'])->name('images.index');
 	Route::get('/img-gallery/{slug}', [MediaController::class, 'show_gallery'])->name('images.show');
 	Route::get('/vid-gallery', [MediaController::class, 'index_video'])->name('videos.index');
-	Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');	
+	Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
 	Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+	Route::post('/send-otp', [WebServiceController::class, 'verifyOtp'])->name('feedback.otp');
+	Route::get('/search', [FrontController::class, 'search'])->name('search');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home'); //login admin page
@@ -126,4 +131,9 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
 		Route::delete('destroy', [UserController::class, 'destroy'])->name('destroy');
 	});
 	Route::resource('users', UserController::class)->only('index', 'store');
+});
+
+Route::get('/captcha-image', function () {
+	// Mengembalikan gambar captcha sebagai respons langsung
+	return Captcha::create('default'); // Atau tipe lain seperti 'inverse' jika diperlukan
 });

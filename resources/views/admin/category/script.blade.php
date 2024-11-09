@@ -13,6 +13,10 @@
             ],
         });
 
+        document.getElementById('closeButton').addEventListener('click', function() {
+            document.getElementById('addCategoryForm').reset();
+        });
+
         var table = $('#category').DataTable({
             processing: true,
             serverSide: true,
@@ -220,7 +224,7 @@
                         },
                         success: function(response) {
                             $('#category').DataTable().ajax
-                        .reload(); // Reload DataTable
+                                .reload(); // Reload DataTable
 
                             Swal.fire(
                                 'Deleted!',

@@ -88,15 +88,12 @@ class CategoryController extends Controller
     {
         // Validator
         $validator = Validator::make($request->all(), [
-            'category_name'     => 'required',
-            'slug'              => 'required',
+            'category_name'     => 'required|unique:categories,category_name',
+            'slug'              => 'required|unique:categories,slug'
         ], [
             'required' => ':attribute wajib diisi.',
-            'string'   => ':attribute harus berupa teks.',
-            'max'      => ':attribute tidak boleh lebih dari :max karakter.',
-            'email'    => 'Format :attribute tidak valid.',
             'unique'   => ':attribute sudah terdaftar.',
-            'min'      => ':attribute harus memiliki minimal :min karakter.',
+
         ]);
 
         if ($validator->fails()) {
@@ -148,15 +145,12 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'category_name'    => 'required',
-            'slug'     => 'required'
+            'category_name'     => 'required|unique:categories,category_name',
+            'slug'              => 'required|unique:categories,slug'
         ], [
             'required' => ':attribute wajib diisi.',
-            'string'   => ':attribute harus berupa teks.',
-            'max'      => ':attribute tidak boleh lebih dari :max karakter.',
-            'email'    => 'Format :attribute tidak valid.',
             'unique'   => ':attribute sudah terdaftar.',
-            'min'      => ':attribute harus memiliki minimal :min karakter.',
+
         ]);
 
         if ($validator->fails()) {

@@ -4,19 +4,18 @@
 
 @section('content')
     <!-- Hero Start -->
-    <div id="heroCarousel" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="2500">
+    @if ($header_img->isNotEmpty())
+        <div id="heroCarousel" class="carousel slide position-relative" data-bs-ride="carousel" data-bs-interval="2500">
 
-        <!-- Teks tetap floating di atas carousel -->
+            <!-- Teks tetap floating di atas carousel -->
+            <div class="position-absolute top-50 translate-middle text-start"
+                style="z-index: 10; max-width: 100%; left: 30%; margin-left: 20px;">
+                <h1 class="mb-3 text-primary">Kota Blitar</h1>
+                <h1 class="mb-5 display-1 text-white">Pusat Informasi <br> Sahabat Anak</h1>
+            </div>
 
-        <div class="position-absolute top-50 translate-middle text-start"
-            style="z-index: 10; max-width: 100%; left: 30%; margin-left: 20px;">
-            <h1 class="mb-3 text-primary">Kota Blitar</h1>
-            <h1 class="mb-5 display-1 text-white">Pusat Informasi <br> Sahabat Anak</h1>
-        </div>
 
-
-        <div class="carousel-inner">
-            @if ($header_img->isNotEmpty())
+            <div class="carousel-inner">
                 @foreach ($header_img as $index => $headerimg)
                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                         <div class="carousel-image"
@@ -24,25 +23,32 @@
                         </div>
                     </div>
                 @endforeach
-            @else
-                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                    <div class="carousel-image"
-                        style="background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), url('{{ asset('/asset/img/no-image.jpg') }}'); background-repeat: no-repeat; background-position: center center; background-size: cover; height: 50vh;">
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    @else
+        <div class="container-fluid py-5 hero-header wow fadeIn" data-wow-delay="0.1s"
+            style="background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3)), url('{{ asset('/asset/img/hero-img.jpg') }}'); background-repeat: no-repeat; background-position: center center; background-size: cover; height: 50vh;">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-7 col-md-12">
+                        <h1 class="mb-3 text-primary">Kota Blitar</h1>
+                        <h1 class="mb-5 display-1 text-white">Pusat Informasi Sahabat Anak</h1>
                     </div>
                 </div>
-            @endif
+            </div>
         </div>
+    @endif
 
-        <!-- Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
     <!-- Hero End -->
 
     {{--     

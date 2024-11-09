@@ -21,8 +21,8 @@ return new class extends Migration
             $table->integer('feedback_category');
             $table->string('feedback_desc');
             $table->integer('verification_status')->nullable();
-            $table->integer('spam_status')->nullable();
-            $table->integer('duplication_status')->nullable();
+            $table->integer('spam_status')->nullable(); //1 = spam, 0 = bukan spam
+            $table->integer('duplication_status')->nullable(); //1 = ada duplikasi, 0 = tidak ada duplikasi
             $table->integer('reply_status')->nullable();
             $table->timestamps();
         });

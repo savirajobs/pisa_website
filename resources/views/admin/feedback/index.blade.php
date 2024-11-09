@@ -36,8 +36,9 @@
 									<tr>
 										<th>Judul Pesan</th>
 										<th>Pengirim</th>
-										<th>Tanggal Pesan</th>
-										<th>Status</th>
+										<th>Nomor Telepon</th>
+										<th>Tanggal Submit</th>
+										{{-- <th>Status</th> --}}
 										<th>Aksi</th>
 									</tr>
 								</thead>
@@ -49,8 +50,9 @@
 									<tr>
 										<th>Judul Pesan</th>
 										<th>Pengirim</th>
-										<th>Tanggal Pesan</th>
-										<th>Status</th>
+										<th>Nomor Telepon</th>
+										<th>Tanggal Submit</th>
+										{{-- <th>Status</th> --}}
 										<th>Aksi</th>
 									</tr>
 								</thead>

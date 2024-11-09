@@ -277,4 +277,50 @@ class FrontController extends Controller
 
         return $gallery;
     }
+
+    public function search($request)
+    {
+
+        dd($request);
+
+        $keyword = $request->input('keyword');
+
+        $subquery = DB::table('media')
+            ->select('post_id', DB::raw('MIN(file_name) as file_name'))
+            ->groupBy('post_id');
+
+        $incl_type = ['NW', 'IF'];
+
+        // CARI JUDUL POST
+        $search = Post::select([
+            'posts.post_id',
+            'posts.slug',
+            'posts.post_title',
+            'categories.category_name',
+            'users.name',
+            'posts.is_publish',
+            'posts.event_at',
+            'posts.notes',
+            'posts.created_at',
+            'posts.created_by',
+            'top_media.file_name as image_name',
+            DB::raw('LEFT(posts.post_desc, 400) as short_desc')
+        ])
+            ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
+            ->leftJoinSub($subquery, 'top_media', function ($join) {
+                $join->on('posts.post_id', '=', 'top_media.post_id');
+            })
+            ->where('posts.is_publish', 1)
+            ->wherein('posts.post_type', $incl_type)
+            ->where('posts.post_title', 'like', '%' . $keywords . '%')
+            ->orWhere('posts.post_desc', 'like', '%' . $keywords . '%')
+            ->orderBy('posts.created_at', 'desc')
+            ->paginate(3);
+
+        $sqlQuery = $search->toSql();
+        dd($sqlQuery);
+
+        return view('front.search', compact('search'));
+        // return view('front.search');
+    }
 }

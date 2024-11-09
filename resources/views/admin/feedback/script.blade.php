@@ -37,10 +37,10 @@
                     data: 'sender_name'
                 },
                 {
-                    data: 'created_at'
+                    data: 'phone'
                 },
                 {
-                    data: 'reply_status'
+                    data: 'created_at'
                 },
                 {
                     data: 'action',
@@ -74,10 +74,10 @@
                     data: 'sender_name'
                 },
                 {
-                    data: 'created_at'
+                    data: 'phone'
                 },
                 {
-                    data: 'reply_status'
+                    data: 'created_at'
                 },
                 {
                     data: 'action',

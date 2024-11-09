@@ -10,11 +10,11 @@
         $('#editor, #editpost_desc').summernote({
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-					['fontsize', ['fontsize']],
-					['color', ['color']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['para', ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull']]
-					['height', ['height']]
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['para', ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull']]
+                ['height', ['height']]
             ],
         });
 
@@ -38,6 +38,10 @@
             //location.reload();
         });
         // End of Summernote setting
+
+        document.getElementById('closeButton').addEventListener('click', function() {
+            document.getElementById('addPostForm').reset();
+        });
 
         var table = $('#posted').DataTable({
             processing: true,
@@ -186,10 +190,30 @@
                     resetForm('#addDataPost');
                 },
                 error: function(xhr) {
-                    const errors = xhr.responseJSON.errors;
-                    $.each(errors, function(key, value) {
-                        $('#insert_' + key + '_error').text(value[0]);
-                    });
+                    console.log(xhr.responseText);
+                    var response = JSON.parse(xhr.responseText);
+
+                    // Check if it's a validation error (status code 422)
+                    if (xhr.status === 422) {
+                        var errors = response.errors;
+
+                        // Display validation errors using iziToast
+                        $.each(errors, function(field, messages) {
+                            iziToast.error({
+                                title: 'Validation Error',
+                                message: messages.join(', '),
+                                position: 'topRight'
+                            });
+                        });
+                    } else {
+                        // Show a generic error message for other errors
+                        iziToast.error({
+                            title: 'Error',
+                            message: response.error ||
+                                'An unexpected error occurred.',
+                            position: 'topRight'
+                        });
+                    }
                 }
             });
         });
@@ -254,7 +278,7 @@
                     $('#editpost_type').val(response.post_type);
                     $('#editcategory_id').val(response.category_id);
                     $('#editpost_desc').summernote('code', response.post_desc);
-                    $('#editnotes').val(response.notes);    
+                    $('#editnotes').val(response.notes);
 
                     if (response.event_at) {
                         $('#editevent_date').val(moment(response.event_at,

@@ -27,27 +27,18 @@ class FeedbackController extends Controller
             })
 
             ->addColumn('is_new', function ($row) {
-                if ($row->spam_status == null)
-                    return true;
+                // Menghitung apakah `created_at` kurang dari atau sama dengan 3 hari dari hari ini
+                return $row->created_at >= Carbon::now()->subDays(3);
             })
 
             ->editColumn(
                 'created_at',
                 function ($feedback) {
                     $date = Carbon::parse($feedback->created_at);
-                    return $date->format('Y-m-d');
+                    return $date->format('d-m-Y');
                 }
             )
-            ->editColumn(
-                'reply_status',
-                function ($feedback) {
-                    if ($feedback->reply_status == 0) {
-                        return 'Not yet replied';
-                    } else {
-                        return 'Replied already';
-                    }
-                }
-            )
+
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -64,27 +55,17 @@ class FeedbackController extends Controller
             })
 
             ->addColumn('is_new', function ($row) {
-                if ($row->spam_status == null)
-                    return true;
+                return $row->created_at >= Carbon::now()->subDays(3);
             })
 
             ->editColumn(
                 'created_at',
                 function ($feedback) {
                     $date = Carbon::parse($feedback->created_at);
-                    return $date->format('Y-m-d');
+                    return $date->format('d-m-Y');
                 }
             )
-            ->editColumn(
-                'reply_status',
-                function ($feedback) {
-                    if ($feedback->reply_status == 0) {
-                        return 'Not yet replied';
-                    } else {
-                        return 'Replied already';
-                    }
-                }
-            )
+
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -148,73 +129,73 @@ class FeedbackController extends Controller
      */
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'is_spam'   => 'required',
-            'is_duplicate'  => 'required'
-            //'reply'     => 'required',
-        ], [
-            'required' => ':attribute wajib diisi.',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'is_spam'   => 'required',
+        //     'is_duplicate'  => 'required'
+        //     //'reply'     => 'required',
+        // ], [
+        //     'required' => ':attribute wajib diisi.',
+        // ]);
 
-        if (DB::table('replies')->where('feedback_id', $request->feedback_id)->exists()) {
-            return response()->json(['error' => 'You replied this feedback already']);
-        }
+        // if (DB::table('replies')->where('feedback_id', $request->feedback_id)->exists()) {
+        //     return response()->json(['error' => 'You replied this feedback already']);
+        // }
 
-        $created_at = Carbon::now();
+        // $created_at = Carbon::now();
 
-        // Get last number range
-        $id = numberrange::select(['type', 'from', 'to', 'current'])
-            ->where('type', '=', 'RP')->first();
-        if ($id->current == 0) {
-            $reply_id = 'RP' . $id->from;
-            $number = $id->from;
-        } else {
-            $reply_id = 'RP' . $id->current + 1;
-            $number = $id->current + 1;
-        }
+        // // Get last number range
+        // $id = numberrange::select(['type', 'from', 'to', 'current'])
+        //     ->where('type', '=', 'RP')->first();
+        // if ($id->current == 0) {
+        //     $reply_id = 'RP' . $id->from;
+        //     $number = $id->from;
+        // } else {
+        //     $reply_id = 'RP' . $id->current + 1;
+        //     $number = $id->current + 1;
+        // }
 
-        DB::table('numberrange')
-            ->where('type', 'RP')
-            ->update(['current' => $number]);
+        // DB::table('numberrange')
+        //     ->where('type', 'RP')
+        //     ->update(['current' => $number]);
 
-        DB::table('feedbacks')
-            ->where('feedback_id', $request->feedback_id)
-            ->update(['reply_status' => 1]);
+        // DB::table('feedbacks')
+        //     ->where('feedback_id', $request->feedback_id)
+        //     ->update(['reply_status' => 1]);
 
-        try {
-            DB::table('replies')->insert([
-                'reply_id'      => $reply_id,
-                'feedback_id'   => $request->feedback_id,
-                'reply_desc'    => $request->reply,
-                'created_at'    => $created_at
-            ]);
+        // try {
+        //     DB::table('replies')->insert([
+        //         'reply_id'      => $reply_id,
+        //         'feedback_id'   => $request->feedback_id,
+        //         'reply_desc'    => $request->reply,
+        //         'created_at'    => $created_at
+        //     ]);
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Reply sent'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $request->reply], 500);
-        };
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'message' => 'Reply sent'
+        //     ]);
+        // } catch (\Exception $e) {
+        //     return response()->json(['error' => $request->reply], 500);
+        // };
 
-        try {
-            DB::table('feedbacks')
-                ->where('feedback_id', $request->feedback_id)
-                ->update([
-                    'spam_status'   => $request->spam_status,
-                    'updated_at'    => now()
-                ]);
+        // try {
+        //     DB::table('feedbacks')
+        //         ->where('feedback_id', $request->feedback_id)
+        //         ->update([
+        //             'spam_status'   => $request->spam_status,
+        //             'updated_at'    => now()
+        //         ]);
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Feedback updated successfully'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'An error occurred while updating Feedback'
-            ], 500);
-        }
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'message' => 'Feedback updated successfully'
+        //     ]);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'An error occurred while updating Feedback'
+        //     ], 500);
+        // }
     }
 
     /**

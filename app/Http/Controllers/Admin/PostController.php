@@ -40,6 +40,7 @@ class PostController extends Controller
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('is_publish', '=', '1')
                 ->where('posttypes.type_id', '<>', 'MD')
+                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
                 ->orderBy('post_id', 'desc');
         } else {
             $posts = Post::select([
@@ -61,6 +62,7 @@ class PostController extends Controller
                 ->where('is_publish', '=', '1')
                 ->where('posttypes.type_id', '<>', 'MD')
                 ->where('posts.created_by', '=', Auth::user()->id)
+                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
                 ->orderBy('post_id', 'desc');
         }
 
@@ -120,10 +122,11 @@ class PostController extends Controller
                 'posts.created_by'
             ])
                 ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
-                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('is_publish', '=', '0')
                 ->where('posttypes.type_id', '<>', 'MD')
+                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
                 ->orderBy('post_id', 'desc');
         } else {
             $posts = Post::select([
@@ -140,11 +143,12 @@ class PostController extends Controller
                 'posts.created_by'
             ])
                 ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
-                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('is_publish', '=', '0')
                 ->where('posttypes.type_id', '<>', 'MD')
                 ->where('posts.created_by', '=', Auth::user()->id)
+                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
                 ->orderBy('post_id', 'desc');
         }
 
@@ -204,9 +208,10 @@ class PostController extends Controller
                 'posts.created_by'
             ])
                 ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
-                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('posttypes.type_id', '<>', 'MD')
+                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
                 ->orderBy('post_id', 'desc');
         } else {
             $posts = Post::select([
@@ -223,10 +228,11 @@ class PostController extends Controller
                 'posts.created_by'
             ])
                 ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
-                ->join('categories', 'posts.category_id', '=', 'categories.category_id')
+                ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('posttypes.type_id', '<>', 'MD')
                 ->where('posts.created_by', '=', Auth::user()->id)
+                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
                 ->orderBy('post_id', 'desc');
         }
 
@@ -278,7 +284,7 @@ class PostController extends Controller
             'posttypes.type_id',
             'posttypes.type_desc'
         ])
-            ->where('posttypes.type_id', '<>', 'PROFILE')
+            ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY','LW'])
             ->orderBy('posttypes.type_id', 'desc')
             ->get();
 
@@ -438,7 +444,7 @@ class PostController extends Controller
             'post_title'    => 'required',
             'slug'          => 'required',
             'post_type'     => 'required',
-            'category_id'   => 'required',
+           // 'category_id'   => 'required',
             'post_desc'     => 'required',
             'is_publish'    => 'required'
             //'published_at'  => 'required',

@@ -2,9 +2,10 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="{{ route('admin.dashboard') }}" class="logo d-flex align-items-center">
-            <img src="{{ asset('asset/img/logo.png') }}" alt="{{ config('app.name') }}">
-            <span class="d-none d-lg-block" style="font-size: 13px;">{{ config('app.name', 'Laravel') }}</span>
+        <a href="{{ route('frontend.index') }}" class="logo d-flex align-items-center">
+            <img src="{{ asset('asset/img/pisa-logo.png') }}" alt="{{ config('app.name') }}">
+            <span class="d-none d-lg-block" style="font-size: 13px;">PISA Kota Blitar</span>
+            {{-- <span class="d-none d-lg-block" style="font-size: 13px;">{{ config('app.name', 'Laravel') }}</span> --}}
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

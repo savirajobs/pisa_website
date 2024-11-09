@@ -30,8 +30,8 @@ class HomeController extends Controller
 
 	public function dashboard()
 	{
-		$totalVisitor = DB::table('visitor')
-			->select(DB::raw("count(*) as total"))
+		$totalVisitor = DB::table('visitors')
+			->select(DB::raw("visitor as total"))
 			->get();
 
 		$totalPost = DB::table('posts')
@@ -73,7 +73,7 @@ class HomeController extends Controller
 				feedback_category.category_desc,
 				COUNT(*) as jumlah
 			"))
-			->where('spam_status', '=', null)
+			->where('spam_status', '=', 0)
 			->groupBy(DB::raw("category_desc"));
 
 		$getRatioSpam = DB::table('feedbacks')

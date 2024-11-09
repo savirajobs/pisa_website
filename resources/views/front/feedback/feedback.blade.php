@@ -22,18 +22,19 @@
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="p-5 bg-light rounded">
-                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
+                <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 100%;">
                     <h4
                         class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                         Formulir</h4>
                     <h1 class="display-3">Hubungi Kami</h1>
-                    <p class="mb-5">The contact form is currently inactive. Get a functional and working contact form with
-                        Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done.
+                    <p class="mb-5">Layanan ini menyediakan konsultasi dan pengaduan untuk anak-anak dan remaja serta
+                        orang tua terkait pendidikan, kesehatan mental, dan perlindungan anak. Kami siap mendengarkan,
+                        memberikan solusi, dan menjaga kerahasiaan informasi dalam lingkungan yang aman dan nyaman.
                         {{-- <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p> --}}
                 </div>
-                <div class="row g-5 mb-5">
+                <div class="row g-5 mb-4">
                     <div class="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="d-flex w-100 border border-primary p-4 rounded bg-white">
+                        <div class="d-flex w-100 border border-primary p-3 rounded bg-white">
                             <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
                             <div class="">
                                 <h4>Alamat</h4>
@@ -42,7 +43,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                        <div class="d-flex w-100 border border-primary p-4 rounded bg-white">
+                        <div class="d-flex w-100 border border-primary p-3 rounded bg-white">
                             <i class="fas fa-envelope fa-2x text-primary me-4"></i>
                             <div class="">
                                 <h4>Email</h4>
@@ -51,7 +52,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                        <div class="d-flex w-100 border border-primary p-4 rounded bg-white">
+                        <div class="d-flex w-100 border border-primary p-3 rounded bg-white">
                             <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
                             <div class="">
                                 <h4>Telepon</h4>
@@ -62,30 +63,42 @@
                 </div>
                 <div class="row g-5">
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
-                        <form action="#" id="upload-feedback" method="POST" enctype="multipart/form-data">
+                        <form id="upload_feedback" method='POST'>
                             @csrf
-                            <input type="text" class="w-100 form-control py-3 mb-3 border-primary" name='fdb-name'
-                                id='fdb-name' placeholder="Nama Anda">
-                            <input type="email" class="w-100 form-control py-3 mb-3 border-primary" name='fdb-email'
-                                id='fdb-email' placeholder="Masukkan Email">
-                            <input type="numeric" class="w-100 form-control py-3 mb-3 border-primary" name='fdb-phone'
-                                id='fdb-phone' placeholder="Masukkan Nomor Whatsapp">
+                            <input type="text" class="w-100 form-control py-3 mb-3 border-primary" name='name'
+                                id='name' placeholder="Nama Anda">
+                            <input type="email" class="w-100 form-control py-3 mb-3 border-primary" name='email'
+                                id='email' placeholder="Email">
+                            <input type="numeric" class="w-100 form-control py-3 mb-3 border-primary" name='phone'
+                                id='phone' placeholder="No. Whatsapp">
 
-                            <select class="form-select w-100 form-control py-3 mb-3 border-primary" id="fdb-category"
-                                name="fdb-category" required>
+                            <select class="form-select w-100 form-control py-3 mb-3 border-primary" id="category"
+                                name="category" required>
                                 <option value="" selected>Pilih Kategori</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->category_id }}">{{ $category->category_desc }}</option>
                                 @endforeach
                             </select>
 
-                            <input type="text" class="w-100 form-control py-3 mb-3 border-primary" name='fdb-title'
-                                id='fdb-title' placeholder="Judul Pesan">
-                            <textarea class="w-100 form-control mb-3 border-primary" rows="8" cols="10" name='fdb-desc' id='fdb-message'
+                            <input type="text" class="w-100 form-control py-3 mb-3 border-primary" name='title'
+                                id='title' placeholder="Judul Pesan">
+                            <textarea class="w-100 form-control mb-3 border-primary" rows="8" cols="10" name='message' id='message'
                                 placeholder="Pesan Anda"></textarea>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <div class="me-3">
+                                    <!-- Gambar captcha, tambahkan URL route yang langsung memuat captcha -->
+                                    <img src="{{ url('/captcha-image') }}" alt="Captcha" id="captcha-image">
+                                </div>
+                                <button type="button" class="btn btn-secondary btn-sm me-3" id="reload_captcha">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                                <input type="text" class="form-control w-50 py-2 border-primary" name="captcha"
+                                    id="captcha" placeholder="Captcha">
+                            </div>
                             <button class="w-100 btn btn-primary form-control py-3 border-primary text-white bg-primary"
-                                type="submit">Submit</button>
+                                type="submit" id="btn_feedback">Submit</button>
                         </form>
+
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <div class="border border-primary h-100 rounded">
@@ -100,7 +113,9 @@
         </div>
     </div>
     <!-- Contact End -->
+    @include('front.feedback.modal')
 @endsection
+
 @push('js')
     @include('front.feedback.script')
 @endpush

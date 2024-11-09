@@ -108,4 +108,13 @@
     $('#addDataPost').on('shown.bs.modal', function() {
         iframe.src = '';
     });
+
+    function clearIframe() {
+        const iframe = document.getElementById('pdfPreview2');
+        iframe.src = 'about:blank'; // Ganti ke halaman kosong
+        iframe.style.display = 'none';
+    }
+
+    // Panggil fungsi ini sesuai event yang Anda inginkan
+    window.onload = clearIframe;
 </script>

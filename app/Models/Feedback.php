@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\hasOne;
+use Illuminate\Database\Eloquent\Model;
 
 class Feedback extends Model
 {
     use HasFactory;
+
+    protected $table = 'feedbacks';
+    protected $primaryKey = 'feedback_id';
 
     protected $fillable = [
         'feedback_id',
@@ -25,8 +28,6 @@ class Feedback extends Model
         'created_at',
         'updated_at'
     ];
-
-    protected $primaryKey = 'feedback_id';
 
     public function feedbackcategories(): hasOne
     {

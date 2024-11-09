@@ -32,10 +32,10 @@
                         <input type="text" class="form-control" id="replyEmail" name="email" required disabled>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Feedback</label>
+                        <label for="email" class="form-label">Isi Pesan</label>
                         <textarea class="form-control" id="replyFeedbackDesc" rows="4" name="feedback_desc" disabled></textarea>
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="is_spam">Spam Checker :</label>
                         <br>
 
@@ -44,7 +44,7 @@
 
                         <input type="radio" name="is_spam" id="is_spam_no" value="0">
                         <label for="is_spam_no">Not Spam</label>
-                    </div>
+                    </div> --}}
                     {{-- <div class="mb-3">
                         <label for="is_spam">Is it duplication?</label>
                         <br>
@@ -55,18 +55,18 @@
                         <input type="radio" name="is_duplicate" id="is_duplicate_no" value="0">
                         <label for="is_duplicate_no">No</label>
                     </div> --}}
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <div class="overflow-auto">
                             <div id="reply-feedback" class="row d-flex flex-nowrap">
                                 <!-- Reply will be dynamically added here -->
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                         value="Reset - form.reset()">Close</button>
-                    <button type="submit" class="btn btn-primary">Reply</button>
+                    {{-- <button type="submit" class="btn btn-primary">Reply</button> --}}
                 </div>
             </form>
         </div>

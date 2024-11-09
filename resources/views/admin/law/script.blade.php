@@ -333,7 +333,7 @@
 
                         Swal.fire(
                             'Deleted!',
-                            'Law has been deleted.',
+                            'Dasar Hukum has been deleted.',
                             'success'
                         );
                     },
