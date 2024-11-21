@@ -26,11 +26,11 @@
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                     Video</h4>
-                <h1 class="mb-5 display-4"> Video Kota Layak Anak</h1>
+                <h1 class="mb-5 display-4">Aktivitas Anak Kota Blitar</h1>
             </div>
             <div class="row g-5 justify-content-center">
                 @foreach ($videos as $video)
-                    <div class="col-md-6 col-lg-6 col-xl-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="col-md-3 col-lg-3 col-xl-3 wow fadeIn" data-wow-delay="0.1s">
                         <div class="overflow-hidden d-flex flex-column">
                             @if (is_null($video->notes))
                                 <img src="{{ asset('/asset/img/no-image.jpg') }}" class="img-fluid w-100" alt="Image"

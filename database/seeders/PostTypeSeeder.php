@@ -20,8 +20,8 @@ class PostTypeSeeder extends Seeder
 				'type_desc' => 'News'
 			],
 			[
-				'type_id' => 'IF',
-				'type_desc' => 'Information'
+				'type_id' => 'AR',
+				'type_desc' => 'Article'
 			],
 			[
 				'type_id' => 'CP',

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CategoryController as adminCategoryController;
 use App\Http\Controllers\Admin\FeedbackController as adminFeedbackController;
 use App\Http\Controllers\Admin\SettingController as adminSettingController;
 use App\Http\Controllers\Admin\LawController as adminLawController;
+use App\Http\Controllers\Admin\ProgramController as adminProgramController;
 
 use Mews\Captcha\Facades\Captcha;
 
@@ -45,6 +46,11 @@ Route::name('frontend.')->group(function () {
 	Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 	Route::post('/send-otp', [WebServiceController::class, 'verifyOtp'])->name('feedback.otp');
 	Route::get('/search', [FrontController::class, 'search'])->name('search');
+	Route::get('/article', [PostController::class, 'index_article'])->name('article.index'); //artikel
+	Route::get('/article/{slug}', [PostController::class, 'show_article'])->name('article.show'); //artikel
+	Route::get('/pld', [ProgramController::class, 'showPLD'])->name('layanan.pld');
+	Route::get('/perpusbk', [ProgramController::class, 'showPerpusBK'])->name('layanan.perpusbk');
+	Route::get('/laporTP2A', [ProgramController::class, 'showLaporTP2A'])->name('layanan.laportp2a');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home'); //login admin page
@@ -63,6 +69,7 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
 		Route::post('update', [adminPostController::class, 'update'])->name('update');
 		Route::delete('destroy', [adminPostController::class, 'destroy'])->name('destroy');
 		Route::resource('post', adminPostController::class);
+		// Route::post('upload-image', [adminPostController::class, 'uploadImage'])->name('upload.image');
 	});
 	Route::resource('post', adminPostController::class)->only('index', 'store');
 
@@ -123,6 +130,17 @@ Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(funct
 	});
 	Route::resource('setting', adminSettingController::class)->only('index', 'store');
 
+	//Program Controller
+	Route::prefix('program')->name('program.')->group(function () {
+		Route::get('apis', [adminProgramController::class, 'apis'])->name('apis');
+		Route::get('edit', [adminProgramController::class, 'edit'])->name('edit');
+		Route::get('media', [adminProgramController::class, 'media'])->name('media');
+		Route::post('update', [adminProgramController::class, 'update'])->name('update');
+		Route::delete('destroy', [adminProgramController::class, 'destroy'])->name('destroy');
+		Route::resource('setting', adminProgramController::class);
+	});
+	Route::resource('program', adminProgramController::class)->only('index', 'store');
+
 	//Master Users
 	Route::prefix('users')->name('users.')->group(function () {
 		Route::post('apis', [UserController::class, 'apis'])->name('apis');
@@ -137,3 +155,5 @@ Route::get('/captcha-image', function () {
 	// Mengembalikan gambar captcha sebagai respons langsung
 	return Captcha::create('default'); // Atau tipe lain seperti 'inverse' jika diperlukan
 });
+
+

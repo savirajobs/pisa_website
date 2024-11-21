@@ -39,9 +39,24 @@ class PostController extends Controller
                 ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('is_publish', '=', '1')
-                ->where('posttypes.type_id', '<>', 'MD')
-                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
+                ->whereNotIn('posttypes.type_id', ['PROFILE', 'SECRETARY', 'MD', 'LW'])
                 ->orderBy('post_id', 'desc');
+
+                 // Periksa apakah ada parameter pencarian
+            if ($search = $request->get('search')['value']) {
+              
+                
+                $posts->where(function ($q) use ($search) {
+                    $q->whereRaw('LOWER(posts.post_title) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(posttypes.type_desc) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(categories.category_name) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(posts.is_publish) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(posts.event_at) LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(users.name) LIKE ?', ["%{$search}%"]);
+                });
+               
+            }
+        
         } else {
             $posts = Post::select([
                 'posts.post_id',
@@ -60,9 +75,8 @@ class PostController extends Controller
                 ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('is_publish', '=', '1')
-                ->where('posttypes.type_id', '<>', 'MD')
                 ->where('posts.created_by', '=', Auth::user()->id)
-                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
+                ->whereNotIn('posttypes.type_id', ['PROFILE', 'SECRETARY', 'MD', 'LW'])
                 ->orderBy('post_id', 'desc');
         }
 
@@ -77,20 +91,20 @@ class PostController extends Controller
                 ' . $deleteButton . '
             ';
             })
+            // ->editColumn(
+            //     'created_at',
+            //     function ($posts) {
+            //         $date = Carbon::parse($posts->created_at);
+            //         return $date->format('d-m-Y');
+            //     }
+            // )
             ->editColumn(
-                'created_at',
+                'event_at',
                 function ($posts) {
-                    $date = Carbon::parse($posts->created_at);
+                    $date = Carbon::parse($posts->event_at);
                     return $date->format('d-m-Y');
                 }
             )
-            // ->editColumn(
-            //     'upcoming_date',
-            //     function ($posts) {
-            //         $date = Carbon::parse($posts->upcoming_date);
-            //         return $date->format('Y-m-d');
-            //     }
-            // )
             ->editColumn(
                 'is_publish',
                 function ($posts) {
@@ -125,8 +139,7 @@ class PostController extends Controller
                 ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('is_publish', '=', '0')
-                ->where('posttypes.type_id', '<>', 'MD')
-                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
+                ->whereNotIn('posttypes.type_id', ['PROFILE', 'SECRETARY', 'MD', 'LW'])
                 ->orderBy('post_id', 'desc');
         } else {
             $posts = Post::select([
@@ -146,9 +159,8 @@ class PostController extends Controller
                 ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
                 ->where('is_publish', '=', '0')
-                ->where('posttypes.type_id', '<>', 'MD')
                 ->where('posts.created_by', '=', Auth::user()->id)
-                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
+                ->whereNotIn('posttypes.type_id', ['PROFILE', 'SECRETARY', 'MD', 'LW'])
                 ->orderBy('post_id', 'desc');
         }
 
@@ -163,20 +175,20 @@ class PostController extends Controller
                 ' . $deleteButton . '
             ';
             })
+            // ->editColumn(
+            //     'created_at',
+            //     function ($posts) {
+            //         $date = Carbon::parse($posts->created_at);
+            //         return $date->format('d-m-Y');
+            //     }
+            // )
             ->editColumn(
-                'created_at',
+                'event_at',
                 function ($posts) {
-                    $date = Carbon::parse($posts->created_at);
+                    $date = Carbon::parse($posts->event_at);
                     return $date->format('d-m-Y');
                 }
             )
-            // ->editColumn(
-            //     'upcoming_date',
-            //     function ($posts) {
-            //         $date = Carbon::parse($posts->upcoming_date);
-            //         return $date->format('Y-m-d');
-            //     }
-            // )
             ->editColumn(
                 'is_publish',
                 function ($posts) {
@@ -210,8 +222,7 @@ class PostController extends Controller
                 ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
                 ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
-                ->where('posttypes.type_id', '<>', 'MD')
-                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
+                ->whereNotIn('posttypes.type_id', ['PROFILE', 'SECRETARY', 'MD', 'LW'])
                 ->orderBy('post_id', 'desc');
         } else {
             $posts = Post::select([
@@ -230,9 +241,8 @@ class PostController extends Controller
                 ->join('posttypes', 'posts.post_type', '=', 'posttypes.type_id')
                 ->leftjoin('categories', 'posts.category_id', '=', 'categories.category_id')
                 ->join('users', 'posts.created_by', '=', 'users.id')
-                ->where('posttypes.type_id', '<>', 'MD')
                 ->where('posts.created_by', '=', Auth::user()->id)
-                ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY'])
+                ->whereNotIn('posttypes.type_id', ['PROFILE', 'SECRETARY', 'MD', 'LW'])
                 ->orderBy('post_id', 'desc');
         }
 
@@ -247,20 +257,20 @@ class PostController extends Controller
                 ' . $deleteButton . '
             ';
             })
+            // ->editColumn(
+            //     'created_at',
+            //     function ($posts) {
+            //         $date = Carbon::parse($posts->created_at);
+            //         return $date->format('d-m-Y');
+            //     }
+            // )
             ->editColumn(
-                'created_at',
+                'event_at',
                 function ($posts) {
-                    $date = Carbon::parse($posts->created_at);
+                    $date = Carbon::parse($posts->event_at);
                     return $date->format('d-m-Y');
                 }
             )
-            // ->editColumn(
-            //     'upcoming_date',
-            //     function ($posts) {
-            //         $date = Carbon::parse($posts->upcoming_date);
-            //         return $date->format('Y-m-d');
-            //     }
-            // )
             ->editColumn(
                 'is_publish',
                 function ($posts) {
@@ -284,7 +294,7 @@ class PostController extends Controller
             'posttypes.type_id',
             'posttypes.type_desc'
         ])
-            ->whereNotIn('posttypes.type_id', ['PROFILE','SECRETARY','LW'])
+            ->whereNotIn('posttypes.type_id', ['PROFILE', 'SECRETARY', 'LW', 'MD'])
             ->orderBy('posttypes.type_id', 'desc')
             ->get();
 
@@ -444,7 +454,7 @@ class PostController extends Controller
             'post_title'    => 'required',
             'slug'          => 'required',
             'post_type'     => 'required',
-           // 'category_id'   => 'required',
+            // 'category_id'   => 'required',
             'post_desc'     => 'required',
             'is_publish'    => 'required'
             //'published_at'  => 'required',
@@ -532,7 +542,8 @@ class PostController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'An error occurred while updating Post'
+                'message' => 'An error occurred while updating Post',
+                'error'   => $e->getMessage() // Tambahkan pesan error yang lebih rinci
             ], 500);
         }
     }
@@ -573,5 +584,26 @@ class PostController extends Controller
                 'error' => $e
             ], 500);
         }
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            // Dapatkan file yang diunggah
+            $file = $request->file('image');
+
+            // Tentukan nama unik untuk file, misalnya menggunakan timestamp
+            $filename = time() . '_' . $file->getClientOriginalName();
+
+            // Simpan file langsung di folder public/assets/images
+            $file->move(public_path('images'), $filename);
+
+            // Buat URL gambar
+            $path = asset('images/' . $filename);
+
+            // Mengembalikan URL gambar sebagai respons JSON
+            return response()->json(['path' => $path]);
+        }
+        return response()->json(['error' => 'No image uploaded'], 400);
     }
 }

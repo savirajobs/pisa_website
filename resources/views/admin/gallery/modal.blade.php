@@ -13,7 +13,7 @@
                         action="{{ route('admin.gallery.store') }}" method="POST" novalidate> --}}
                     <form id="upload-form" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                         @csrf
-                        <input type="hidden" name="category_id" value="6" id="add_category_id">
+                        <input type="hidden" name="category_id" value="1" id="add_category_id">
                         <div class="mb-3">
                             <div class="form-group" <label for="title" class="form-label">Judul Galeri</label>
                                 <input type="text" name="post_title" class="form-control" id="insert_title"
@@ -22,13 +22,18 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-group" <label for="desc" class="form-label">Deksripsi</label>
-                                <textarea name="post_desc" class="form-control" id="insert_desc" placeholder="Masukkan deskripsi pendek; max:100 karakter." rows="4"></textarea>
+                                <textarea name="post_desc" class="form-control" id="insert_desc"
+                                    placeholder="Masukkan deskripsi pendek; max:100 karakter." rows="4"></textarea>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="uploadImages" class="form-label">Unggah Foto</label>
-                            <input type="file" name="images[]" class="form-control" id="uploadImages" multiple>
+                            <input type="file" name="images[]" class="form-control" id="uploadImages" accept=".jpg, .jpeg, .png" multiple>
                             <div id="imagePreview" class="row mt-3"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="event_date" class="form-label">Tanggal Event</label>
+                            <input type="date" class="form-control" id="add_img_event_at" name="event_at">
                         </div>
                         <div class="mb-3">
                             <div class="form-group">
@@ -115,13 +120,17 @@
                             <div class="form-group">
                                 <label for="updateImages" class="form-label">Unggah Foto</label>
                                 <input type="file" class="form-control update-image" name="images[]"
-                                    id="update-image" multiple accept="image/*">
+                                    id="update-image" accept=".jpg, .jpeg, .png" multiple>
                                 {{-- <div class="overflow-auto"> --}}
                                 <div id="imagePreviewOnEdit" src="" alt="Image Preview" syle="display:none;"
                                     class="row mt-3">
                                 </div>
                                 {{-- </div> --}}
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="event_date" class="form-label">Tanggal Event</label>
+                            <input type="date" class="form-control" id="edit_img_event_at" name="event_at">
                         </div>
                         <div class="mb-3">
                             <div class="form-group">
@@ -162,7 +171,7 @@
                     <form id="uploadVideo-form" enctype="multipart/form-data" class="row g-3 needs-validation"
                         novalidate>
                         @csrf
-                        <input type="hidden" name="category_id" value="7" id="video_add_category_id">
+                        <input type="hidden" name="category_id" value="2" id="video_add_category_id">
                         <div class="mb-3">
                             <div class="form-group" <label for="title" class="form-label">Judul Galeri</label>
                                 <input type="text" name="post_title" class="form-control" id="insert_title"
@@ -171,14 +180,18 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-group" <label for="desc" class="form-label">Deksripsi</label>
-                                <textarea name="post_desc" class="form-control" id="insert_desc" placeholder="Masukkan deskripsi pendek; max:100 karakter."
-                                    rows="4"></textarea>
+                                <textarea name="post_desc" class="form-control" id="insert_desc"
+                                    placeholder="Masukkan deskripsi pendek; max:100 karakter." rows="4"></textarea>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="embed_video" class="form-label">Unggah Video</label>
                             <input type="text" class="form-control" id="insert_video" name="notes"
                                 placeholder="Tambahkan embedded video" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="event_date" class="form-label">Tanggal Event</label>
+                            <input type="date" class="form-control" id="add_vid_event_at" name="event_at">
                         </div>
                         <div class="mb-3">
                             <div class="form-group">
@@ -258,6 +271,10 @@
                                 <label for="updateVideo" class="form-label">Unggah Video</label>
                                 <input type="text" class="form-control" id="video-embedded" name="notes">
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="event_date" class="form-label">Tanggal Event</label>
+                            <input type="date" class="form-control" id="edit_vid_event_at" name="event_at">
                         </div>
                         <div class="mb-3">
                             <div class="form-group">

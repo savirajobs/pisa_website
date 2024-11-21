@@ -29,6 +29,13 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
+                    href="{{ route('admin.program.index') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Layanan</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('admin/user*') ? '' : 'collapsed' }}"
                     href="{{ route('admin.law.index') }}">
                     <i class="bi bi-journals"></i>
                     <span>Dasar Hukum</span>

@@ -9,6 +9,8 @@
                 <form id="insertOTP" method="POST">
                     @csrf
                     <input type="hidden" name="otp_phone" id="otp_phone" class="form-control otp_phone">
+                    <input type="hidden" name="otp_id" id="otp_id" class="form-control otp_id">
+                    <input type='hidden' name="otp_sender" id="otp_sender" class="form-control otp_sender"
                     <div>
                         <h5 class="pt-5 my-3">Konfirmasi OTP</h5>
 

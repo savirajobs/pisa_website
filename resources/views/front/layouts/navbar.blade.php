@@ -51,10 +51,21 @@
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
                             <a href="{{ route('frontend.profile') }}" class="dropdown-item">Sekretariat</a>
                             <a href="{{ route('frontend.law') }}" class="dropdown-item">Dasar Hukum</a>
+                            <a href="#" class="dropdown-item">Forum Anak</a>
                         </div>
                     </div>
                     <a href="{{ route('frontend.news.index') }}" class="nav-item nav-link">Berita</a>
-                    <a href="{{ route('frontend.program.index') }}" class="nav-item nav-link">Program Anak</a>
+                    <a href="{{ route('frontend.article.index') }}" class="nav-item nav-link">Artikel</a>
+                    <div class="nav-item dropdown">
+                        <a href="{{ route('frontend.images.index') }}" class="nav-link dropdown-toggle"
+                            data-bs-toggle="dropdown">Layanan</a>
+                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                            <a href="{{ route('frontend.layanan.perpusbk') }}" class="dropdown-item">Perpustakaan Bung Karno</a>
+                            <a href="{{ route('frontend.layanan.pld') }}" class="dropdown-item">Pusat Layanan Disabilitas</a>
+                            <a href="{{ route('frontend.layanan.laportp2a') }}" class="dropdown-item">Lapor Kekerasan</a>
+                            <a href="#" class="dropdown-item">WiFi Publik</a>
+                        </div>
+                    </div>
                     <a href="{{ route('frontend.facility.index') }}" class="nav-item nav-link">Fasilitas</a>
                     {{-- <a href="{{ route('frontend.images.index') }}" class="nav-item nav-link">Galeri</a> --}}
                     <div class="nav-item dropdown">
@@ -65,8 +76,7 @@
                             <a href="{{ route('frontend.videos.index') }}" class="dropdown-item">Video</a>
                         </div>
                     </div>
-                    <a href="{{ route('frontend.feedback.index') }}" class="nav-item nav-link">Konsultasi &
-                        Pengaduan</a>
+                    <a href="{{ route('frontend.feedback.index') }}" class="nav-item nav-link">Pengaduan</a>
                 </div>
                 <div class="d-flex me-4">
                     <div id="phone-tada" class="d-flex align-items-center justify-content-center">

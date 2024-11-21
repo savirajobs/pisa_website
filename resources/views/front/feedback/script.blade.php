@@ -18,6 +18,8 @@
             let data = new FormData(form)
             e.preventDefault();
 
+            //console.log(data);
+
             $.ajax({
                 url: "{{ route('frontend.feedback.store') }}",
                 method: 'POST',
@@ -31,6 +33,8 @@
                     // Pastikan modal sudah ada, kemudian tampilkan
                     $('#otp_modal').modal('show');
                     $('#otp_phone').val(response.otp_phone);
+                    $('#otp_id').val(response.otp_id);
+                    $('#otp_sender').val(response.otp_sender);
 
                     // Hide the modal and reset the form          
 
@@ -73,8 +77,10 @@
                 // Ambil nilai dari input
                 var otpPhone = $('.otp_phone').val();
                 var otpValue = $('.otp_value').val();
+                var otpId = $('.otp_id').val();
+                var otpSender = $('.otp_sender').val();
 
-                console.log('otp phone : ', otpPhone, ' otp value : ', otpValue);
+                console.log('otp phone : ', otpPhone, ' otp value : ', otpValue, ' otp id : ', otpId,  ' otp sender : ', otpSender);
 
                 $.ajax({
                     url: "{{ route('frontend.feedback.otp') }}",
@@ -82,7 +88,9 @@
                     data: {
                         _token: "{{ csrf_token() }}", // Tambahkan CSRF token
                         otp_phone: otpPhone,
-                        otp_value: otpValue
+                        otp_value: otpValue,
+                        otp_id: otpId,
+                        otp_sender: otpSender
                     },
                     success: function(response) {
                         // Sembunyikan modal dan reset form

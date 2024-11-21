@@ -1,4 +1,5 @@
 <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+
 <script>
     $.ajaxSetup({
         headers: {
@@ -68,7 +69,7 @@
                     data: 'is_publish'
                 },
                 {
-                    data: 'created_at'
+                    data: 'event_at'
                 },
                 {
                     data: 'name'
@@ -106,7 +107,7 @@
                     data: 'is_publish'
                 },
                 {
-                    data: 'created_at'
+                    data: 'event_at'
                 },
                 {
                     data: 'name'
@@ -144,7 +145,7 @@
                     data: 'is_publish'
                 },
                 {
-                    data: 'created_at'
+                    data: 'event_at'
                 },
                 {
                     data: 'name'

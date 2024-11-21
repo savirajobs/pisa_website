@@ -49,18 +49,19 @@
         <div class="container py-5 ">
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                    @if ($news->post_type == 'NW')
-                        Berita
-                    @elseif($news->post_type == 'IF')
-                        Informasi
-                    @endif
+                    Berita
                 </h4>
                 <h1 class="mb-5 display-6">{{ $news->post_title }}</h1>
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="program-img position-relative">
-                    <p style="text-align:center;">by {{ $user }} -
-                        {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('l, d F Y') }}</p>
+                    @if (is_null($news->event_at))
+                        <p style="text-align:center;">by {{ $user }} -
+                            {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('l, d F Y') }}</p>
+                    @else
+                        <p style="text-align:center;">by {{ $user }} -
+                            {{ \Carbon\Carbon::parse($news->event_at)->translatedFormat('l, d F Y') }}</p>
+                    @endif
                     <div class="top-link d-flex gap-3 pe-2"
                         style="justify-content: center; align-items: center; margin-bottom:10px;">
                         <!-- Share to Facebook -->
@@ -127,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="container justify-content-center">
+            <div class="container justify-content-center" style="margin-top:5rem;">
                 <h5><span>Berita Lainnya:</span></h5>
                 <hr style="border: 2px solid #d63384; width: 100%; margin: 20px auto;">
             </div>
@@ -151,8 +152,11 @@
                                         <h5 class="card-title">{{ $relatednews->post_title }}</h5>
                                     </a>
                                     <p class="card-text"><small class="text-muted">
-                                            {{-- {{ dd($relatednews) }} --}}
-                                            {{ \Carbon\Carbon::parse($relatednews->created_at)->translatedFormat('d F Y') }}
+                                            @if (is_null($news->event_at))
+                                                {{ \Carbon\Carbon::parse($relatednews->created_at)->translatedFormat('d F Y') }}
+                                            @else
+                                                {{ \Carbon\Carbon::parse($relatednews->event_at)->translatedFormat('d F Y') }}
+                                            @endif
                                     </p>
                                 </div>
                             </div>

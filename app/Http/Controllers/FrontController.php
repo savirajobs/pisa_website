@@ -17,7 +17,7 @@ class FrontController extends Controller
         // Memanggil metode getpost() dari model
         $latest_programs = $this->getChildProgram();
         $latest_news = $this->getLatestNews();
-        $latest_events = $this->getLatestEvent();
+        $latest_article = $this->getLatestArticle();
         $profile = $this->getProfile();
         $gallery = $this->getImgGallery();
         $header = $this->headerimg();
@@ -27,7 +27,7 @@ class FrontController extends Controller
             'page_title'        => 'Beranda',
             'latest_programs'   => $latest_programs,
             'latest_news'       => $latest_news,
-            'latest_events'     => $latest_events,
+            'latest_article'    => $latest_article,
             'profile'           => $profile,
             'gallery_img'       => $gallery,
             'header_img'        => $header,
@@ -190,7 +190,7 @@ class FrontController extends Controller
         return $posts;
     }
 
-    public function getLatestEvent()
+    public function getLatestArticle()
     {
         $subquery = DB::table('media')
             ->select('post_id', DB::raw('MIN(file_name) as file_name'))
@@ -217,7 +217,7 @@ class FrontController extends Controller
                 $join->on('posts.post_id', '=', 'top_media.post_id');
             })
             ->where('posts.is_publish', 1)
-            ->where('posts.post_type', 'IF') // information
+            ->where('posts.post_type', 'AR') // article
             ->orderBy('posts.created_at', 'desc')
             ->limit(3)
             ->get();

@@ -57,4 +57,82 @@ class ProgramController extends Controller
 
         return view('front.program.program-detail', ['program' => $data, 'filenames' => $filenames, 'user' => $user]);
     }
+
+    public function showPLD()
+    {
+        $data = Post::select([
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.event_at',
+            'posts.notes',
+            'posts.created_by',
+            'posts.created_at',
+            'media.file_name',
+            'users.name as user_name'
+        ])
+            ->join('users', 'posts.created_by', '=', 'users.id')
+            ->leftjoin('media', 'media.post_id', '=', 'posts.post_id')
+            ->where('posts.is_publish', 1)
+            ->where('posts.post_type', 'CP')
+            ->where('posts.post_id', 'CP02')
+            ->first();
+
+        return view('front.program.pld-dikda', compact('data'));
+    }
+
+    public function showPerpusBK()
+    {
+        $data = Post::select([
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.event_at',
+            'posts.notes',
+            'posts.created_by',
+            'posts.created_at',
+            'media.file_name',
+            'users.name as user_name'
+        ])
+            ->join('users', 'posts.created_by', '=', 'users.id')
+            ->leftjoin('media', 'media.post_id', '=', 'posts.post_id')
+            ->where('posts.is_publish', 1)
+            ->where('posts.post_type', 'CP')
+            ->where('posts.post_id', 'CP01')
+            ->first();
+
+        return view('front.program.perpus-bk', compact('data'));
+    }
+
+    public function showLaporTP2A()
+    {
+        $data = Post::select([
+            'posts.post_id',
+            'posts.post_title',
+            'posts.slug',
+            'posts.post_desc',
+            'posts.is_publish',
+            'posts.category_id',
+            'posts.event_at',
+            'posts.notes',
+            'posts.created_by',
+            'posts.created_at',
+            'media.file_name',
+            'users.name as user_name'
+        ])
+            ->join('users', 'posts.created_by', '=', 'users.id')
+            ->leftjoin('media', 'media.post_id', '=', 'posts.post_id')
+            ->where('posts.is_publish', 1)
+            ->where('posts.post_type', 'CP')
+            ->where('posts.post_id', 'CP03')
+            ->first();
+
+        return view('front.program.lapor-kekerasan', compact('data'));
+    }
 }

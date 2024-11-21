@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Feedback;
 use App\Models\Otp;
 use App\Models\WsLog;
 use Carbon\Carbon;
 
 class WebServiceController extends Controller
 {
-    function createAndStoreOTP($phone)
+    function createAndStoreOTP($id, $phone)
     {
         $otpCode = rand(1000, 9999);
 
         // Simpan OTP ke database
         Otp::create([
+            'feedback_id' => $id,
             'phone' => $phone,
             'otp' => $otpCode,
             'expired_at' => Carbon::now()->addMinutes(5) // OTP berlaku selama 60 menit
@@ -26,7 +28,9 @@ class WebServiceController extends Controller
 
     function verifyOtp(Request $request)
     {
-        $otp = Otp::where('phone', $request->otp_phone)
+        // dd($request);
+
+        $otp = Otp::where('feedback_id', $request->otp_id)
             ->where('otp', $request->otp_value)
             ->where('expired_at', '>', Carbon::now())
             ->first();
@@ -37,18 +41,37 @@ class WebServiceController extends Controller
             return response()->json(['error' => 'OTP kadaluwarsa.'], 500);
         } else {
             //update kolom verification, lalu panggil method send wa
+            Feedback::where('feedback_id', $request->otp_id)
+                ->update([
+                    'verification_status' => 1,
+                    'updated_at' => now()
+                ]);
+
+            $feedback = Feedback::where('feedback_id', $request->otp_id)
+                ->first();
+
+            $message = "Pengaduan anda atas nama *" . strtoupper($request->otp_sender) . "* sudah diterima. 
+Petugas akan segera menghubungi untuk menindaklanjuti pengaduan Anda. 
+Terima Kasih\r\n
+Dinas Pemberdayaan Perempuan, Perlindungan Anak, Pengendalian Penduduk dan Keluarga Berencana
+Jl. DR. Sutomo No 50, Sananwetan
+Layanan Helpdesk, melalui :
+E-mail : dp3a-p2kb@blitarkota.go.id
+Telp/Faks : (0342) 801 080
+WhatsApp : 0812-9206-6600
+Instagram : @dp3ap2kb.kotablitar
+Website : http://dp3a-p2kb.blitarkota.go.id
+
+*Waspada modus penipuan. Seluruh layanan DP3AP2KB Kota Blitar Tidak Dipungut Biaya* ";
+
+            $message_operator = "Pengajuan Pendampingan NIB Secara Individu anda atas nama *" . strtoupper($request->otp_sender) . "* , No HP : +62" . $request->otp_phone . " sudah diterima. \r\nSegera cek detail permohonan pada aplikasi untuk menindaklanjuti. \r\nTerima Kasih";
+
+            $this->send_wa("62" . $request->otp_phone, $message);
+            $this->send_wa("6282245090093", $message_operator);
+
             $otp->delete();
             return response()->json(['success' => 'Feedback berhasil terkirim.']);
         }
-
-        // if ($otp) {
-        //     // OTP valid, hapus setelah digunakan
-        //     $otp->delete();
-        //     return response()->json(['success' => 'Feedback berhasil terkirim.']);
-        //     // return true;
-        // }
-
-        // return false; // OTP tidak valid atau sudah kedaluwarsa
     }
 
     public function send_wa($target, $text)

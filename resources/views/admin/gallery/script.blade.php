@@ -277,6 +277,11 @@
                 $('#edit_category_id').val(response.category_id);
                 $('#old_slug').val(response.slug);
 
+                if (response.event_at) {
+                    $('#edit_img_event_at').val(moment(response.event_at,
+                        "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD"));
+                }
+
                 // Atur nilai radio button di modal sesuai dengan nilai dari response
                 if (response.is_publish !== undefined) {
                     if (response.is_publish == 1) {
@@ -347,6 +352,11 @@
                 $('#edit_video_category_id').val(response.category_id);
                 $('#video_old_slug').val(response.slug);
                 $('#video-embedded').val(response.notes);
+
+                if (response.event_at) {
+                    $('#edit_vid_event_at').val(moment(response.event_at,
+                        "YYYY-MM-DD HH:mm:ss").format("YYYY-MM-DD"));
+                }
 
                 // Atur nilai radio button di modal sesuai dengan nilai dari response
                 if (response.is_publish !== undefined) {

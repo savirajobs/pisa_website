@@ -162,6 +162,8 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
+
         if ($request->category_id == 1) {
             $validator = Validator::make($request->all(), [
                 'post_title'        => 'required|string|max:100',
@@ -239,6 +241,7 @@ class MediaController extends Controller
                 'post_type'     => $post_type,
                 'is_publish'    => $request->is_publish,
                 'category_id'   => $request->category_id,
+                'event_at'      => $request->event_at,
                 'created_by'    => Auth::user()->id,
                 'created_at'    => now()
             ]);
@@ -267,6 +270,7 @@ class MediaController extends Controller
                 'post_type'     => $post_type,
                 'is_publish'    => $request->is_publish,
                 'category_id'   => $request->category_id,
+                'event_at'      => $request->event_at,
                 'created_by'    => Auth::user()->id,
                 'created_at'    => now()
             ]);
@@ -326,6 +330,7 @@ class MediaController extends Controller
                 'slug'          => $request->slug,
                 'post_desc'     => $request->desc,
                 'is_publish'    => $request->is_publish,
+                'event_at'      => $request->event_at,
                 'updated_by'    => Auth::user()->id,
                 'updated_at'    => now()
             ]);

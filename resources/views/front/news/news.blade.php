@@ -44,7 +44,11 @@
                                     @endif
                                     <div
                                         style="position: absolute; top: 10%; left: 20%; transform: translate(-50%, -50%); color: #393d72; font-size: 15px; background-color: lightpink; padding: 5px 10px; border-radius: 5px;">
-                                        {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('d F Y') }}
+                                        @if (is_null($news->event_at))
+                                            {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('d F Y') }}
+                                        @else
+                                            {{ \Carbon\Carbon::parse($news->event_at)->translatedFormat('d F Y') }}
+                                        @endif
                                     </div>
                                 </div>
                             </div>

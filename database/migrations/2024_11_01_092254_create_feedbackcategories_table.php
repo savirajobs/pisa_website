@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('feedbackcategories', function (Blueprint $table) {
-            $table->integer('category_id');
+            $table->string('category_id');
             $table->string('category_desc');
             $table->timestamps();
         });

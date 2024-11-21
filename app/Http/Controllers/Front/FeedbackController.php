@@ -23,7 +23,8 @@ class FeedbackController extends Controller
 
     public function store(Request $request)
     {
-        session_start(); 
+
+        // dd($request->all());
         // Validator
         $validator = Validator::make($request->all(), [
             'name'     => 'required',
@@ -60,8 +61,28 @@ class FeedbackController extends Controller
             $slug = Str::of($request->title)->slug('-');
         }
 
+        // Get last number range
+        $id = NumberRange::select(['type', 'from', 'to', 'current'])
+            ->where('type', '=', 'PD')->first();
+
+        if ($id->current == 0) {
+            $feedback_id = 'PD' . $id->from;
+            $number = $id->from;
+        } else {
+            $feedback_id = 'PD' . $id->current + 1;
+            $number = $id->current + 1;
+        }
+
+        // To update number range
+        NumberRange::where('type', 'PD')
+            ->update([
+                'current' => $number,
+            ]);
+
         try {
-            DB::table('feedbacks')->insert([
+
+            Feedback::create([
+                'feedback_id' => $feedback_id,
                 'feedback_title' => $request->title,
                 'slug' => $slug,
                 'sender_name' => $request->name,
@@ -76,14 +97,23 @@ class FeedbackController extends Controller
 
             // $this->createAndStoreOTP($request->phone);
             $webServiceController = new WebServiceController();
-            $webServiceController->createAndStoreOTP($request->phone);
+            $webServiceController->createAndStoreOTP($feedback_id, $request->phone);
+            $otp = $webServiceController->createAndStoreOTP($feedback_id, $request->phone);
+
+            //SEND WA KE USER
+            $message = 'OTP Aplikasi PISA anda adalah ' . $otp;
+            // $webServiceController->send_wa($request->phone, $message);
+            $webServiceController->send_test_message();
+
 
             return response()->json([
-                'otp_phone' => $request->phone
+                'otp_id' => $feedback_id,
+                'otp_phone' => $request->phone,
+                'otp_sender' => $request->name
             ]);
             // return response()->json(['success' => 'Feedback berhasil terkirim.']);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Terjadi kesalahan saat mengirim feedback.'], 500);
+            return response()->json(['error' => 'Terjadi kesalahan saat mengirim feedback: ' . $e->getMessage()], 500);
         }
     }
 }

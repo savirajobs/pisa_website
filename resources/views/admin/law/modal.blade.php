@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="uploadPdf" class="form-label">Unggah File</label>
-                        <input type="file" name="mediaPdf[]" class="form-control" id="uploadPdf" multiple>
+                        <input type="file" name="mediaPdf[]" class="form-control" id="uploadPdf" accept=".pdf">
                         <iframe id="pdfPreview" style="width: 100%; height: 500px; display: none;"></iframe>
                     </div>
                     <div class="mb-3">
@@ -68,8 +68,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Unggah File</label>
-                        <input type="file" class="form-control" name="pdf[]" id="pdf" multiple
-                            accept="pdf/*">
+                        <input type="file" class="form-control" name="pdf[]" id="pdf" 
+                            accept=".pdf">
                         <div class="overflow-auto">
                             <iframe id="pdfPreview2" style="width: 100%; height: 500px; display: none;"></iframe>
                         </div>

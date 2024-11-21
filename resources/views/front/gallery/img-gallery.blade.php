@@ -26,7 +26,7 @@
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                     Foto</h4>
-                <h1 class="mb-5 display-4"> Dokumetasi Aktivitas</h1>
+                <h1 class="mb-5 display-4">Dokumentasi Aktivitas</h1>
             </div>
             <div class="row g-5 justify-content-center">
                 @foreach ($images as $image)

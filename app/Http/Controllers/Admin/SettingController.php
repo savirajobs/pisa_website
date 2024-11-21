@@ -23,7 +23,8 @@ class SettingController extends Controller
     {
         $settingPage = Post::select([
             'posts.post_id',
-            'post_type',
+            'posts.post_title',
+            'posts.post_type',
             'posts.post_desc',
             'posts.updated_at',
             'users.name',
@@ -111,7 +112,7 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request->embed_video);
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), [
             'post_desc' => 'required'
@@ -133,7 +134,10 @@ class SettingController extends Controller
         }
 
         // DELETE ON PHOTOS
-        if ($request->has('deleted_photos')) {
+        // var_dump($request->deleted_photos);
+
+        // if ($request->has('deleted_photos')) {
+        if($request->deleted_photos){
             $photo = DB::table('media')->where('post_id', $request->post_id)->first();
             if ($photo) {
                 $filePath = public_path('images/' . $photo->file_name);
@@ -145,6 +149,15 @@ class SettingController extends Controller
         }
 
         if ($request->hasFile('images')) {
+            $photo = DB::table('media')->where('post_id', $request->post_id)->first();
+            if ($photo) {
+                $filePath = public_path('images/' . $photo->file_name);
+                if (file_exists($filePath) && is_file($filePath)) {
+                    unlink($filePath);
+                }
+                $deleted = DB::table('media')->where('post_id', '=', $request->post_id)->delete();
+            }
+
             foreach ($request->file('images') as $image) {
                 $extension = $image->getClientOriginalExtension();
                 $name = date('dmY') . '_' . uniqid() . '_' . $request->post_id . '.' . $extension;
@@ -157,9 +170,7 @@ class SettingController extends Controller
 
                 $image->move(public_path('images'), $name);
             }
-        } else {
-            $name = $request->images;
-        }
+        } 
 
         $date = Carbon::now();
 

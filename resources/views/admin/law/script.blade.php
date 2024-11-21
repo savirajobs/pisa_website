@@ -24,7 +24,16 @@
             $('#pdfPreview').html('');
             $('#pdfPreview2').html('');
             $('#pdf-list').html('');
-            //location.reload();
+
+            resetForm('#editPostModal');
+
+            var iframe = document.getElementById("pdfPreview2");
+            var html = "";
+
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(html);
+            iframe.contentWindow.document.close();
+            $('#pdfPreview2').removeAttr('style');
         });
 
         var table = $('#law').DataTable({

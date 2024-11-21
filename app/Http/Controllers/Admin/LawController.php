@@ -233,21 +233,30 @@ class LawController extends Controller
         }
 
         // DELETE ON PDF
-        if ($request->has('deleted_pdf')) {
-            $deletedPdf = explode(',', $request->deleted_pdf);
-            foreach ($deletedPdf as $pdfId) {
-                $getPdf = DB::table('media')->where('media_id', $pdfId)->first();
-                if ($getPdf) {
-                    $filePath = public_path('pdf/' . $getPdf->file_name);
-                    if (file_exists($filePath) && is_file($filePath)) {
-                        unlink($filePath);
-                    }
-                    $deleted = DB::table('media')->where('media_id', '=', $pdfId)->delete();
-                }
-            }
-        }
+        // if ($request->has('deleted_pdf')) {
+        //     $deletedPdf = explode(',', $request->deleted_pdf);
+        //     foreach ($deletedPdf as $pdfId) {
+        //         $getPdf = DB::table('media')->where('media_id', $pdfId)->first();
+        //         if ($getPdf) {
+        //             $filePath = public_path('pdf/' . $getPdf->file_name);
+        //             if (file_exists($filePath) && is_file($filePath)) {
+        //                 unlink($filePath);
+        //             }
+        //             $deleted = DB::table('media')->where('media_id', '=', $pdfId)->delete();
+        //         }
+        //     }
+        // }
 
         if ($request->hasFile('pdf')) {
+            $deletePdf = DB::table('media')->where('post_id', $request->post_id)->first();
+            if ($deletePdf) {
+                $location = public_path('pdf/' . $deletePdf->file_name);
+                if (file_exists($location) && is_file($location)) {
+                    unlink($location);
+                }
+                $deletedPdf = DB::table('media')->where('post_id', '=', $request->post_id)->delete();
+            }
+
             foreach ($request->file('pdf') as $pdfFile) {
                 $extension = $pdfFile->getClientOriginalExtension();
                 $filename = time() . '_' . uniqid() . '_' . $request->post_id . '.' . $extension;

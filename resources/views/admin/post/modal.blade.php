@@ -30,7 +30,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="category_id" class="form-label">Kategori Pos</label>
-                        <select class="form-select" id="category_id" name="category_id" required>
+                        <select class="form-select" id="category_id" name="category_id">
                             <option value="" selected>Pilih kategori pos</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>

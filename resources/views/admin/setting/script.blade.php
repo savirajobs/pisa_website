@@ -50,7 +50,7 @@
             columns: [
 
                 {
-                    data: 'post_type'
+                    data: 'post_title'
                 },
                 {
                     data: 'post_desc'
@@ -197,7 +197,7 @@
             });
 
             formData.append('deleted_photos', deletedPhotos.join(','));
-            
+                
             $.ajax({
                 url: "{{ route('admin.setting.update') }}",
                 method: 'POST',

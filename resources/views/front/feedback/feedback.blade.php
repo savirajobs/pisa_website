@@ -32,7 +32,7 @@
                         memberikan solusi, dan menjaga kerahasiaan informasi dalam lingkungan yang aman dan nyaman.
                         {{-- <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p> --}}
                 </div>
-                <div class="row g-5 mb-4">
+                <div class="row g-3 mb-4">
                     <div class="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
                         <div class="d-flex w-100 border border-primary p-3 rounded bg-white">
                             <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
@@ -55,8 +55,9 @@
                         <div class="d-flex w-100 border border-primary p-3 rounded bg-white">
                             <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
                             <div class="">
-                                <h4>Telepon</h4>
-                                <p class="mb-2">Gratis: (0342) 801080</p>
+                                <h4>Hotline (WA)</h4>
+                                {{-- <p class="mb-2">Gratis: (0342) 801080</p> --}}
+                                <p class="mb-2">0812-9206-6600</p>
                             </div>
                         </div>
                     </div>

@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('feedbacks', function (Blueprint $table) {
-            $table->id('feedback_id');
+            $table->string('feedback_id')->primary();
             $table->string('feedback_title');
             $table->string('slug')->unique();
             $table->string('sender_name');
             $table->string('email');
             $table->string('phone');
-            $table->integer('feedback_category');
+            $table->string('feedback_category');
             $table->string('feedback_desc');
             $table->integer('verification_status')->nullable();
             $table->integer('spam_status')->nullable(); //1 = spam, 0 = bukan spam

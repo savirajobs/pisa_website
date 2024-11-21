@@ -31,7 +31,7 @@ class HomeController extends Controller
 	public function dashboard()
 	{
 		$totalVisitor = DB::table('visitors')
-			->select(DB::raw("visitor as total"))
+			->select(DB::raw("SUM(visitor) as total"))
 			->get();
 
 		$totalPost = DB::table('posts')
@@ -43,15 +43,20 @@ class HomeController extends Controller
 			->get();
 
 		// Start get visitor
-		$subqueryGuest = DB::table('visitor')
-			->select(DB::raw('LEFT(MONTHNAME(date_visitor), 3) AS month, COUNT(*) AS jumlah'))
-			->whereYear('date_visitor', '=', date('Y'))
-			->groupBy(DB::raw('LEFT(MONTHNAME(date_visitor), 3)'));
+		// $subqueryGuest = DB::table('visitor')
+		// 	->select(DB::raw('LEFT(MONTHNAME(date_visitor), 3) AS month, COUNT(*) AS jumlah'))
+		// 	->whereYear('date_visitor', '=', date('Y'))
+		// 	->groupBy(DB::raw('LEFT(MONTHNAME(date_visitor), 3)'));
+
+		$subqueryGuest = DB::table('visitors')
+		->select(DB::raw('LEFT(MONTHYEAR, 2) AS month'), DB::raw('visitor AS jumlah'))
+		->where(DB::raw('RIGHT(MONTHYEAR, 4)'), '=', DB::raw('YEAR(NOW())'))
+		->orderBy(('monthyear'));
 
 		$resultGuest = DB::table(DB::raw("({$subqueryGuest->toSql()}) as sub"))
-			->mergeBindings($subqueryGuest) 
-			->select('month', 'jumlah')
-			->get();
+		->mergeBindings($subqueryGuest)
+		->select('month', 'jumlah')
+		->get();
 		// End get visitor
 
 		// Start get counter post

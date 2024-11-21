@@ -11,6 +11,7 @@ class Otp extends Model
     use HasFactory;
 
     protected $fillable = [
+        'feedback_id',
         'phone',
         'otp',
         'expired_at',

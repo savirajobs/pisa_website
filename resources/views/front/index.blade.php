@@ -96,7 +96,8 @@
                             <h6><i class="fas fa-check-circle me-2 text-secondary"></i>Permainan Tradisional</h6>
                         </div>
                     </div>
-                    <a href="" class="btn btn-primary px-5 py-3 btn-border-radius">More Details</a>
+                    <a href="{{ route('frontend.profile') }}" class="btn btn-primary px-5 py-3 btn-border-radius">Baca
+                        Selengkapnya</a>
                 </div>
             </div>
         </div>
@@ -130,8 +131,8 @@ dd($latest_programs)
         <div class="container py-5">
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                    Program Anak</h4>
-                <h1 class="mb-5 display-3">Program For Kids</h1>
+                    Layanan</h4>
+                <h1 class="mb-5 display-3">Layanan Program Pendukung</h1>
             </div>
             <div class="row g-5 justify-content-center">
                 @if ($latest_programs->isNotEmpty())
@@ -182,16 +183,16 @@ dd($latest_programs)
                     @endforeach
                 @else
                     <!-- Kode jika $items kosong -->
-                    <span style="text-align:center;">Program tidak ditemukan</span>
+                    <span style="text-align:center;">Layanan tidak ditemukan</span>
                 @endif
             </div>
             <div class="text-center wow fadeIn" data-wow-delay="0.1s" style= "margin-top: 50px;";>
                 <a href="{{ route('frontend.program.index') }}"
-                    class="btn btn-primary px-5 py-3 text-white btn-border-radius">Vew All Programs</a>
+                    class="btn btn-primary px-5 py-3 text-white btn-border-radius">Selengkapnya</a>
             </div>
         </div>
     </div>
-    </div>
+
 
     <!-- Program End -->
     {{-- @php
@@ -202,35 +203,35 @@ dd($latest_events)
         <div class="container py-5">
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
-                    Informasi</h4>
-                <h1 class="mb-5 display-3">Our Events</h1>
+                    Artikel</h4>
+                <h1 class="mb-5 display-3">Artikel Anak</h1>
             </div>
 
             <div class="row g-5 justify-content-center">
-                @if ($latest_events->isNotEmpty())
-                    @foreach ($latest_events as $event)
+                @if ($latest_article->isNotEmpty())
+                    @foreach ($latest_article as $article)
                         <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn d-flex" data-wow-delay="0.1s">
                             <div class="events-item bg-primary rounded d-flex flex-column flex-fill">
                                 <div class="events-inner position-relative">
                                     <div class="events-img overflow-hidden rounded-circle position-relative"
                                         style="height:255px;">
-                                        @if (is_null($event->image_name))
+                                        @if (is_null($article->image_name))
                                             <img src="{{ asset('/asset/img/no-image.jpg') }}"
                                                 class="img-fluid w-100 rounded-circle" alt="Image">
                                         @else
-                                            <img src="{{ asset('/images/' . $event->image_name) }}"
+                                            <img src="{{ asset('/images/' . $article->image_name) }}"
                                                 class="img-fluid w-100 rounded-circle" alt="Image"
                                                 style="height:255px;">
                                         @endif
                                         {{-- <img src="{{ asset('asset/img/event-1.jpg') }}" class="img-fluid w-100 rounded-circle"
                                 alt="Image"> --}}
                                         <div class="event-overlay">
-                                            @if (is_null($event->image_name))
+                                            @if (is_null($article->image_name))
                                                 <a href="{{ asset('/asset/img/no-image.jpg') }}"
                                                     data-lightbox="event-1"><i
                                                         class="fas fa-search-plus text-white fa-2x"></i></a>
                                             @else
-                                                <a href="{{ asset('/images/' . $event->image_name) }}"
+                                                <a href="{{ asset('/images/' . $article->image_name) }}"
                                                     data-lightbox="event-1"><i
                                                         class="fas fa-search-plus text-white fa-2x"></i></a>
                                             @endif
@@ -243,32 +244,38 @@ dd($latest_events)
                                     </div>
                                     <div class="d-flex justify-content-between px-4 py-2 bg-secondary">
                                         <small class="text-white"><i class="fas fa-calendar me-1 text-primary"></i>
-                                            {{ \Carbon\Carbon::parse($event->created_at)->format('d M Y') }}</small>
+                                            @if (is_null($article->event_at))
+                                                {{ \Carbon\Carbon::parse($article->created_at)->format('d M Y') }}
+                                            @else
+                                                {{ \Carbon\Carbon::parse($article->event_at)->format('d M Y') }}
+                                            @endif
+                                            {{-- {{ \Carbon\Carbon::parse($article->created_at)->format('d M Y') }} --}}
+                                        </small>
                                         <small class="text-white"><i class="fas fa-map-marker-alt me-1 text-primary"></i>
-                                            @if (is_null($event->notes))
+                                            @if (is_null($article->notes))
                                                 Kota Blitar
                                             @else
-                                                {{ $event->notes }}
+                                                {{ $article->notes }}
                                             @endif
                                         </small>
                                     </div>
                                 </div>
                                 <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom flex-fill d-flex flex-column"
                                     style="height:50%; min-height:150px; max-height:300px; overflow-y: auto;">
-                                    <a href="#" class="h4"> {{ $event->post_title }}</a>
-                                    <p class="mb-0 mt-3"> {!! $event->short_desc . '...' !!}</p>
+                                    <a href="#" class="h4"> {{ $article->post_title }}</a>
+                                    <p class="mb-0 mt-3"> {!! $article->short_desc . '...' !!}</p>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 @else
                     <!-- Kode jika $items kosong -->
-                    <span style="text-align:center;">Informasi tidak ditemukan</span>
+                    <span style="text-align:center;">Artikel tidak ditemukan</span>
                 @endif
             </div>
         </div>
         <div class="text-center wow fadeIn" data-wow-delay="0.1s">
-            <a href="#" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Vew All Events</a>
+            <a href="#" class="btn btn-primary px-5 py-3 text-white btn-border-radius">Selengkapnya</a>
         </div>
     </div>
     <!-- Events End-->
@@ -281,7 +288,7 @@ dd($latest_news)
             <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius">
                     Berita</h4>
-                <h1 class="mb-5 display-3">Latest News & Blog</h1>
+                <h1 class="mb-5 display-3">Dunia Anak dalam Berita</h1>
             </div>
             <div class="row g-5 justify-content-center">
                 @if ($latest_news->isNotEmpty())
@@ -300,7 +307,13 @@ dd($latest_news)
                                 <div
                                     class="d-flex justify-content-between px-4 py-3 bg-light border-bottom border-primary blog-date-comments">
                                     <small class="text-dark"><i class="fas fa-calendar me-1 text-dark"></i>
-                                        {{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}</small>
+                                        @if (is_null($news->event_at))
+                                            {{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }}
+                                        @else
+                                            {{ \Carbon\Carbon::parse($news->event_at)->format('d M Y') }}
+                                        @endif
+                                        {{-- {{ \Carbon\Carbon::parse($news->created_at)->format('d M Y') }} --}}
+                                    </small>
                                     {{-- <small class="text-dark"><i class="fas fa-comment-alt me-1 text-dark"></i> Comments (15)</small> --}}
                                 </div>
                                 <div class="px-4 pb-4 bg-light rounded-bottom flex-fill d-flex flex-column">
@@ -310,8 +323,7 @@ dd($latest_news)
                                     </div>
                                     <div class="text-center mt-auto">
                                         <a href="#"
-                                            class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">View
-                                            Details</a>
+                                            class="btn btn-primary text-white px-4 py-2 mb-3 btn-border-radius">Selengkapnya</a>
                                     </div>
                                 </div>
                             </div>

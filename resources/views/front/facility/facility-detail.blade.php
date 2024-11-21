@@ -49,8 +49,17 @@
             </div>
             <div class="row g-5 justify-content-center">
                 <div class="program-img position-relative">
-                    <p style="text-align:center;">by {{ $user }} -
-                        {{ \Carbon\Carbon::parse($facility->created_at)->translatedFormat('l, d F Y') }}</p>
+                    @if (is_null($facility->event_at))
+                        <p style="text-align:center;">by {{ $user }} -
+                            {{ \Carbon\Carbon::parse($facility->created_at)->translatedFormat('l, d F Y') }}</p>
+                    @else
+                        <p style="text-align:center;">by {{ $user }} -
+                            {{ \Carbon\Carbon::parse($facility->event_at)->translatedFormat('l, d F Y') }}</p>
+                    @endif
+
+                    {{-- <p style="text-align:center;">by {{ $user }} -
+                        {{ \Carbon\Carbon::parse($facility->created_at)->translatedFormat('l, d F Y') }}</p> --}}
+
                     <div class="top-link d-flex gap-3 pe-2"
                         style="justify-content: center; align-items: center; margin-bottom:10px;">
                         <!-- Share to Facebook -->

@@ -21,6 +21,7 @@ class Feedback extends Model
         'email',
         'phone',
         'feedback_category',
+        'feedback_desc',
         'verification_status',
         'spam_status',
         'duplication_status',
